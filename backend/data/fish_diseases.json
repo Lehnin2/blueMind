@@ -1,0 +1,1446 @@
+{
+    "diseases": [
+        {
+            "name": "Ichthyophthirius multifiliis (Ich)",
+            "common_names": ["White Spot Disease", "Freshwater Ich"],
+            "type": "parasitic",
+            "symptoms": [
+                "White spots on skin, fins, and gills (0.5-1mm in size)",
+                "Flashing (rubbing against objects)",
+                "Rapid or labored breathing",
+                "Loss of appetite",
+                "Lethargy",
+                "Hiding behavior",
+                "Clamped fins"
+            ],
+            "causes": {
+                "primary": "Infection by ciliated protozoan parasite Ichthyophthirius multifiliis",
+                "contributing_factors": [
+                    "Stress",
+                    "Poor water quality",
+                    "Sudden temperature drops",
+                    "Introduction of infected fish"
+                ]
+            },
+            "life_cycle": {
+                "stages": [
+                    "Trophont (feeding stage on fish)",
+                    "Tomont (reproductive cyst stage)",
+                    "Tomites (infective swimming stage)"
+                ],
+                "cycle_length": "3-7 days depending on temperature"
+            },
+            "regions": [
+                "Worldwide",
+                "Common in freshwater aquariums",
+                "Tropical and temperate regions"
+            ],
+            "water_types": ["Freshwater"],
+            "treatment": {
+                "medications": [
+                    "Malachite green",
+                    "Formalin",
+                    "Copper sulfate",
+                    "Methylene blue",
+                    "Commercial treatments (e.g., Ich-X, Rid-Ich)"
+                ],
+                "temperature_method": "Raise temperature to 86°F (30°C) to accelerate parasite life cycle",
+                "salt_treatment": "Add aquarium salt (1-3 tbsp per 5 gallons)",
+                "duration": "10-14 days to break life cycle",
+                "tank_management": [
+                    "Frequent water changes",
+                    "Vacuum substrate",
+                    "Remove carbon filtration during treatment"
+                ]
+            },
+            "prevention": [
+                "Quarantine new fish for 2-4 weeks",
+                "Maintain stable water parameters",
+                "Avoid sudden temperature changes",
+                "Regular water testing and changes"
+            ],
+            "risk_level": "High - can be fatal if untreated",
+            "transmission_rate": "Highly contagious"
+        },
+        {
+            "name": "Columnaris Disease",
+            "common_names": ["Saddleback Disease", "Cotton Mouth Disease", "Cotton Wool Disease", "Mouth Fungus"],
+            "type": "bacterial",
+            "symptoms": [
+                "White or gray patches on skin, resembling cotton",
+                "Frayed or disintegrating fins",
+                "Ulcers on body surface",
+                "Mouth rot (lesions around mouth)",
+                "Gray or white patches on gills",
+                "Discolored gills",
+                "Rapid breathing",
+                "Loss of appetite",
+                "Lesions that appear like a 'saddle' on the dorsal region"
+            ],
+            "causes": {
+                "primary": "Infection by Flavobacterium columnare bacteria",
+                "contributing_factors": [
+                    "Stress",
+                    "Poor water quality (high nitrate/ammonia)",
+                    "Overcrowding",
+                    "Water temperatures above 75°F (24°C)",
+                    "pH fluctuations",
+                    "Physical injury"
+                ]
+            },
+            "regions": [
+                "Worldwide",
+                "Common in warm water",
+                "Freshwater environments"
+            ],
+            "water_types": ["Freshwater", "Brackish (rare)"],
+            "treatment": {
+                "medications": [
+                    "Antibiotics (kanamycin, erythromycin, oxytetracycline)",
+                    "Potassium permanganate baths",
+                    "Furan-based medications"
+                ],
+                "salt_treatment": "Salt baths (1-2 tbsp per gallon) for freshwater fish",
+                "temperature_adjustment": "Lower temperature to 75°F (24°C) to slow bacterial growth",
+                "duration": "7-10 days of medication",
+                "water_management": [
+                    "Frequent water changes (25-30% daily)",
+                    "Increase aeration",
+                    "Remove dead or severely affected fish"
+                ]
+            },
+            "prevention": [
+                "Maintain excellent water quality",
+                "Avoid overcrowding",
+                "Regular water testing",
+                "Quarantine new fish",
+                "Proper feeding practices",
+                "Minimize fish stress"
+            ],
+            "risk_level": "High - often fatal within 72 hours if aggressive strain",
+            "transmission_rate": "Highly contagious",
+            "notes": "Often misdiagnosed as a fungal infection due to cotton-like appearance"
+        },
+        {
+            "name": "Dropsy",
+            "common_names": ["Pinecone Disease", "Edema"],
+            "type": "bacterial/systemic",
+            "symptoms": [
+                "Swollen/bloated abdomen",
+                "Protruding scales giving 'pinecone' appearance",
+                "Lethargy",
+                "Loss of appetite",
+                "Exophthalmia (popping eyes)",
+                "Pale gills",
+                "Reddening of the skin or fins",
+                "Clamped fins",
+                "Curved spine"
+            ],
+            "causes": {
+                "primary": "Bacterial infection (often Aeromonas species)",
+                "contributing_factors": [
+                    "Poor water quality",
+                    "Stress",
+                    "Weakened immune system",
+                    "Nutritional deficiencies",
+                    "Internal organ failure",
+                    "Viral infections"
+                ]
+            },
+            "pathophysiology": "Bacterial infection causes fluid retention in body tissues and organs, particularly affecting kidney function",
+            "regions": [
+                "Worldwide",
+                "Common in aquariums",
+                "All water types"
+            ],
+            "water_types": ["Freshwater", "Saltwater"],
+            "treatment": {
+                "medications": [
+                    "Broad-spectrum antibiotics (kanamycin, tetracycline)",
+                    "Anti-bacterial food supplements"
+                ],
+                "salt_treatment": "Epsom salt baths (1-2 tsp per gallon) to reduce fluid retention",
+                "supportive_care": [
+                    "Isolation tank",
+                    "Improved nutrition",
+                    "Lower water level for easier access to surface"
+                ],
+                "water_management": [
+                    "Frequent water changes (30-50% daily)",
+                    "Pristine water conditions",
+                    "Optimal temperature for species"
+                ],
+                "prognosis": "Poor - often fatal once pineconing is visible"
+            },
+            "prevention": [
+                "Regular water testing",
+                "Proper filtration",
+                "Avoid overfeeding",
+                "Balanced diet",
+                "Quarantine new additions",
+                "Prompt treatment of other health issues"
+            ],
+            "risk_level": "High - usually indicates advanced internal infection",
+            "transmission_rate": "Not directly contagious, but can indicate poor tank conditions"
+        },
+        {
+            "name": "Fin Rot",
+            "common_names": ["Tail Rot", "Fin Melt"],
+            "type": "bacterial",
+            "symptoms": [
+                "Fraying of fins edges",
+                "Discoloration of fin edges (white, red, or black)",
+                "Receding fin tissue",
+                "Bloody or inflamed fin bases",
+                "Complete fin loss in advanced cases",
+                "Lethargy",
+                "Loss of appetite"
+            ],
+            "causes": {
+                "primary": "Bacterial infection (Pseudomonas, Aeromonas, or Vibrio)",
+                "contributing_factors": [
+                    "Poor water quality",
+                    "Physical injury to fins",
+                    "Fin nipping by other fish",
+                    "Stress",
+                    "Overcrowding"
+                ]
+            },
+            "regions": ["Worldwide", "All aquarium environments"],
+            "water_types": ["Freshwater", "Saltwater"],
+            "treatment": {
+                "medications": [
+                    "Antibiotics (erythromycin, tetracycline)",
+                    "Antifungal medications (if secondary fungal infection present)",
+                    "Commercial fin rot treatments"
+                ],
+                "salt_treatment": "Freshwater dips for saltwater fish; salt baths for freshwater fish",
+                "water_management": [
+                    "Daily water changes (25-30%)",
+                    "Regular gravel vacuuming",
+                    "Increased aeration"
+                ],
+                "duration": "7-14 days",
+                "recovery": "Fins may regrow with proper care after infection clears"
+            },
+            "prevention": [
+                "Regular water changes",
+                "Proper filtration",
+                "Avoid overcrowding",
+                "Compatible fish species selection",
+                "Careful handling to prevent injury",
+                "Prompt removal of aggressive fin-nipping fish"
+            ],
+            "risk_level": "Moderate - can be fatal if untreated",
+            "transmission_rate": "Not highly contagious but indicates poor water conditions"
+        },
+        {
+            "name": "Velvet Disease",
+            "common_names": ["Gold Dust Disease", "Coral Fish Disease", "Rust Disease"],
+            "type": "parasitic",
+            "symptoms": [
+                "Fine yellow/gold/rust colored 'dust' on skin (requires good lighting to see)",
+                "Scratching against objects",
+                "Rapid or labored breathing",
+                "Clamped fins",
+                "Loss of appetite",
+                "Cloudy eyes",
+                "Increased mucus production",
+                "Lethargy"
+            ],
+            "causes": {
+                "primary": "Infection by Oödinium (Piscinoodinium in freshwater, Amyloodinium in saltwater)",
+                "contributing_factors": [
+                    "Stress",
+                    "Poor water quality",
+                    "Introduction of infected fish",
+                    "Fluctuating water parameters"
+                ]
+            },
+            "regions": ["Worldwide", "Both marine and freshwater environments"],
+            "water_types": ["Freshwater", "Saltwater"],
+            "treatment": {
+                "medications": [
+                    "Copper-based medications (use with caution)",
+                    "Formalin",
+                    "Chloroquine phosphate",
+                    "Commercial velvet treatments"
+                ],
+                "environmental_control": [
+                    "Reduce lighting for 3-4 days (parasite needs light for photosynthesis)",
+                    "Raise temperature slightly (82-86°F/28-30°C) to speed parasite life cycle"
+                ],
+                "saltwater_specific": "Freshwater dips (5-10 minutes)",
+                "freshwater_specific": "Salt treatment (1-3 tsp per gallon)",
+                "duration": "10-14 days minimum",
+                "tank_management": [
+                    "Remove carbon filtration during treatment",
+                    "Use hospital tank if possible",
+                    "Frequent water changes"
+                ]
+            },
+            "prevention": [
+                "Quarantine new fish for 2-4 weeks",
+                "Maintain stable water parameters",
+                "UV sterilization can help prevent spread",
+                "Regular water testing and changes"
+            ],
+            "risk_level": "High - can cause mass mortality if untreated",
+            "transmission_rate": "Highly contagious"
+        },
+        {
+            "name": "Popeye",
+            "common_names": ["Exophthalmia"],
+            "type": "symptomatic condition",
+            "symptoms": [
+                "One or both eyes protruding from head",
+                "Cloudy or opaque eyes",
+                "Swelling around the eye",
+                "Bleeding in or around eye",
+                "Eventual eye loss in severe cases"
+            ],
+            "causes": {
+                "primary": [
+                    "Bacterial infection",
+                    "Physical trauma",
+                    "Poor water quality",
+                    "Tuberculosis in fish",
+                    "Internal parasites",
+                    "Gas bubble disease"
+                ],
+                "contributing_factors": [
+                    "Fighting with other fish",
+                    "Sharp decorations in tank",
+                    "Vitamin deficiencies",
+                    "High nitrate levels"
+                ]
+            },
+            "regions": ["Worldwide", "Any aquarium environment"],
+            "water_types": ["Freshwater", "Saltwater"],
+            "treatment": {
+                "medications": [
+                    "Broad-spectrum antibiotics (erythromycin, kanamycin)",
+                    "Anti-parasitic medications if parasite-related"
+                ],
+                "salt_treatment": "Epsom salt baths (1-2 tsp per gallon) to reduce swelling",
+                "environmental_improvements": [
+                    "Excellent water quality",
+                    "Reduced lighting",
+                    "Stress-free environment"
+                ],
+                "prognosis": {
+                    "unilateral": "Better prognosis if only one eye affected",
+                    "bilateral": "Often indicates systemic infection with poorer prognosis",
+                    "eye_recovery": "Permanent damage may remain even after treatment"
+                }
+            },
+            "prevention": [
+                "Maintain proper water parameters",
+                "Regular water testing and changes",
+                "Remove sharp objects from tank",
+                "Proper nutrition",
+                "Compatible tank mates"
+            ],
+            "risk_level": "Moderate - usually not fatal but can lead to blindness",
+            "transmission_rate": "Not directly contagious unless caused by infectious agent"
+        },
+        {
+            "name": "Lymphocystis",
+            "common_names": ["Cauliflower Disease", "Fish Pox", "Fish Warts"],
+            "type": "viral",
+            "symptoms": [
+                "White or pink cauliflower-like growths on fins, skin, mouth, or gills",
+                "Wart-like lesions",
+                "Growths may interfere with swimming or feeding",
+                "Usually no behavioral changes unless growths are extensive"
+            ],
+            "causes": {
+                "primary": "Lymphocystis virus (Iridovirus)",
+                "contributing_factors": [
+                    "Stress",
+                    "Poor water quality",
+                    "Physical injury to skin or fins",
+                    "Overcrowding",
+                    "Temperature fluctuations"
+                ]
+            },
+            "regions": ["Worldwide", "Both wild and captive populations"],
+            "water_types": ["Freshwater", "Saltwater"],
+            "treatment": {
+                "approach": "No specific anti-viral treatment available",
+                "management": [
+                    "Excellent water quality",
+                    "Supportive care",
+                    "Boost immune system with quality diet",
+                    "Surgical removal of large growths (by veterinarian only)",
+                    "Time - most cases resolve in 6-8 weeks with good conditions"
+                ],
+                "what_not_to_do": [
+                    "Do not attempt to scrape off growths",
+                    "Avoid stressful treatments"
+                ]
+            },
+            "prevention": [
+                "Quarantine new fish",
+                "Maintain stable water parameters",
+                "Avoid injuries to fish skin",
+                "Reduce stress factors",
+                "Proper nutrition"
+            ],
+            "risk_level": "Low - rarely fatal but aesthetically concerning",
+            "transmission_rate": "Moderately contagious",
+            "notes": "Often confused with tumors or other growths; generally self-resolving if conditions improve"
+        },
+        {
+            "name": "Fish Tuberculosis",
+            "common_names": ["Fish TB", "Mycobacteriosis", "Wasting Disease"],
+            "type": "bacterial",
+            "symptoms": [
+                "Emaciation/weight loss despite eating",
+                "Skeletal deformities/curved spine",
+                "Scale loss or discoloration",
+                "Open sores or lesions",
+                "Popeye (exophthalmia)",
+                "Fin erosion",
+                "Lethargy",
+                "Difficulty swimming",
+                "Pale or swollen internal organs (on necropsy)"
+            ],
+            "causes": {
+                "primary": "Mycobacterium marinum or other Mycobacterium species",
+                "contributing_factors": [
+                    "Chronic stress",
+                    "Poor water quality over extended periods",
+                    "Contaminated live foods",
+                    "Overcrowding",
+                    "Introduction of infected fish"
+                ]
+            },
+            "regions": ["Worldwide", "All aquatic environments"],
+            "water_types": ["Freshwater", "Saltwater", "Brackish"],
+            "treatment": {
+                "prognosis": "Generally poor, often fatal",
+                "options": [
+                    "Long-term antibiotic treatments (rifampin, streptomycin, kanamycin)",
+                    "Usually requires veterinary guidance",
+                    "Treatment often impractical in aquarium settings"
+                ],
+                "recommendations": "Euthanasia of affected fish may be most humane option",
+                "tank_management": [
+                    "Complete disinfection of tank if TB confirmed",
+                    "Bleach solution (1:10) for equipment",
+                    "Discard substrate, plants, and porous decorations"
+                ]
+            },
+            "prevention": [
+                "Quarantine new fish for 4-8 weeks",
+                "Maintain excellent water quality",
+                "Avoid overcrowding",
+                "Purchase fish from reputable sources",
+                "Proper nutrition"
+            ],
+            "risk_level": "High - often fatal and difficult to treat",
+            "transmission_rate": "Slow spreading but persistent",
+            "zoonotic_potential": "Can cause 'fish tank granuloma' in humans - wear gloves when handling infected fish or tank water"
+        },
+        {
+            "name": "Swim Bladder Disorder",
+            "common_names": ["Floating Disorder", "Flip-Over", "Buoyancy Problems"],
+            "type": "physiological/environmental",
+            "symptoms": [
+                "Difficulty maintaining normal position in water",
+                "Floating upside down or on side",
+                "Unable to swim to bottom of tank",
+                "Sinking to bottom and unable to swim up",
+                "Curved or twisted body position",
+                "Swimming in circles or erratic patterns",
+                "Distended abdomen"
+            ],
+            "causes": {
+                "primary": [
+                    "Constipation",
+                    "Overfeeding",
+                    "Gulping air when feeding",
+                    "Bacterial infection",
+                    "Parasitic infection",
+                    "Physical trauma",
+                    "Genetic defects",
+                    "Tumors or cysts pressing on swim bladder"
+                ],
+                "contributing_factors": [
+                    "Poor water quality",
+                    "Improper diet",
+                    "Rapid temperature changes",
+                    "Age-related degeneration"
+                ],
+                "species_specific": "Common in fancy goldfish, bettas, and live-bearers"
+            },
+            "regions": ["Worldwide", "All aquatic environments"],
+            "water_types": ["Freshwater", "Saltwater"],
+            "treatment": {
+                "dietary": [
+                    "Fasting for 24-48 hours",
+                    "Feed shelled peas (for herbivores/omnivores)",
+                    "Feed high-quality, easily digestible foods",
+                    "Feed daphnia (natural laxative for fish)"
+                ],
+                "environmental": [
+                    "Raise water temperature slightly",
+                    "Ensure proper water quality",
+                    "Reduce water flow/current",
+                    "Lower water level to reduce swimming effort"
+                ],
+                "medications": [
+                    "Antibiotics if bacterial infection suspected",
+                    "Anti-parasitic medications if parasites present",
+                    "Epsom salt baths (1 tsp per gallon)"
+                ],
+                "prognosis": "Varies depending on cause - congenital cases may be permanent"
+            },
+            "prevention": [
+                "Avoid overfeeding",
+                "Soak dry foods before feeding",
+                "Varied diet with fiber content",
+                "Maintain proper water quality",
+                "Careful breeding selection to avoid genetic issues"
+            ],
+            "risk_level": "Low to moderate - rarely directly fatal but can lead to secondary issues",
+            "species_susceptibility": "High in egg-shaped fish breeds (fancy goldfish, balloon mollies)"
+        },
+        {
+            "name": "Marine Ich",
+            "common_names": ["Marine White Spot Disease", "Cryptocaryonosis", "Salt Water Ich"],
+            "type": "parasitic",
+            "symptoms": [
+                "Small white spots on body, fins, and gills",
+                "Rapid breathing",
+                "Scratching against objects",
+                "Cloudy eyes",
+                "Excess mucus production",
+                "Loss of appetite",
+                "Lethargy",
+                "Clamped fins",
+                "Hiding behavior"
+            ],
+            "causes": {
+                "primary": "Infection by Cryptocaryon irritans (different from freshwater Ich)",
+                "contributing_factors": [
+                    "Stress",
+                    "Poor water quality",
+                    "Introduction of infected fish",
+                    "Temperature fluctuations",
+                    "Improper acclimation"
+                ]
+            },
+            "life_cycle": {
+                "stages": [
+                    "Trophont (feeding on fish)",
+                    "Protomont (leaves fish)",
+                    "Tomont (reproductive cyst)",
+                    "Theronts (infective swimming stage)"
+                ],
+                "cycle_length": "3-28 days depending on temperature and strain"
+            },
+            "regions": ["Worldwide marine environments"],
+            "water_types": ["Saltwater only"],
+            "treatment": {
+                "hospital_tank": "Treatment in separate quarantine tank recommended",
+                "medications": [
+                    "Copper-based medications (maintain 0.15-0.2 ppm free copper)",
+                    "Chloroquine phosphate",
+                    "Formalin baths"
+                ],
+                "hyposalinity": "Specific gravity of 1.009-1.010 for 2-3 weeks",
+                "temperature_method": "Raise temperature to 82-84°F (28-29°C) to speed parasite life cycle",
+                "treatment_duration": "Minimum of 3-4 weeks to break life cycle",
+                "display_tank": "Leave fallow (without fish) for 6-8 weeks at normal temperature",
+                "incompatibilities": [
+                    "Copper is toxic to invertebrates and many corals",
+                    "Remove activated carbon during treatment",
+                    "Monitor copper levels carefully"
+                ]
+            },
+            "prevention": [
+                "Quarantine all new fish for 4-6 weeks",
+                "UV sterilizers can help prevent spread",
+                "Maintain stable water parameters",
+                "Proper acclimation procedures",
+                "Freshwater dips for new fish (2-4 minutes)"
+            ],
+            "risk_level": "High - can cause complete tank loss if untreated",
+            "transmission_rate": "Highly contagious"
+        },
+        {
+            "name": "Hole in the Head Disease",
+            "common_names": ["Head and Lateral Line Erosion (HLLE)", "Lateral Line Disease", "Hexamita"],
+            "type": "multifactorial/parasitic",
+            "symptoms": [
+                "Pits or holes in the head and face area",
+                "Erosion along lateral line",
+                "Loss of appetite",
+                "Weight loss",
+                "Faded coloration",
+                "White, stringy feces",
+                "Lethargy",
+                "In advanced cases, deep lesions or cavities"
+            ],
+            "causes": {
+                "primary": [
+                    "Hexamita (Spironucleus) parasites",
+                    "Nutritional deficiencies (especially vitamins)",
+                    "Poor water quality (high nitrates)",
+                    "Carbon filtration removing trace elements"
+                ],
+                "contributing_factors": [
+                    "Stress",
+                    "High organic waste levels",
+                    "Inappropriate diet",
+                    "Overcrowding",
+                    "Use of ozone without proper control"
+                ],
+                "species_specific": "Common in cichlids (especially discus and oscars), surgeonfish, and tangs"
+            },
+            "regions": ["Worldwide", "Aquarium environments"],
+            "water_types": ["Freshwater", "Saltwater"],
+            "treatment": {
+                "medications": [
+                    "Metronidazole (Flagyl) - both in water and food",
+                    "Anti-parasitic medications"
+                ],
+                "dietary_improvements": [
+                    "Vitamin-enriched foods",
+                    "HUFA supplements (Highly Unsaturated Fatty Acids)",
+                    "Varied, high-quality diet",
+                    "Garlic-enhanced foods"
+                ],
+                "environmental_management": [
+                    "Frequent water changes (25-30% weekly)",
+                    "Reduce nitrate levels below 10 ppm",
+                    "Remove carbon filtration",
+                    "Add trace element supplements"
+                ],
+                "duration": "2-4 weeks minimum",
+                "prognosis": "Good if caught early; tissue damage may be permanent"
+            },
+            "prevention": [
+                "Regular water changes",
+                "High-quality varied diet",
+                "Vitamin supplements",
+                "Keep nitrates below 20 ppm (ideally below 10 ppm)",
+                "Limit use of activated carbon or replace frequently",
+                "Reduce stressors"
+            ],
+            "risk_level": "Moderate - rarely fatal but can cause permanent disfigurement",
+            "transmission_rate": "Low - primarily environmental and nutritional"
+        },
+        {
+            "name": "Hexamita",
+            "common_names": ["Spironucleus", "Internal Flagellate Disease"],
+            "type": "parasitic",
+            "symptoms": [
+                "White, stringy feces",
+                "Loss of appetite",
+                "Rapid weight loss",
+                "Lethargy",
+                "Darkening of color",
+                "Hiding behavior",
+                "Holes in head (in advanced cases)",
+                "Sunken abdomen/belly"
+            ],
+            "causes": {
+                "primary": "Infection by Hexamita (Spironucleus) parasites in the intestinal tract",
+                "contributing_factors": [
+                    "Stress",
+                    "Overcrowding",
+                    "Poor water quality",
+                    "Introduction of infected fish",
+                    "Improper diet"
+                ],
+                "species_specific": "Common in cichlids, angelfish, discus, and other freshwater species"
+            },
+            "regions": ["Worldwide", "More common in freshwater aquariums"],
+            "water_types": ["Primarily freshwater"],
+            "treatment": {
+                "medications": [
+                    "Metronidazole (most effective)",
+                    "Dimetridazole",
+                    "Praziquantel for severe cases"
+                ],
+                "administration": [
+                    "Medicated food (most effective)",
+                    "Bath treatment in hospital tank",
+                    "Combined approach recommended"
+                ],
+                "supportive_care": [
+                    "Raise temperature to 82-86°F (28-30°C)",
+                    "Frequent small water changes",
+                    "Vitamin supplements"
+                ],
+                "duration": "5-10 days of medication, repeat if necessary after one week",
+                "prognosis": "Good if treated early, poor if advanced with significant weight loss"
+            },
+            "prevention": [
+                "Quarantine new fish",
+                "Maintain excellent water quality",
+                "Proper nutrition",
+                "Regular water changes",
+                "Avoid overcrowding"
+            ],
+            "risk_level": "High - can be fatal if untreated",
+            "transmission_rate": "Moderate - spreads through water and contaminated food"
+        },
+        {
+            "name": "Brooklynella",
+            "common_names": ["Clownfish Disease", "Brooklynellosis"],
+            "type": "parasitic",
+            "symptoms": [
+                "Excess mucus production",
+                "Respiratory distress",
+                "Rapid breathing",
+                "Loss of appetite",
+                "Lethargy",
+                "Color fading",
+                "Cloudy skin appearance",
+                "Scratching against objects"
+            ],
+            "causes": {
+                "primary": "Infection by Brooklynella hostilis ciliate parasite",
+                "contributing_factors": [
+                    "Stress from capture or transport",
+                    "Poor water quality",
+                    "Introduction of wild-caught marine fish",
+                    "Weakened immune system"
+                ],
+                "species_specific": "Primarily affects clownfish and related species"
+            },
+            "regions": ["Worldwide marine environments"],
+            "water_types": ["Saltwater only"],
+            "treatment": {
+                "medications": [
+                    "Formalin baths (15-25 ppm for 30-60 minutes)",
+                    "Chloroquine phosphate",
+                    "Freshwater dips (2-3 minutes)"
+                ],
+                "frequency": "Daily treatment for 3-5 days",
+                "hospital_tank": "Treatment in separate quarantine tank recommended",
+                "supportive_care": [
+                    "Maintain excellent water quality",
+                    "Provide optimal oxygenation",
+                    "Reduce stress factors"
+                ],
+                "prognosis": "Poor to moderate - often fatal even with treatment"
+            },
+            "prevention": [
+                "Quarantine all new marine fish",
+                "Prophylactic freshwater dips for new clownfish",
+                "Purchase captive-bred clownfish when possible",
+                "Maintain proper water parameters"
+            ],
+            "risk_level": "Very high for clownfish - often rapidly fatal",
+            "transmission_rate": "Highly contagious among susceptible species",
+            "notes": "One of the most serious diseases affecting newly imported wild clownfish"
+        },
+        {
+            "name": "Gill Flukes",
+            "common_names": ["Dactylogyrus", "Gill Worms"],
+            "type": "parasitic",
+            "symptoms": [
+                "Rapid or labored breathing",
+                "Fish gasping at surface",
+                "Rubbing gills against objects",
+                "Reddened or inflamed gills",
+                "Excessive mucus on gills",
+                "Clamped fins",
+                "Loss of appetite",
+                "Lethargy"
+            ],
+            "causes": {
+                "primary": "Infection by monogenetic trematodes (Dactylogyrus species)",
+                "contributing_factors": [
+                    "Poor water quality",
+                    "Overcrowding",
+                    "Introduction of infected fish",
+                    "Stress factors"
+                ]
+            },
+            "life_cycle": {
+                "type": "Direct life cycle (no intermediate host required)",
+                "reproduction": "Lay eggs that hatch into free-swimming larvae",
+                "cycle_length": "Complete life cycle in 5-14 days depending on temperature"
+            },
+            "regions": ["Worldwide", "Common in aquarium and pond environments"],
+            "water_types": ["Primarily freshwater", "Some species in brackish water"],
+            "treatment": {
+                "medications": [
+                    "Praziquantel (most effective)",
+                    "Flubendazole",
+                    "Formalin baths",
+                    "Potassium permanganate"
+                ],
+                "dosage_method": [
+                    "Bath treatment in hospital tank",
+                    "Whole tank treatment if all fish affected"
+                ],
+                "duration": "2-3 treatments spaced 7-10 days apart to break life cycle",
+                "tank_management": [
+                    "Remove carbon filtration during treatment",
+                    "Thorough gravel vacuuming to remove eggs",
+                    "UV sterilization can help control free-swimming stages"
+                ]
+            },
+            "prevention": [
+                "Quarantine new fish for 3-4 weeks",
+                "Maintain proper water quality",
+                "Avoid overcrowding",
+                "Regular water changes",
+                "Prophylactic treatments for high-risk fish"
+            ],
+            "risk_level": "Moderate to high - can be fatal due to respiratory impairment",
+            "transmission_rate": "Highly contagious in enclosed systems"
+        },
+        {
+            "name": "Skin Flukes",
+            "common_names": ["Body Flukes", "Gyrodactylus"],
+            "type": "parasitic",
+            "symptoms": [
+                "Scratching against objects",
+                "Excess mucus production on skin",
+                "Cloudy skin appearance",
+                "Red streaks or spots on body",
+                "Small worms visible on skin with magnification",
+                "Clamped fins",
+                "Lethargy",
+                "Loss of appetite"
+            ],
+            "causes": {
+                "primary": "Infection by monogenetic trematodes (Gyrodactylus species)",
+                "contributing_factors": [
+                    "Poor water quality",
+                    "Overcrowding",
+                    "Introduction of infected fish",
+                    "Stress"
+                ]
+            },
+            "life_cycle": {
+                "type": "Direct life cycle - no intermediate host",
+                "reproduction": "Live birth (viviparous) rather than egg-laying",
+                "unique_feature": "Embryos contain developing embryos within them ('Russian doll' effect)",
+                "cycle_length": "Rapid reproduction - population can double in 24-48 hours"
+            },
+            "regions": ["Worldwide", "Common in aquarium and pond environments"],
+            "water_types": ["Primarily freshwater", "Some species in brackish water"],
+            "treatment": {
+                "medications": [
+                    "Praziquantel (most effective)",
+                    "Flubendazole",
+                    "Formalin baths",
+                    "Salt baths (freshwater fish only)"
+                ],
+                "dosage_method": [
+                    "Bath treatment in hospital tank",
+                    "Whole tank treatment if all fish affected"
+                ],
+                "duration": "Multiple treatments needed due to rapid reproduction cycle",
+                "tank_management": [
+                    "Raise temperature slightly to speed treatment efficacy",
+                    "Remove carbon filtration during treatment",
+                    "Thorough cleaning of tank"
+                ]
+            },
+            "prevention": [
+                "Quarantine new fish for 3-4 weeks",
+                "Maintain proper water quality",
+                "Avoid overcrowding",
+                "Regular water changes",
+                "Prophylactic treatments for high-risk fish"
+            ],
+            "risk_level": "Moderate to high - severe infestations can be fatal",
+            "transmission_rate": "Extremely contagious - can spread through direct contact"
+        },
+        {
+            "name": "Fish Lice",
+            "common_names": ["Argulus", "Carp Lice"],
+            "type": "parasitic crustacean",
+            "symptoms": [
+                "Visible oval-shaped parasites (2-5mm) on skin",
+                "Red spots where parasites attach",
+                "Excessive mucus production",
+                "Fish jumping or flashing",
+                "Rubbing against objects",
+                "Secondary infections at attachment sites",
+                "Lethargy",
+                "Loss of appetite"
+            ],
+            "causes": {
+                "primary": "Infestation by Argulus species (crustacean ectoparasites)",
+                "contributing_factors": [
+                    "Introduction of infected fish",
+                    "Eggs introduced on plants or decorations",
+                    "Pond environments with snails and plants"
+                ]
+            },
+            "life_cycle": {
+                "stages": [
+                    "Adult lays eggs on hard surfaces",
+                    "Larvae hatch and must find host within 2-3 days",
+                    "Multiple molts as parasite grows on host"
+                ],
+                "cycle_length": "30-60 days depending on temperature"
+            },
+            "regions": ["Worldwide", "Common in pond environments"],
+            "water_types": ["Freshwater", "Brackish"],
+            "treatment": {
+                "physical_removal": "Visible parasites can be manually removed with tweezers",
+                "medications": [
+                    "Organophosphates (use with caution)",
+                    "Diflubenzuron (insect growth regulator)",
+                    "Salt baths (freshwater fish only)",
+                    "Potassium permanganate baths"
+                ],
+                "environmental_control": [
+                    "Treat entire system as eggs are laid on surfaces",
+                    "Remove all fish for 3-4 weeks to break life cycle (pond setting)"
+                ],
+                "duration": "Multiple treatments needed to break life cycle",
+                "tank_management": [
+                    "Thorough cleaning of substrate",
+                    "Inspect and treat plants"
+                ]
+            },
+            "prevention": [
+                "Quarantine new fish",
+                "Inspect plants before adding to tank",
+                "Regular water changes",
+                "Maintain proper filtration"
+            ],
+            "risk_level": "Moderate - rarely fatal but causes significant stress and secondary infections",
+            "transmission_rate": "Moderately contagious - mobile parasites can switch hosts",
+            "zoonotic_potential": "None - cannot infect humans"
+        },
+        {
+            "name": "Anchor Worms",
+            "common_names": ["Lernaea"],
+            "type": "parasitic crustacean",
+            "symptoms": [
+                "Thread-like parasites visibly protruding from skin (5-15mm)",
+                "Red, inflamed areas around attachment point",
+                "Ulceration at attachment sites",
+                "Rubbing against objects",
+                "Secondary bacterial infections",
+                "Lethargy",
+                "Loss of appetite"
+            ],
+            "causes": {
+                "primary": "Infestation by Lernaea species (copepod crustaceans)",
+                "contributing_factors": [
+                    "Introduction of infected fish",
+                    "Pond environments",
+                    "Higher water temperatures"
+                ]
+            },
+            "life_cycle": {
+                "stages": [
+                    "Free-swimming larvae",
+                    "Female attaches to fish and transforms into anchor shape",
+                    "Male dies after mating",
+                    "Female produces multiple egg sacs"
+                ],
+                "cycle_length": "2-3 weeks at warm temperatures",
+                "temperature_dependency": "Doesn't reproduce below 57°F (14°C)"
+            },
+            "regions": ["Worldwide", "More common in pond environments"],
+            "water_types": ["Freshwater"],
+            "treatment": {
+                "physical_removal": [
+                    "Carefully remove visible parasites with tweezers",
+                    "Apply antiseptic to wound site after removal"
+                ],
+                "medications": [
+                    "Diflubenzuron (insect growth regulator)",
+                    "Organophosphates (use with caution)",
+                    "Salt baths (1-3% solution)"
+                ],
+                "environmental_control": [
+                    "Lower temperature below 57°F (14°C) if possible to stop reproduction",
+                    "Treat entire system as multiple life stages present"
+                ],
+                "duration": "Multiple treatments over 3-4 weeks",
+                "follow_up": "Treat secondary infections with appropriate antibiotics"
+            },
+            "prevention": [
+                "Quarantine new fish for 3-4 weeks",
+                "Careful inspection of new fish",
+                "Regular water changes",
+                "Winter pond temperatures naturally control infestations"
+            ],
+            "risk_level": "Moderate - rarely fatal but causes significant stress and secondary infections",
+            "transmission_rate": "Moderately contagious through water column larvae",
+            "notes": "Female parasites embed deeply with anchor-like head, making removal difficult"
+        },
+        {
+            "name": "Camallanus Worms",
+            "common_names": ["Red Worms", "Nematode Infection"],
+            "type": "parasitic",
+            "symptoms": [
+                "Red, thread-like worms protruding from anus",
+                "Emaciation despite eating",
+                "Bloating or swelling of abdomen",
+                "Loss of appetite",
+                "Lethargy",
+                "Stringy, white feces",
+                "Rubbing anus against objects",
+                "Difficulty swimming"
+            ],
+            "causes": {
+                "primary": "Infection by Camallanus nematode worms",
+                "contributing_factors": [
+                    "Feeding live foods (tubifex worms, cyclops, etc.)",
+                    "Introduction of infected fish",
+                    "Poor quarantine practices"
+                ]
+            },
+            "life_cycle": {
+                "stages": [
+                    "Adults live in fish intestine",
+                    "Larvae released into water",
+                    "Intermediate hosts (copepods, small crustaceans) ingest larvae",
+                    "Fish eat intermediate hosts and become infected"
+                ],
+                "cycle_length": "Complex life cycle requiring intermediate hosts"
+            },
+            "regions": ["Worldwide", "Common in aquarium environments"],
+            "water_types": ["Freshwater", "Brackish"],
+            "treatment": {
+                "medications": [
+                    "Levamisole (most effective)",
+                    "Fenbendazole",
+                    "Flubendazole",
+                    "Praziquantel (less effective)"
+                ],
+                "administration": [
+                    "Treat entire tank as infestation affects all fish",
+                    "Remove carbon filtration during treatment",
+                    "Medicated food may be more effective than water treatment"
+                ],
+                "duration": "Multiple treatments 2 weeks apart",
+                "tank_management": [
+                    "Thorough gravel vacuuming",
+                    "Remove all detritus",
+                    "Frequent water changes after treatment"
+                ],
+                "follow_up": "Repeat treatment after 2-3 weeks to kill newly matured worms"
+            },
+            "prevention": [
+                "Quarantine new fish for 4-6 weeks",
+                "Avoid feeding live tubifex worms",
+                "Freeze or culture your own live foods",
+                "Regular observation of fish"
+            ],
+            "risk_level": "High - fatal if untreated",
+            "transmission_rate": "Moderate - requires intermediate host for life cycle completion"
+        },
+        {
+            "name": "Cotton Wool Disease",
+            "common_names": ["Fungal Infection", "Saprolegniasis", "Water Mold", "Cotton Fungus"],
+            "type": "fungal",
+            "symptoms": [
+                "Fluffy, cotton-like growths on skin, fins, or mouth",
+                "White to grayish-white patches",
+                "Patches may have brown/green tinge if trapping debris",
+                "Lethargy",
+                "Loss of appetite",
+                "Hiding behavior",
+                "Reddened skin under fungal growths"
+            ],
+            "causes": {
+                "primary": "Infection by Saprolegnia or Achlya fungi",
+                "contributing_factors": [
+                    "Physical injury or damage to mucus coat",
+                    "Stress",
+                    "Poor water quality",
+                    "Bacterial infections",
+                    "Temperature fluctuations",
+                    "Weakened immune system"
+                ],
+                "nature": "Opportunistic infection - fungi naturally present in most aquatic environments"
+            },
+            "regions": ["Worldwide", "All aquatic environments"],
+            "water_types": ["Freshwater", "Brackish (rare)"],
+            "treatment": {
+                "medications": [
+                    "Methylene blue",
+                    "Malachite green (use with caution)",
+                    "Potassium permanganate",
+                    "Commercial anti-fungal treatments"
+                ],
+                "salt_treatment": "Salt baths (1 tbsp per gallon) for freshwater fish",
+                "environmental_adjustments": [
+                    "Increase water temperature slightly (2-3°F)",
+                    "Improve aeration",
+                    "Excellent water quality during treatment"
+                ],
+                "duration": "5-7 days of treatment",
+                "tank_management": "Remove visible fungal growths with gentle cotton swab before treatment",
+                "follow_up": "Treat any underlying bacterial infection"
+            },
+            "prevention": [
+                "Maintain excellent water quality",
+                "Avoid physical injuries to fish",
+                "Proper acclimation procedures",
+                "Regular water changes",
+                "Stable water temperatures"
+            ],
+            "risk_level": "Moderate - fatal if untreated or if affecting gills",
+            "transmission_rate": "Not directly contagious, but spores always present in water",
+            "notes": "Often secondary to other disease processes or injuries"
+        },
+        {
+            "name": "Mouth Fungus",
+            "common_names": ["Cotton Mouth Disease", "Flavobacterium infection"],
+            "type": "bacterial (not actually fungal)",
+            "symptoms": [
+                "White or gray patches around mouth",
+                "Cotton-like growth on lips and mouth",
+                "Fraying of mouth tissues",
+                "Difficulty eating",
+                "Loss of appetite",
+                "Weight loss",
+                "Respiratory distress if gills affected"
+            ],
+            "causes": {
+                "primary": "Infection by Flavobacterium bacteria (despite the name, not a fungus)",
+                "contributing_factors": [
+                    "Poor water quality",
+                    "Physical injury to mouth",
+                    "Stress",
+                    "Improper diet",
+                    "Aggressive tank mates"
+                ]
+            },
+            "regions": ["Worldwide", "Common in aquarium environments"],
+            "water_types": ["Freshwater", "Brackish"],
+            "treatment": {
+                "medications": [
+                    "Antibiotics (erythromycin, kanamycin)",
+                    "Nitrofurazone",
+                    "Tetracycline"
+                ],
+                "salt_treatment": "Salt baths (1 tbsp per 5 gallons) for freshwater fish",
+                "environmental_management": [
+                    "Optimal water quality",
+                    "Frequent water changes (25-30% daily)",
+                    "Lower protein foods during treatment"
+                ],
+                "duration": "7-10 days of antibiotic treatment",
+                "tank_management": [
+                    "Remove carbon filtration during treatment",
+                    "Monitor water parameters closely"
+                ]
+            },
+            "prevention": [
+                "Regular water testing and changes",
+                "Appropriate diet for species",
+                "Compatible tank mates",
+                "Careful handling to prevent injury",
+                "Quarantine new fish"
+            ],
+            "risk_level": "Moderate to high - can be fatal if untreated",
+            "transmission_rate": "Moderately contagious",
+            "notes": "Commonly misdiagnosed as a fungal infection due to appearance"
+        },
+        {
+            "name": "Neon Tetra Disease",
+            "common_names": ["NTD", "Pleistophora Disease"],
+            "type": "parasitic",
+            "symptoms": [
+                "Loss of coloration (especially along midline)",
+                "White patches developing under skin",
+                "Curved spine",
+                "Difficulty swimming",
+                "Isolation from shoal",
+                "Restlessness at night",
+                "Bloating",
+                "Muscle degeneration"
+            ],
+            "causes": {
+                "primary": "Infection by microsporidian parasite Pleistophora hyphessobryconis",
+                "contributing_factors": [
+                    "Introduction of infected fish",
+                    "Feeding infected live foods",
+                    "Poor water conditions increasing susceptibility"
+                ],
+                "species_affected": "Primarily neon tetras, but also other tetras, danios, and some other small fish"
+            },
+            "regions": ["Worldwide", "Common in aquarium environments"],
+            "water_types": ["Freshwater"],
+            "treatment": {
+                "prognosis": "Poor - no effective treatment once established",
+                "control_measures": [
+                    "Euthanize infected fish humanely",
+                    "Remove dead and dying fish immediately",
+                    "Sterilize equipment with bleach solution"
+                ],
+                "experimental": "Some report limited success with antiparasitic medications, but generally ineffective"
+            },
+            "prevention": [
+                "Quarantine new fish for 4 weeks",
+                "Purchase from reputable sources",
+                "Maintain excellent water quality",
+                "Avoid stress factors",
+                "Separate equipment for each tank"
+            ],
+            "risk_level": "High - usually fatal to infected fish",
+            "transmission_rate": "Highly contagious through cannibalism of infected tissue and fish waste",
+            "notes": "Many similar symptoms can be caused by other diseases - true NTD is confirmed by microscopic examination"
+        }
+    ],
+    "water_quality_parameters": {
+        "freshwater": {
+            "temperature": {
+                "tropical": "75-82°F (24-28°C)",
+                "coldwater": "60-75°F (15-24°C)",
+                "temperature_shock": "Changes greater than 2-3°F (1-2°C) per hour can cause stress and disease susceptibility"
+            },
+            "pH": {
+                "general": "6.5-8.0",
+                "soft_water_species": "6.0-7.0",
+                "hard_water_species": "7.5-8.5",
+                "African_cichlids": "7.8-9.0"
+            },
+            "ammonia": {
+                "safe_level": "0 ppm (mg/L)",
+                "stress_level": ">0.25 ppm",
+                "lethal_level": ">1.0 ppm",
+                "notes": "Even low levels can cause gill damage and susceptibility to disease"
+            },
+            "nitrite": {
+                "safe_level": "0 ppm (mg/L)",
+                "stress_level": ">0.25 ppm",
+                "lethal_level": ">1.0 ppm"
+            },
+            "nitrate": {
+                "safe_level": "<20 ppm (mg/L)",
+                "stress_level": "20-40 ppm",
+                "disease_risk": ">40 ppm",
+                "notes": "High nitrates associated with hole-in-head disease and reduced immune function"
+            },
+            "hardness": {
+                "soft": "0-75 ppm (mg/L) CaCO₃",
+                "medium": "75-150 ppm CaCO₃",
+                "hard": "150-300 ppm CaCO₃",
+                "very_hard": ">300 ppm CaCO₃"
+            },
+            "dissolved_oxygen": {
+                "minimum": ">5 ppm (mg/L)",
+                "optimal": ">7 ppm"
+            }
+        },
+        "saltwater": {
+            "temperature": {
+                "reef": "75-79°F (24-26°C)",
+                "fish_only": "75-82°F (24-28°C)",
+                "temperature_stability": "Daily fluctuation should not exceed 2°F (1°C)"
+            },
+            "pH": {
+                "optimal": "8.1-8.4",
+                "stress_level": "<7.9 or >8.6"
+            },
+            "ammonia": {
+                "safe_level": "0 ppm (mg/L)",
+                "toxic_level": ">0.1 ppm"
+            },
+            "nitrite": {
+                "safe_level": "0 ppm (mg/L)",
+                "toxic_level": ">0.2 ppm"
+            },
+            "nitrate": {
+                "fish_only": "<30 ppm (mg/L)",
+                "reef_tank": "<5 ppm",
+                "sensitive_corals": "<1 ppm"
+            },
+            "salinity": {
+                "standard": "1.023-1.025 specific gravity (35 ppt)",
+                "reef": "1.024-1.026 specific gravity (35-36 ppt)",
+                "stability": "Avoid fluctuations greater than 0.001 per day"
+            },
+            "alkalinity": {
+                "optimal": "7-11 dKH (2.5-4.0 meq/L)",
+                "reef_tank": "8-12 dKH"
+            },
+            "calcium": {
+                "optimal": "380-450 ppm",
+                "reef_tank": "400-450 ppm"
+            },
+            "magnesium": {
+                "optimal": "1250-1350 ppm",
+                "low": "<1200 ppm can affect calcium uptake"
+            },
+            "phosphate": {
+                "fish_only": "<1.0 ppm",
+                "reef_tank": "<0.05 ppm",
+                "algae_growth": ">0.1 ppm often leads to algae problems"
+            }
+        }
+    },
+    "prevention_guidelines": {
+        "quarantine": {
+            "duration": {
+                "freshwater": "2-4 weeks",
+                "saltwater": "4-6 weeks"
+            },
+            "setup": [
+                "Simple tank with filtration and heater",
+                "Bare bottom for easy cleaning",
+                "PVC pipes or artificial plants for hiding",
+                "Separate equipment (nets, siphons) to prevent cross-contamination"
+            ],
+            "protocol": [
+                "Observe for signs of disease",
+                "Feed varied diet to assess appetite",
+                "Consider prophylactic treatments for high-risk species",
+                "Check water parameters regularly"
+            ]
+        },
+        "water_quality_management": {
+            "testing": [
+                "Regular testing of ammonia, nitrite, nitrate",
+                "pH stability monitoring",
+                "Temperature consistency",
+                "Additional parameters specific to water type (hardness, alkalinity, etc.)"
+            ],
+            "water_changes": {
+                "freshwater": "25-50% weekly or biweekly",
+                "saltwater_fish_only": "10-20% biweekly",
+                "reef_tank": "5-10% weekly",
+                "hospital_tank": "Daily small changes during treatment"
+            },
+            "filtration": [
+                "Mechanical filtration to remove particulates",
+                "Biological filtration to process ammonia/nitrite",
+                "Chemical filtration as needed (activated carbon, etc.)",
+                "Regular maintenance and cleaning"
+            ]
+        },
+        "nutrition": {
+            "guidelines": [
+                "Varied diet appropriate for species",
+                "Balance between dry, frozen, and live foods",
+                "Vitamin supplements for sensitive species",
+                "Feed small amounts multiple times rather than single large feeding",
+                "Remove uneaten food after 2-3 minutes"
+            ],
+            "disease_prevention": [
+                "Garlic supplements to boost immune system",
+                "Vitamin-enriched foods",
+                "Probiotic supplements",
+                "Foods high in omega fatty acids"
+            ]
+        },
+        "stress_reduction": [
+            "Proper acclimation of new fish (minimum 30 minutes)",
+            "Compatible tank mates",
+            "Appropriate stocking density",
+            "Adequate hiding places",
+            "Species-appropriate water parameters",
+            "Consistent light cycles",
+            "Minimize tank disturbances"
+        ],
+        "disinfection_protocols": {
+            "equipment": "Bleach solution (1:10 dilution) for nets and tools, rinse thoroughly",
+            "aquarium": "Potassium permanganate or 5% bleach solution, rinse extremely well",
+            "decorations": "Boil non-porous items, bleach solution for others",
+            "uv_sterilization": "Helps control free-floating pathogens and parasites"
+        }
+    },
+    "treatment_medications": {
+        "antibiotics": {
+            "erythromycin": {
+                "treats": ["Bacterial infections", "Columnaris", "Popeye", "Fin rot"],
+                "dosage": "Follow manufacturer instructions",
+                "notes": "Effective against gram-positive bacteria, may impact biological filtration"
+            },
+            "tetracycline": {
+                "treats": ["Bacterial infections", "Mouth rot", "Fin rot"],
+                "dosage": "Follow manufacturer instructions",
+                "notes": "Binds to calcium, ineffective in hard water"
+            },
+            "kanamycin": {
+                "treats": ["Bacterial infections", "Dropsy", "Popeye", "Septicemia"],
+                "dosage": "Follow manufacturer instructions",
+                "notes": "Broad-spectrum effectiveness, less impact on biological filtration"
+            },
+            "nitrofurazone": {
+                "treats": ["External bacterial infections", "Columnaris", "Open wounds"],
+                "dosage": "Follow manufacturer instructions",
+                "notes": "Often combined with other medications for enhanced effectiveness"
+            }
+        },
+        "antiparasitics": {
+            "praziquantel": {
+                "treats": ["External/internal worms", "Flukes", "Tapeworms"],
+                "dosage": "Follow manufacturer instructions",
+                "notes": "Generally safe for most fish and invertebrates"
+            },
+            "metronidazole": {
+                "treats": ["Hole in head disease", "Hexamita", "Internal parasites"],
+                "dosage": "Follow manufacturer instructions",
+                "notes": "Can be added to food or water, more effective when ingested"
+            },
+            "fenbendazole": {
+                "treats": ["Nematodes", "Planaria", "Camallanus worms"],
+                "dosage": "Follow manufacturer instructions",
+                "notes": "Often mixed with food, can be harsh on some sensitive fish"
+            },
+            "levamisole": {
+                "treats": ["Nematodes", "Camallanus worms"],
+                "dosage": "Follow manufacturer instructions",
+                "notes": "Also stimulates immune system response"
+            }
+        },
+        "antifungals": {
+            "methylene_blue": {
+                "treats": ["Fungal infections", "Some external parasites", "Egg fungus"],
+                "dosage": "Follow manufacturer instructions",
+                "notes": "Stains silicone and decorations, impacts biological filtration"
+            },
+            "malachite_green": {
+                "treats": ["Fungal infections", "Ich", "Some external parasites"],
+                "dosage": "Follow manufacturer instructions",
+                "notes": "Toxic to scaleless fish, invertebrates, and plants"
+            }
+        },
+        "external_parasite_treatments": {
+            "copper_sulfate": {
+                "treats": ["Marine ich", "Velvet", "External parasites"],
+                "dosage": "Maintain 0.15-0.2 ppm free copper",
+                "notes": "Toxic to invertebrates, plants, and some sensitive fish species"
+            },
+            "formalin": {
+                "treats": ["Ich", "Velvet", "External parasites", "Flukes"],
+                "dosage": "Follow manufacturer instructions",
+                "notes": "Reduces oxygen levels, use with increased aeration"
+            },
+            "potassium_permanganate": {
+                "treats": ["External parasites", "Bacterial infections", "Fungal infections"],
+                "dosage": "Follow manufacturer instructions",
+                "notes": "Narrow margin of safety, can damage gills if overdosed"
+            },
+            "salt_treatments": {
+                "treats": ["Mild ich", "Some external parasites", "Reduces osmotic stress"],
+                "freshwater_dosage": "1 tbsp per 5 gallons for treatment",
+                "dip_dosage": "2 tbsp per gallon for 5-10 minutes",
+                "notes": "Not suitable for scaleless fish or salt-sensitive species"
+            }
+        },
+        "medication_cautions": [
+            "Remove activated carbon before treatment",
+            "Some medications affect beneficial bacteria",
+            "Follow dosing instructions precisely",
+            "Consider species sensitivity before treatment",
+            "Invertebrates often sensitive to medications",
+            "Observe water temperature recommendations for medications",
+            "Some medications deplete oxygen - increase aeration",
+            "Never mix medications unless specifically directed"
+        ]
+    }
+}

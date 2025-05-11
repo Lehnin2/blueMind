@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "EcoPêche",
+    "slug": "ecopeche",
+    "version": "1.0.0",
+    "sdkVersion": "48.0.0",
+    "scheme": "ecopeche",
+    "icon": "./assets/images/icon.png",
+    "newArchEnabled": true,
+    "platforms": ["ios", "android", "web"],
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "format": "graph-model",
+  "generatedBy": "TF2PyTorch converter",
+  "convertedBy": "TensorFlow.js Converter v3.15.0",
+  "modelTopology": {
+    "nodes": [
+      {
+        "name": "input",
+        "op": "Placeholder",
+        "attr": {
+          "dtype": {
+            "type": "DT_FLOAT"
+          },
+          "shape": {
+            "shape": {
+              "dim": [
+                {
+                  "size": "-1"
+                },
+                {
+                  "size": "3"
+                },
+                {
+                  "size": "224"
+                },
+                {
+                  "size": "224"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "name": "classe_model",
+        "op": "PyTorchModel",
+        "attr": {
+          "model_path": {
+            "s": "../classe.pth"
+          }
+        },
+        "input": ["input"]
+      },
+      {
+        "name": "output",
+        "op": "Identity",
+        "input": ["classe_model"],
+        "attr": {
+          "T": {
+            "type": "DT_FLOAT"
+          }
+        }
+      }
+    ],
+    "library": {},
+    "versions": {}
+  },
+  "weightsManifest": [
+    {
+      "paths": ["../classe.pth"],
+      "weights": []
+    }
+  ]
+} 
