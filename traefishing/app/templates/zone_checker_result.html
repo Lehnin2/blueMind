@@ -1,0 +1,308 @@
+{% extends "base.html" %}
+
+{% block head %}
+<style>
+    .result-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .map-section {
+        background: linear-gradient(135deg, rgba(0, 50, 50, 0.8), rgba(0, 30, 60, 0.8));
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        height: 600px;
+    }
+
+    .results-section {
+        background: linear-gradient(135deg, rgba(0, 50, 50, 0.8), rgba(0, 30, 60, 0.8));
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        height: 600px;
+        overflow-y: auto;
+    }
+
+    .location-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .location-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .location-icon i {
+        font-size: 24px;
+        color: white;
+    }
+
+    .location-info h4 {
+        color: var(--accent-color);
+        margin: 0;
+        font-size: 1.4rem;
+    }
+
+    .location-coordinates {
+        color: var(--text-color);
+        opacity: 0.9;
+        margin-top: 5px;
+    }
+
+    .region-badge {
+        display: inline-block;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        animation: fadeIn 0.5s ease;
+    }
+
+    .zone-card {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-left: 4px solid transparent;
+        transition: all 0.3s ease;
+    }
+
+    .zone-card:hover {
+        transform: translateX(5px);
+    }
+
+    .zone-card.allowed {
+        border-left-color: #38ada9;
+    }
+
+    .zone-card.restricted {
+        border-left-color: #e74c3c;
+    }
+
+    .zone-card h6 {
+        color: var(--accent-color);
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+    }
+
+    .zone-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+    }
+
+    .protected-area-card {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-left: 4px solid;
+        transition: all 0.3s ease;
+    }
+
+    .protected-area-card.near {
+        border-left-color: #e74c3c;
+    }
+
+    .protected-area-card.moderate {
+        border-left-color: #f1c40f;
+    }
+
+    .protected-area-card.far {
+        border-left-color: #38ada9;
+    }
+
+    .protected-area-card h6 {
+        color: var(--accent-color);
+        margin-bottom: 5px;
+    }
+
+    .protected-area-distance {
+        font-size: 0.9rem;
+        color: var(--text-color);
+        opacity: 0.9;
+    }
+
+    .summary-section {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    .summary-section h5 {
+        color: var(--accent-color);
+        margin-bottom: 15px;
+    }
+
+    .summary-content {
+        white-space: pre-line;
+        line-height: 1.6;
+        color: var(--text-color);
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .back-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+        color: white;
+        padding: 12px 24px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(56, 173, 169, 0.4);
+        color: white;
+        text-decoration: none;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+        .result-container {
+            padding: 10px;
+        }
+
+        .map-section, .results-section {
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .location-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 10px;
+        }
+
+        .location-icon {
+            margin: 0 auto;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="result-container">
+    <div class="row">
+        <div class="col-lg-8 mb-4">
+            <div class="map-section">
+                {{ map | safe }}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="results-section">
+                <div class="location-header">
+                    <div class="location-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="location-info">
+                        <h4>Zone Check Results</h4>
+                        <div class="location-coordinates">
+                            <i class="fas fa-location-dot"></i> {{ lat }}, {{ lon }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="region-badge {% if results.three_zone == 'Land' %}bg-danger{% else %}bg-info{% endif %}">
+                    <i class="fas {% if results.three_zone == 'Land' %}fa-land-mine-on{% else %}fa-water{% endif %}"></i>
+                    Region: {{ results.three_zone }}
+                </div>
+
+                <h5 class="text-accent mb-3">Fishing Regulations</h5>
+                <div class="zones-list">
+                    <div class="zone-card {% if '✅' in results.light_blue_zone %}allowed{% else %}restricted{% endif %}">
+                        <h6><i class="fas fa-fish"></i> Light Blue Zone</h6>
+                        <div class="zone-status">
+                            <i class="fas {% if '✅' in results.light_blue_zone %}fa-check-circle text-success{% else %}fa-times-circle text-danger{% endif %}"></i>
+                            {{ results.light_blue_zone }}
+                        </div>
+                    </div>
+
+                    <div class="zone-card {% if '✅' in results.blue_zone %}allowed{% else %}restricted{% endif %}">
+                        <h6><i class="fas fa-fire"></i> Blue Zone</h6>
+                        <div class="zone-status">
+                            <i class="fas {% if '✅' in results.blue_zone %}fa-check-circle text-success{% else %}fa-times-circle text-danger{% endif %}"></i>
+                            {{ results.blue_zone }}
+                        </div>
+                    </div>
+
+                    <div class="zone-card {% if '✅' in results.green_zone %}allowed{% else %}restricted{% endif %}">
+                        <h6><i class="fas fa-fish"></i> Green Zone</h6>
+                        <div class="zone-status">
+                            <i class="fas {% if '✅' in results.green_zone %}fa-check-circle text-success{% else %}fa-times-circle text-danger{% endif %}"></i>
+                            {{ results.green_zone }}
+                        </div>
+                    </div>
+
+                    <div class="zone-card {% if '✅' in results.purple_zone %}allowed{% else %}restricted{% endif %}">
+                        <h6><i class="fas fa-fish"></i> Purple Zone</h6>
+                        <div class="zone-status">
+                            <i class="fas {% if '✅' in results.purple_zone %}fa-check-circle text-success{% else %}fa-times-circle text-danger{% endif %}"></i>
+                            {{ results.purple_zone }}
+                        </div>
+                    </div>
+
+                    <div class="zone-card {% if '✅' in results.orange_zone %}allowed{% else %}restricted{% endif %}">
+                        <h6><i class="fas fa-ship"></i> Orange Zone</h6>
+                        <div class="zone-status">
+                            <i class="fas {% if '✅' in results.orange_zone %}fa-check-circle text-success{% else %}fa-times-circle text-danger{% endif %}"></i>
+                            {{ results.orange_zone }}
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="text-accent mt-4 mb-3">Protected Areas</h5>
+                <div class="protected-areas-list">
+                    {% for area in results.protected_areas %}
+                    <div class="protected-area-card {{ area.proximity }}">
+                        <h6>{{ area.name }}</h6>
+                        <div class="protected-area-distance">
+                            <i class="fas fa-ruler-horizontal"></i> {{ area.distance_km }} km
+                            <span class="badge {% if area.proximity == 'near' %}bg-danger{% elif area.proximity == 'moderate' %}bg-warning{% else %}bg-success{% endif %}">
+                                {{ area.proximity }}
+                            </span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="summary-section">
+                    <h5><i class="fas fa-clipboard-list"></i> Summary</h5>
+                    <div class="summary-content">{{ summary }}</div>
+                </div>
+
+                <a href="/zone-checker" class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                    Vérifier une autre zone
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

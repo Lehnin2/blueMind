@@ -1,0 +1,598 @@
+{
+  "docstore": {
+    "0": {
+      "page_content": "Zone: Ports et leurs chenaux d’accès, Restriction: Pêche interdite, sauf plaisance à la ligne (max 2 hameçons), Article: 25, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "zone",
+        "zone": "Ports et leurs chenaux d’accès",
+        "restriction": "Pêche interdite, sauf plaisance à la ligne (max 2 hameçons)",
+        "article": 25,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "1": {
+      "page_content": "Zone: Littoral, lacs, lagunes ou retenues d’eau avec pêcheries fixes, Restriction: Pêche interdite à moins de 500 m des pêcheries fixes, Article: 25, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "zone",
+        "zone": "Littoral, lacs, lagunes ou retenues d’eau avec pêcheries fixes",
+        "restriction": "Pêche interdite à moins de 500 m des pêcheries fixes",
+        "article": 25,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "2": {
+      "page_content": "Zone: Zones de protection délimitées par autorisations d’exploitation, Restriction: Pêche interdite, étendue selon autorisations, Article: 25, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "zone",
+        "zone": "Zones de protection délimitées par autorisations d’exploitation",
+        "restriction": "Pêche interdite, étendue selon autorisations",
+        "article": 25,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "3": {
+      "page_content": "Zone: Îles Zembra et Zembretta, Restriction: Pêche interdite à moins de 1,5 mile, Article: 25, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "zone",
+        "zone": "Îles Zembra et Zembretta",
+        "restriction": "Pêche interdite à moins de 1,5 mile",
+        "article": 25,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "4": {
+      "page_content": "Zone: Îles de la Galite et du Galiton, Restriction: Pêche interdite à moins de 1,5 mile, Article: 25, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "zone",
+        "zone": "Îles de la Galite et du Galiton",
+        "restriction": "Pêche interdite à moins de 1,5 mile",
+        "article": 25,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "5": {
+      "page_content": "Zone: Puits pétroliers, Restriction: Pêche interdite à moins de 500 m, Article: 25, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "zone",
+        "zone": "Puits pétroliers",
+        "restriction": "Pêche interdite à moins de 500 m",
+        "article": 25,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "6": {
+      "page_content": "Zone: Oued Tindja et lac de Bizerte, Restriction: Pêche aux filets, lignes et à pied interdite dans evtun rayon de 2000 m de l’embouchure, Article: 26, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "zone",
+        "zone": "Oued Tindja et lac de Bizerte",
+        "restriction": "Pêche aux filets, lignes et à pied interdite dans un rayon de 2000 m de l’embouchure",
+        "article": 26,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "7": {
+      "page_content": "Zone: Littoral de Carthage, Restriction: Pêche interdite entre Borj Ouled Lara et Borj Mustapha Ben Ismail, jusqu’à 500 m en mer, Article: 26, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "zone",
+        "zone": "Littoral de Carthage",
+        "restriction": "Pêche interdite entre Borj Ouled Lara et Borj Mustapha Ben Ismail, jusqu’à 500 m en mer",
+        "article": 26,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "8": {
+      "page_content": "Zone: Entre la laisse de basse mer et 3 miles au large, Restriction: Pêche aux filets traînants interdite, Article: 27, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "zone",
+        "zone": "Entre la laisse de basse mer et 3 miles au large",
+        "restriction": "Pêche aux filets traînants interdite",
+        "article": 27,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "9": {
+      "page_content": "Zone: Île Kuriat et bancs de Korba, Nabeul, Maamour, Restriction: Pêche aux filets traînants interdite par fonds inférieurs à 50 m, Article: 27, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "zone",
+        "zone": "Île Kuriat et bancs de Korba, Nabeul, Maamour",
+        "restriction": "Pêche aux filets traînants interdite par fonds inférieurs à 50 m",
+        "article": 27,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "10": {
+      "page_content": "Zone: Golfe de Tunis, Restriction: Pêche aux filets traînants interdite du 01-03 au 31-12 en deçà de la ligne Sidi Ali El Mekki - Île Plane - Zembra - Cap Bon, sauf chalutage janvier-février if depth > 50 m, Article: 27, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "zone",
+        "zone": "Golfe de Tunis",
+        "restriction": "Pêche aux filets traînants interdite du 01-03 au 31-12 en deçà de la ligne Sidi Ali El Mekki - Île Plane - Zembra - Cap Bon, sauf chalutage janvier-février if depth > 50 m",
+        "periode": {
+          "debut": "01-03",
+          "fin": "31-12"
+        },
+        "exception": {
+          "type": "chalutage",
+          "periode": {
+            "debut": "01-07",
+            "fin": "28-02"
+          },
+          "profondeur": "> 50 m"
+        },
+        "article": 27,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "11": {
+      "page_content": "Zone: Sud du parallèle de Ras Kapoudia, Restriction: Pêche aux filets traînants interdite par fonds inférieurs à 50 m, sauf campagne crevette, Article: 27, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "zone",
+        "zone": "Sud du parallèle de Ras Kapoudia",
+        "restriction": "Pêche aux filets traînants interdite par fonds inférieurs à 50 m, sauf campagne crevette",
+        "article": 27,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "12": {
+      "page_content": "Zone: Fonds inférieurs à 20 m, Restriction: Pêche aux filets tournants interdite, Article: 28, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "zone",
+        "zone": "Fonds inférieurs à 20 m",
+        "restriction": "Pêche aux filets tournants interdite",
+        "article": 28,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "13": {
+      "page_content": "Zone: Fonds inférieurs à 35 m, Restriction: Pêche au feu interdite, Article: 29, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "zone",
+        "zone": "Fonds inférieurs à 35 m",
+        "restriction": "Pêche au feu interdite",
+        "article": 29,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "14": {
+      "page_content": "Zone: Fonds inférieurs à 20 m, Restriction: Pêche des éponges au scaphandre interdite, Article: 30, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "zone",
+        "zone": "Fonds inférieurs à 20 m",
+        "restriction": "Pêche des éponges au scaphandre interdite",
+        "article": 30,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "15": {
+      "page_content": "Zone: Baie de Bizerte, Restriction: Pêche au corail interdite en deçà de la ligne Cap Zébib - Cap Blanc, Article: 31, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "zone",
+        "zone": "Baie de Bizerte",
+        "restriction": "Pêche au corail interdite en deçà de la ligne Cap Zébib - Cap Blanc",
+        "article": 31,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "16": {
+      "page_content": "Zone: Îles Cani, Restriction: Pêche au corail interdite par fonds inférieurs à 50 m, Article: 31, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "zone",
+        "zone": "Îles Cani",
+        "restriction": "Pêche au corail interdite par fonds inférieurs à 50 m",
+        "article": 31,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "17": {
+      "page_content": "Species: langoustes, homards, cigales, maia, Period: 15-09 to 28-02, Restriction: Fishing prohibited, Article: 33, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "period",
+        "especes": [
+          "langoustes",
+          "homards",
+          "cigales",
+          "maia"
+        ],
+        "periode": {
+          "debut": "15-09",
+          "fin": "28-02"
+        },
+        "restriction": "Fishing prohibited",
+        "article": 33,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "18": {
+      "page_content": "Type: éponges au scaphandre, Period: 01-04 to 31-05, Restriction: Fishing prohibited, Article: 32, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "éponges au scaphandre",
+        "periode": {
+          "debut": "01-04",
+          "fin": "31-05"
+        },
+        "restriction": "Fishing prohibited",
+        "article": 32,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "19": {
+      "page_content": "Zone: Golfe de Tunis, Type: filets traînants, Period: 01-03 to 31-12, Restriction: Fishing prohibited, Exception: Chalutage allowed 01-01 to 28-02 if depth > 50 m, Article: 27, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "filets traînants",
+        "zone": "Golfe de Tunis",
+        "periode": {
+          "debut": "01-03",
+          "fin": "31-12"
+        },
+        "restriction": "Fishing prohibited",
+        "exception": {
+          "type": "chalutage",
+          "periode": {
+            "debut": "01-01",
+            "fin": "28-02"
+          },
+          "profondeur": "> 50 m"
+        },
+        "article": 27,
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "20": {
+      "page_content": "Gear: kiss, Description: Filet traînant benthique ou semi-pélagique, Restriction: Prohibited, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "gear",
+        "engin": "kiss",
+        "description": "Filet traînant benthique ou semi-pélagique",
+        "restriction": "Prohibited",
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "21": {
+      "page_content": "Gear: senne (hlig et tilla), Description: Filets traînants de plage, 400-600 m, faible profondeur, Restriction: Prohibited, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "gear",
+        "engin": "senne (hlig et tilla)",
+        "description": "Filets traînants de plage, 400-600 m, faible profondeur",
+        "restriction": "Prohibited",
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "22": {
+      "page_content": "Gear: armes à feu, Description: Interdit pour la pêche, Restriction: Prohibited, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "gear",
+        "engin": "armes à feu",
+        "description": "Interdit pour la pêche",
+        "restriction": "Prohibited",
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "23": {
+      "page_content": "Gear: explosifs, Description: Interdit pour la pêche, Restriction: Prohibited, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "gear",
+        "engin": "explosifs",
+        "description": "Interdit pour la pêche",
+        "restriction": "Prohibited",
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "24": {
+      "page_content": "Gear: produits chimiques, Description: Interdit pour la pêche, Restriction: Prohibited, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "gear",
+        "engin": "produits chimiques",
+        "description": "Interdit pour la pêche",
+        "restriction": "Prohibited",
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "25": {
+      "page_content": "Gear: feu, Description: Interdit sauf pour poissons migrateurs, Restriction: Prohibited with exceptions, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "gear",
+        "engin": "feu",
+        "description": "Interdit sauf pour poissons migrateurs",
+        "restriction": "Prohibited with exceptions",
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "26": {
+      "page_content": "Method: trouble_eau, Description: Interdit de troubler l’eau pour capturer, Restriction: Prohibited, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "method",
+        "methode": "trouble_eau",
+        "description": "Interdit de troubler l’eau pour capturer",
+        "restriction": "Prohibited",
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "27": {
+      "page_content": "Gear: barrages_oueds, Description: Interdit à l’entrée/sortie des oueds, Restriction: Prohibited, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "gear",
+        "engin": "barrages_oueds",
+        "description": "Interdit à l’entrée/sortie des oueds",
+        "restriction": "Prohibited",
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "28": {
+      "page_content": "Gear: gangave_croix_st_andre, Description: Interdit pour la pêche au corail, Restriction: Prohibited, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "gear",
+        "engin": "gangave_croix_st_andre",
+        "description": "Interdit pour la pêche au corail",
+        "restriction": "Prohibited",
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "29": {
+      "page_content": "Article: 33, Infractions: Enfreindre article 3, Enfreindre article 10 (paragraphes 1, 2, 3), Sanctions: Emprisonnement 2 mois à 2 ans, Amende 1000 à 100000 dinars, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "penalty",
+        "article": 33,
+        "infractions": [
+          "Enfreindre article 3",
+          "Enfreindre article 10 (paragraphes 1, 2, 3)"
+        ],
+        "sanctions": {
+          "emprisonnement": {
+            "min": "2 mois",
+            "max": "2 ans"
+          },
+          "amende": {
+            "min": 1000,
+            "max": 100000,
+            "unite": "dinars"
+          }
+        },
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "30": {
+      "page_content": "Article: 34, Infractions: Pêche en zones/périodes interdites, Engins non conformes, Enfreindre articles 5, 9, 12 (alinéa 1), 13, 14, 23, Sanctions: Emprisonnement 1 mois à 1 an, Amende 200 à 10000 dinars, Alternative: Ou l’une des deux peines, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "penalty",
+        "article": 34,
+        "infractions": [
+          "Pêche en zones/périodes interdites",
+          "Engins non conformes",
+          "Enfreindre articles 5, 9, 12 (alinéa 1), 13, 14, 23"
+        ],
+        "sanctions": {
+          "emprisonnement": {
+            "min": "1 mois",
+            "max": "1 an"
+          },
+          "amende": {
+            "min": 200,
+            "max": 10000,
+            "unite": "dinars"
+          },
+          "alternative": "Ou l’une des deux peines"
+        },
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "31": {
+      "page_content": "Article: 35, Infractions: Enfreindre article 10 (paragraphes 4, 5, 6), Enfreindre articles 11, 19, 20, Sanctions: Emprisonnement 16 jours à 3 mois, Amende 100 à 5000 dinars, Alternative: Ou l’une des deux peines, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "penalty",
+        "article": 35,
+        "infractions": [
+          "Enfreindre article 10 (paragraphes 4, 5, 6)",
+          "Enfreindre articles 11, 19, 20"
+        ],
+        "sanctions": {
+          "emprisonnement": {
+            "min": "16 jours",
+            "max": "3 mois"
+          },
+          "amende": {
+            "min": 100,
+            "max": 5000,
+            "unite": "dinars"
+          },
+          "alternative": "Ou l’une des deux peines"
+        },
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "32": {
+      "page_content": "Article: 36, Infractions: Enfreindre articles 6, 7 (alinéas 2, 3), 12 (alinéa 2), 16, 17, 18, 21, 22, Non-respect des ordres des agents, Sanctions: Amende 100 à 2000 dinars, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "penalty",
+        "article": 36,
+        "infractions": [
+          "Enfreindre articles 6, 7 (alinéas 2, 3), 12 (alinéa 2), 16, 17, 18, 21, 22",
+          "Non-respect des ordres des agents"
+        ],
+        "sanctions": {
+          "amende": {
+            "min": 100,
+            "max": 2000,
+            "unite": "dinars"
+          }
+        },
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "33": {
+      "page_content": "Article: 37, Sanctions: Confiscation des produits, engins, unités pour infractions articles 33, 34, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "penalty",
+        "article": 37,
+        "sanctions": {
+          "action": "Confiscation des produits, engins, unités pour infractions articles 33, 34"
+        },
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "34": {
+      "page_content": "Article: 38, Sanctions: Peines doublées en cas de récidive, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "penalty",
+        "article": 38,
+        "sanctions": {
+          "action": "Peines doublées en cas de récidive"
+        },
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "35": {
+      "page_content": "Article: 39, Sanctions: Retrait provisoire ou définitif du permis de pêche, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "penalty",
+        "article": 39,
+        "sanctions": {
+          "action": "Retrait provisoire ou définitif du permis de pêche"
+        },
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "36": {
+      "page_content": "Type: palourde, Period: 01-10 to 14-05, Allowed: Fishing permitted, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "palourde",
+        "periode": {
+          "debut": "01-10",
+          "fin": "14-05"
+        },
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "37": {
+      "page_content": "Type: poulpes, Period: 15-10 to 15-05, Allowed: Fishing permitted, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "poulpes",
+        "periode": {
+          "debut": "15-10",
+          "fin": "15-05"
+        },
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "38": {
+      "page_content": "Type: crevette_golfe_gabes, Periods: 16-10 to 30-11 and 15-05 to 30-06, Method: filets traînants, Allowed: Fishing permitted, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "crevette_golfe_gabes",
+        "periodes": [
+          {
+            "debut": "16-10",
+            "fin": "30-11"
+          },
+          {
+            "debut": "15-05",
+            "fin": "30-06"
+          }
+        ],
+        "methode": "filets traînants",
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "39": {
+      "page_content": "Type: serres, Period: 01-05 to 31-08, Method: senne tournante, Allowed: Fishing permitted, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "serres",
+        "periode": {
+          "debut": "01-05",
+          "fin": "31-08"
+        },
+        "methode": "senne tournante",
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "40": {
+      "page_content": "Type: thons_rouges, Period: 16-05 to 14-06, Allowed: Fishing permitted, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "thons_rouges",
+        "periode": {
+          "debut": "16-05",
+          "fin": "14-06"
+        },
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "41": {
+      "page_content": "Type: eponges_plongee, Period: 01-06 to 28-02, Allowed: Fishing permitted, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "eponges_plongee",
+        "periode": {
+          "debut": "01-06",
+          "fin": "28-02"
+        },
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "42": {
+      "page_content": "Type: langouste, Zone: eaux_tunisiennes, Period: 01-03 to 15-07, Allowed: Fishing permitted, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "langouste",
+        "zone": "eaux_tunisiennes",
+        "periode": {
+          "debut": "01-03",
+          "fin": "15-07"
+        },
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    },
+    "43": {
+      "page_content": "Type: langouste, Zone: eaux_internationales, Period: 01-03 to 15-09, Allowed: Fishing permitted, Source: Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975",
+      "metadata": {
+        "type": "langouste",
+        "zone": "eaux_internationales",
+        "periode": {
+          "debut": "01-03",
+          "fin": "15-09"
+        },
+        "source": "Loi n° 75-17 du 31 mars 1975, Journal Officiel de la République Tunisienne, 1er avril 1975"
+      }
+    }
+  },
+  "index_to_docstore_id": {
+    "0": "0",
+    "1": "1",
+    "2": "2",
+    "3": "3",
+    "4": "4",
+    "5": "5",
+    "6": "6",
+    "7": "7",
+    "8": "8",
+    "9": "9",
+    "10": "10",
+    "11": "11",
+    "12": "12",
+    "13": "13",
+    "14": "14",
+    "15": "15",
+    "16": "16",
+    "17": "17",
+    "18": "18",
+    "19": "19",
+    "20": "20",
+    "21": "21",
+    "22": "22",
+    "23": "23",
+    "24": "24",
+    "25": "25",
+    "26": "26",
+    "27": "27",
+    "28": "28",
+    "29": "29",
+    "30": "30",
+    "31": "31",
+    "32": "32",
+    "33": "33",
+    "34": "34",
+    "35": "35",
+    "36": "36",
+    "37": "37",
+    "38": "38",
+    "39": "39",
+    "40": "40",
+    "41": "41",
+    "42": "42",
+    "43": "43"
+  }
+}

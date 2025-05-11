@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Ports - {{ governorate }}{% endblock %}
+
+{% block head %}
+<style>
+    .ports-container {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 20px;
+    }
+    .ports-list {
+        background-color: rgba(0, 50, 50, 0.7);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .port-item {
+        padding: 15px;
+        margin-bottom: 10px;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .port-item:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: translateY(-3px);
+    }
+    .port-name {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: var(--accent-color);
+    }
+    .port-details {
+        font-size: 0.9em;
+        color: var(--text-color);
+    }
+    .port-coords {
+        font-size: 0.8em;
+        color: #8adbdb;
+        margin-top: 5px;
+    }
+    .map-container {
+        height: 70vh;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .governorate-selector {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .governorate-btn {
+        padding: 8px 15px;
+        background-color: rgba(0, 50, 50, 0.7);
+        border-radius: 20px;
+        text-decoration: none;
+        color: var(--text-color);
+        font-size: 0.9em;
+        transition: all 0.3s ease;
+    }
+    .governorate-btn:hover {
+        background-color: rgba(56, 173, 169, 0.5);
+    }
+    .governorate-btn.active {
+        background-color: var(--accent-color);
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-card">
+    <div class="card-header">
+        <h2>Ports in {{ governorate }}</h2>
+    </div>
+    <div class="card-content">
+        <div class="governorate-selector">
+            <a href="/map" class="governorate-btn {% if governorate == 'All Tunisia' %}active{% endif %}">All Tunisia</a>
+            <a href="/ports/Tunis" class="governorate-btn {% if governorate == 'Tunis' %}active{% endif %}">Tunis</a>
+            <a href="/ports/Bizerte" class="governorate-btn {% if governorate == 'Bizerte' %}active{% endif %}">Bizerte</a>
+            <a href="/ports/Sousse" class="governorate-btn {% if governorate == 'Sousse' %}active{% endif %}">Sousse</a>
+            <a href="/ports/Sfax" class="governorate-btn {% if governorate == 'Sfax' %}active{% endif %}">Sfax</a>
+            <a href="/ports/Gabes" class="governorate-btn {% if governorate == 'Gabes' %}active{% endif %}">Gabes</a>
+            <a href="/ports/Medenine" class="governorate-btn {% if governorate == 'Medenine' %}active{% endif %}">Medenine</a>
+            <a href="/ports/Monastir" class="governorate-btn {% if governorate == 'Monastir' %}active{% endif %}">Monastir</a>
+            <a href="/ports/Mahdia" class="governorate-btn {% if governorate == 'Mahdia' %}active{% endif %}">Mahdia</a>
+            <a href="/ports/Jendouba" class="governorate-btn {% if governorate == 'Jendouba' %}active{% endif %}">Jendouba</a>
+        </div>
+        
+        <div class="ports-container">
+            <div class="ports-list">
+                {% if ports %}
+                    {% for port in ports %}
+                    <div class="port-item" data-lat="{{ port.lat }}" data-lon="{{ port.lon }}">
+                        <div class="port-name">{{ port.name }}</div>
+                        <div class="port-details">
+                            <div>Type: {{ port.type }}</div>
+                            <div>Facilities: {{ port.facilities }}</div>
+                        </div>
+                        <div class="port-coords">
+                            Coordinates: {{ port.lat }}°, {{ port.lon }}°
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="no-ports">
+                        No ports found in {{ governorate }}.
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="map-container">
+                {{ map | safe }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Highlight port on map when clicked in the list
+    document.querySelectorAll('.port-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const lat = parseFloat(this.dataset.lat);
+            const lon = parseFloat(this.dataset.lon);
+            
+            // This will work with the map that's already embedded via the template
+            // We're accessing the Leaflet map object through the iframe
+            const mapIframe = document.querySelector('.map-container iframe');
+            if (mapIframe && mapIframe.contentWindow) {
+                const leafletMap = mapIframe.contentWindow.document.querySelector('.leaflet-map-pane');
+                if (leafletMap) {
+                    // This is a simplified approach - in a real app you'd use postMessage
+                    // to communicate with the iframe or use a different approach
+                    mapIframe.contentWindow.location.href = `#map=${lat},${lon},13z`;
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

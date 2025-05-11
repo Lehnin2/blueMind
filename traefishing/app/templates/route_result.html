@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+
+{% block title %}Route Result{% endblock %}
+
+{% block head %}
+<style>
+    .map-container {
+        height: 60vh;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box;
+    }
+
+    .route-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box;
+    }
+
+    .info-card {
+        background-color: rgba(0, 50, 50, 0.7);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box;
+    }
+
+    .info-title {
+        font-size: 1.2em;
+        color: var(--accent-color);
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .info-value {
+        font-size: 2em;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    .info-unit {
+        font-size: 0.5em;
+        opacity: 0.7;
+    }
+
+    .waypoints-list {
+        max-height: 200px;
+        overflow-y: auto;
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box;
+    }
+
+    .waypoint-item {
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.9em;
+    }
+
+    .waypoint-item:last-child {
+        border-bottom: none;
+    }
+
+    .waypoint-coords {
+        font-size: 0.8em;
+        color: var(--accent-color);
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .action-buttons .btn {
+        padding: 10px 20px;
+        font-size: 1em;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .action-buttons .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(56, 173, 169, 0.6);
+    }
+
+    /* Ajustements pour mobile */
+    @media (max-width: 576px) {
+        .map-container {
+            height: 40vh; /* Reduced height for mobile */
+            margin-bottom: 15px;
+        }
+
+        .route-info {
+            grid-template-columns: 1fr; /* Stack cards vertically */
+            gap: 15px;
+        }
+
+        .info-card {
+            padding: 15px;
+        }
+
+        .info-title {
+            font-size: 1em; /* Smaller title on mobile */
+        }
+
+        .info-value {
+            font-size: 1.5em; /* Smaller value on mobile */
+        }
+
+        .info-unit {
+            font-size: 0.4em;
+        }
+
+        .info-card div {
+            font-size: 0.9em; /* Adjust text size in info cards */
+        }
+
+        .waypoints-list {
+            max-height: 30vh; /* Dynamic height based on viewport */
+        }
+
+        .waypoint-item {
+            font-size: 0.85em; /* Slightly smaller font for waypoints */
+            padding: 6px 8px;
+        }
+
+        .waypoint-coords {
+            font-size: 0.75em;
+        }
+
+        .action-buttons {
+            flex-direction: column; /* Stack buttons vertically */
+            gap: 8px;
+        }
+
+        .action-buttons .btn {
+            padding: 12px 15px;
+            font-size: 0.9em;
+            width: 100%; /* Full width buttons on mobile */
+            justify-content: center;
+        }
+
+        .dashboard-card {
+            padding: 10px; /* Reduced padding to make cards "thicker" */
+        }
+
+        .card-content {
+            padding: 10px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-card">
+    <div class="card-header">
+        <h2>Route Calculation Result</h2>
+    </div>
+    <div class="card-content">
+        <div class="map-container">
+            {{ map | safe }}
+        </div>
+        
+        <div class="route-info">
+            <div class="info-card">
+                <div class="info-title">Total Distance</div>
+                <div class="info-value">{{ distance }}<span class="info-unit">km</span></div>
+                <div>Estimated travel time: {{ (distance / 10)|round(1) }} hours at 10 knots</div>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-title">Route Details</div>
+                <div>
+                    <strong>Starting Point:</strong> {{ start_lat }}°, {{ start_lon }}°
+                </div>
+                <div>
+                    <strong>Destination:</strong> {{ end_lat }}°, {{ end_lon }}°
+                </div>
+                <div>
+                    <strong>Waypoints:</strong> {{ waypoints|length }}
+                </div>
+                <div>
+                    <strong>Route Type:</strong> Sea Route (Avoiding Land)
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-title">Navigation</div>
+                <div class="action-buttons">
+                    <a href="/route-planner" class="btn btn-primary">
+                        <i class="fas fa-route"></i> New Route
+                    </a>
+                    <a href="#" class="btn btn-primary" onclick="window.print()">
+                        <i class="fas fa-print"></i> Print
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="dashboard-card" style="margin-top: 20px;">
+            <div class="card-header">
+                <h2>Waypoints de l'algorithme A*</h2>
+            </div>
+            <div class="card-content">
+                <div class="waypoints-list">
+                    {% for point in waypoints %}
+                    <div class="waypoint-item">
+                        <strong>Waypoint {{ loop.index }}:</strong>
+                        <span class="waypoint-coords">{{ point.lat }}°, {{ point.lon }}°</span>
+                        {% if loop.index == 1 %}
+                        <span class="waypoint-type">(Point de départ)</span>
+                        {% elif loop.index == waypoints|length %}
+                        <span class="waypoint-type">(Destination)</span>
+                        {% elif "port" in point.name|lower %}
+                        <span class="waypoint-type" style="color: orange;">(Port: {{ point.name }})</span>
+                        {% else %}
+                        <span class="waypoint-type" style="color: #38ada9;">(Point de navigation A*)</span>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                <div style="margin-top: 15px; font-style: italic; color: var(--accent-color);">
+                    <i class="fas fa-info-circle"></i> Ces points sont générés par l'algorithme A* pour créer un itinéraire optimal évitant les obstacles.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

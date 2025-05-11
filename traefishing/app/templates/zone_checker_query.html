@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zone Checker Query</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Zone Checker - Natural Language Query</h1>
+    </header>
+    <main>
+        <form method="post" action="/zone-checker/query">
+            <label for="query">Enter your query:</label>
+            <textarea id="query" name="query" rows="4" cols="50" placeholder="e.g., Is fishing allowed at latitude 36.8 and longitude 10.2?"></textarea>
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if error %}
+        <div class="error">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+
+        {% if query and response %}
+        <div class="result">
+            <h2>Query:</h2>
+            <p>{{ query }}</p>
+
+            <h2>Response:</h2>
+            <p>{{ response }}</p>
+        </div>
+        {% endif %}
+    </main>
+    <footer>
+        <p>&copy; 2025 Tunisian Fisherman Dashboard</p>
+    </footer>
+</body>
+</html>

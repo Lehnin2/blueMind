@@ -1,0 +1,692 @@
+{% extends "base.html" %}
+
+{% block title %}Si Lba7ri AI Assistant{% endblock %}
+
+{% block head %}
+<style>
+    .chatbot-container {
+        display: flex;
+        flex-direction: column;
+        height: 80vh;
+        background-color: rgba(0, 50, 50, 0.7);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .chat-header {
+        padding: 15px 20px;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .chat-header h2 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: 0;
+    }
+    
+    .chat-header .bot-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--accent-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+    }
+    
+    .chat-header .bot-avatar i {
+        color: white;
+        font-size: 20px;
+    }
+    
+    .language-selector {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .language-selector select {
+        padding: 5px;
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.3);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .chat-messages {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .message {
+        max-width: 80%;
+        padding: 12px 15px;
+        border-radius: 10px;
+        position: relative;
+        animation: fadeIn 0.3s ease;
+        line-height: 1.5;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .user-message {
+        align-self: flex-end;
+        background-color: var(--accent-color);
+        color: white;
+        border-bottom-right-radius: 0;
+    }
+    
+    .bot-message {
+        align-self: flex-start;
+        background-color: rgba(0, 0, 0, 0.2);
+        color: var(--text-color);
+        border-bottom-left-radius: 0;
+    }
+    
+    /* Markdown-specific styles */
+    .bot-message h2, .bot-message h3 {
+        font-weight: bold;
+        margin: 15px 0 10px;
+        font-size: 1.2rem;
+    }
+    
+    .bot-message ul {
+        list-style-type: disc;
+        margin: 10px 0;
+        padding-left: 20px;
+    }
+    
+    .bot-message li {
+        margin-bottom: 8px;
+    }
+    
+    .bot-message p {
+        margin: 10px 0;
+    }
+    
+    .bot-message strong {
+        font-weight: bold;
+    }
+    
+    .message-time {
+        font-size: 0.7rem;
+        opacity: 0.7;
+        margin-top: 5px;
+        text-align: right;
+    }
+    
+    .chat-input {
+        padding: 10px 15px;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .chat-input textarea {
+        width: 100%; /* Ensure full width */
+        padding: 12px 15px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background-color: rgba(0, 0, 0, 0.2);
+        color: var(--text-color);
+        font-size: 1rem;
+        resize: none;
+        min-height: 40px;
+        max-height: 150px;
+        overflow-y: auto;
+        line-height: 1.5;
+        box-sizing: border-box;
+    }
+    
+    .chat-input textarea:focus {
+        outline: none;
+        border-color: var(--accent-color);
+    }
+    
+    .chat-input-buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .chat-input-buttons .btn-group {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .chat-input button {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: none;
+        background-color: var(--accent-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .chat-input button:hover {
+        background-color: var(--secondary-color);
+        transform: scale(1.05);
+    }
+    
+    .chat-input button i {
+        font-size: 16px;
+    }
+    
+    .voice-active {
+        animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+    
+    #maritime-button {
+        background-color: var(--accent-color);
+    }
+    
+    #maritime-button.active {
+        background-color: #025aa5;
+        box-shadow: 0 0 5px #025aa5;
+    }
+    
+    /* Styles pour le bouton maritime */
+    #maritime-button {
+        background-color: var(--accent-color);
+    }
+    
+    #maritime-button.active {
+        background-color: #025aa5;
+        box-shadow: 0 0 5px #025aa5;
+    }
+    
+    .typing-indicator {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 10px 15px;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        align-self: flex-start;
+        margin-bottom: 10px;
+        opacity: 1;
+    }
+    
+    .typing-dot {
+        width: 8px;
+        height: 8px;
+        background-color: var(--accent-color);
+        border-radius: 50%;
+        animation: typingAnimation 1.5s infinite ease-in-out;
+    }
+    
+    .typing-dot:nth-child(1) { animation-delay: 0s; }
+    .typing-dot:nth-child(2) { animation-delay: 0.3s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.6s; }
+    
+    @keyframes typingAnimation {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+
+    /* Ajustements pour mobile */
+    @media (max-width: 576px) {
+        .chatbot-container {
+            height: 85vh; /* Slightly taller on mobile for better usability */
+        }
+
+        .chat-header {
+            padding: 10px 15px;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-header h2 {
+            font-size: 1rem;
+        }
+
+        .chat-header .bot-avatar {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .chat-header .bot-avatar i {
+            font-size: 16px;
+        }
+
+        .language-selector {
+            justify-content: center;
+        }
+
+        .language-selector select {
+            font-size: 0.9rem;
+        }
+
+        .chat-messages {
+            padding: 15px;
+        }
+
+        .message {
+            max-width: 90%; /* Slightly wider messages on mobile */
+            padding: 10px 12px;
+            font-size: 0.9rem;
+        }
+
+        .message-time {
+            font-size: 0.6rem;
+        }
+
+        .chat-input {
+            padding: 8px 10px;
+            gap: 8px;
+        }
+
+        .chat-input textarea {
+            padding: 10px;
+            font-size: 0.9rem;
+            border-radius: 15px;
+        }
+
+        .chat-input-buttons {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .chat-input button {
+            width: 35px;
+            height: 35px;
+        }
+
+        .chat-input button i {
+            font-size: 14px;
+        }
+
+        /* Les styles du toggle switch ont été supprimés */
+
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-card">
+    <div class="card-header">
+        <h2>Si Lba7ri AI Assistant</h2>
+    </div>
+    <div class="card-content">
+        <div class="chatbot-container">
+            <div class="chat-header">
+                <div style="display: flex; align-items: center;">
+                    <div class="bot-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h2>Si Lba7ri Assistant</h2>
+                </div>
+                <div class="language-selector">
+                    <label for="language-select">Language:</label>
+                    <select id="language-select">
+                        <option value="ar-TN" selected>Tunisien</option>
+                        <option value="en-US">English</option>
+                        <option value="it-IT">Italien</option>
+                        <option value="fr-FR">French</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="chat-messages" id="chat-messages">
+                <div class="message bot-message" id="welcome-message">
+                    Salaam! Ana Si Lba7ri, l-assistant mte3ek. Njam nsa3dek b-m3lumat 3al position mte3ek, l-3omq, l-mra7el l-qriba, w akther. Chnuwa nsa3dek bih l-yum?
+                    <div class="message-time">Just now</div>
+                </div>
+            </div>
+            
+            <div class="chat-input">
+                <textarea id="user-input" placeholder="Kteb message hni..." autocomplete="off"></textarea>
+                <div class="chat-input-buttons">
+                    <div class="btn-group">
+                        <button id="send-btn" title="Send message">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                        <button id="start-voice-btn" title="Voice input">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <button id="stop-voice-btn" title="Stop voice input" style="display:none;">
+                            <i class="fas fa-stop"></i>
+                        </button>
+                        <button id="tts-btn" title="Toggle Text-to-Speech">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <button id="maritime-button" title="Activer/désactiver le mode maritime">
+                            <i class="fas fa-ship"></i>
+                        </button>
+                    </div>
+                </div>
+                <small id="voice-status" class="form-text text-muted"></small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const chatMessages = document.getElementById('chat-messages');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const startVoiceBtn = document.getElementById('start-voice-btn');
+        const stopVoiceBtn = document.getElementById('stop-voice-btn');
+        const ttsBtn = document.getElementById('tts-btn');
+        const languageSelect = document.getElementById('language-select');
+        const welcomeMessage = document.getElementById('welcome-message');
+        const voiceStatus = document.getElementById('voice-status');
+        const maritimeButton = document.getElementById('maritime-button');
+        
+        let isTTSEnabled = false; // TTS désactivé par défaut
+        let recognition = null;
+        let useMaritimeAgent = false;
+        
+        // Welcome messages by language
+        const welcomeMessages = {
+            'ar-TN': 'Salaam! Ana Si Lba7ri, l-assistant mte3ek. Njam nsa3dek b-m3lumat 3al position mte3ek, l-3omq, l-mra7el l-qriba, w akther. Chnuwa nsa3dek bih l-yum?',
+            'en-US': 'Hello! I\'m Si Lba7ri, your assistant. I can help with info about your location, depth, nearby ports, and more. How can I assist you today?',
+            'it-IT': 'Ciao! Sono Si Lba7ri, il tuo assistente. Posso aiutarti con informazioni sulla tua posizione, profondità, porti vicini e altro. Come posso aiutarti oggi?',
+            'fr-FR': 'Bonjour ! Je suis Si Lba7ri, votre assistant. Je peux vous aider avec des informations sur votre position, la profondeur, les ports à proximité et plus encore. Comment puis-je vous aider aujourd\'hui ?'
+        };
+
+        // Initialize Web Speech API
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRecognition) {
+            // Créer l'objet de reconnaissance mais ne pas le démarrer automatiquement
+            recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = languageSelect.value;
+            
+            // Set initial language
+            languageSelect.addEventListener('change', () => {
+                recognition.lang = languageSelect.value;
+                welcomeMessage.firstChild.textContent = welcomeMessages[languageSelect.value];
+            });
+        } else {
+            startVoiceBtn.disabled = true;
+            startVoiceBtn.title = languageSelect.value === 'ar-TN' 
+                ? 'Reconnaissance vocale non supportée'
+                : 'Voice input not supported in this browser';
+            stopVoiceBtn.style.display = 'none';
+        }
+        
+        // Auto-resize textarea
+        function resizeTextarea() {
+            userInput.style.height = 'auto';
+            userInput.style.height = `${Math.min(userInput.scrollHeight, 150)}px`;
+        }
+        
+        userInput.addEventListener('input', resizeTextarea);
+        resizeTextarea();
+        
+        // Function to add a message to the chat
+        function addMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = isUser ? 'message user-message' : 'message bot-message';
+            
+            // For user messages, escape HTML; for bot messages, parse markdown
+            const formattedText = isUser 
+                ? text.replace(/</g, '<').replace(/>/g, '>').replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>')
+                : marked.parse(text);
+            
+            messageDiv.innerHTML = formattedText;
+            
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'message-time';
+            timeDiv.textContent = 'Just now';
+            messageDiv.appendChild(timeDiv);
+            
+            // Remove any existing typing indicator
+            const existingIndicator = chatMessages.querySelector('.typing-indicator');
+            if (existingIndicator) {
+                existingIndicator.remove();
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Speak bot message if TTS is enabled
+            if (!isUser && isTTSEnabled) {
+                speakMessage(text);
+            }
+            
+            // Définir l'heure réelle du message
+            const now = new Date();
+            const formattedTime = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            timeDiv.textContent = formattedTime;
+            
+            // Update time display every minute
+            setInterval(() => {
+                const currentTime = new Date();
+                const diff = currentTime - now;
+                
+                if (diff < 60000) {
+                    timeDiv.textContent = 'Just now';
+                } else if (diff < 3600000) {
+                    const minutes = Math.floor(diff / 60000);
+                    timeDiv.textContent = `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+                } else {
+                    const hours = Math.floor(diff / 3600000);
+                    timeDiv.textContent = `${hours} hour${hours > 1 ? 's' : ''} ago`;
+                }
+            }, 60000);
+        }
+        
+        // Function to show typing indicator
+        function showTypingIndicator() {
+            // Remove any existing typing indicator
+            const existingIndicator = chatMessages.querySelector('.typing-indicator');
+            if (existingIndicator) {
+                existingIndicator.remove();
+            }
+            
+            // Create new typing indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'typing-indicator';
+            typingIndicator.innerHTML = `
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            `;
+            
+            chatMessages.appendChild(typingIndicator);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Function to send message to the server
+        function sendMessage(message, useVoice = false) {
+            if (!message.trim()) return;
+            
+            addMessage(message, true);
+            
+            userInput.value = '';
+            resizeTextarea();
+            
+            showTypingIndicator();
+            
+            fetch('/api/chatbot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: message,
+                    voice: useVoice,
+                    language: languageSelect.value,
+                    force_maritime: useMaritimeAgent
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                setTimeout(() => {
+                    addMessage(data.text);
+                }, 1000);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                setTimeout(() => {
+                    const errorMessage = languageSelect.value === 'ar-TN' 
+                        ? 'Asif, 3andi mushkila fil traitement mte3 l-requête mte3ek.'
+                        : 'Sorry, I encountered an error while processing your request.';
+                    addMessage(errorMessage);
+                }, 1000);
+            });
+        }
+        
+        // Text-to-Speech function
+        function speakMessage(text) {
+            // Ne parle que si TTS est activé
+            if (isTTSEnabled) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = languageSelect.value;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+        
+        // Event listener for send button
+        sendBtn.addEventListener('click', () => {
+            sendMessage(userInput.value);
+        });
+        
+        // Event listener for keypress (Enter to send, Shift+Enter for newline)
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage(userInput.value);
+            }
+        });
+        
+        // Voice input functionality
+        if (recognition) {
+            let finalTranscript = '';
+            
+            startVoiceBtn.addEventListener('click', () => {
+                try {
+                    finalTranscript = '';
+                    recognition.start();
+                    startVoiceBtn.style.display = 'none';
+                    stopVoiceBtn.style.display = 'inline-block';
+                    userInput.placeholder = languageSelect.value === 'ar-TN' 
+                        ? 'Nsama3 fik...'
+                        : 'Listening...';
+                    voiceStatus.textContent = languageSelect.value === 'ar-TN' 
+                        ? 'Nsama3 fik... Tkallam tawa.'
+                        : 'Listening... Speak now.';
+                } catch (error) {
+                    console.error('Voice recognition error:', error);
+                    voiceStatus.textContent = languageSelect.value === 'ar-TN' 
+                        ? 'Khata2 fi tashkhis l-vocal.'
+                        : 'Voice recognition error.';
+                }
+            });
+            
+            stopVoiceBtn.addEventListener('click', () => {
+                recognition.stop();
+            });
+            
+            recognition.onresult = (event) => {
+                let interimTranscript = '';
+                
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        finalTranscript += event.results[i][0].transcript;
+                    } else {
+                        interimTranscript += event.results[i][0].transcript;
+                    }
+                }
+                
+                const currentText = userInput.value.split(' ').slice(0, -interimTranscript.split(' ').length).join(' ');
+                userInput.value = (currentText + ' ' + (finalTranscript + interimTranscript)).trim();
+                resizeTextarea();
+                voiceStatus.textContent = languageSelect.value === 'ar-TN' 
+                    ? `Fi tariq: ${interimTranscript}`
+                    : `In progress: ${interimTranscript}`;
+            };
+            
+            recognition.onend = () => {
+                if (finalTranscript.trim()) {
+                    const currentText = userInput.value.split(' ').slice(0, -finalTranscript.split(' ').length).join(' ');
+                    userInput.value = (currentText + ' ' + finalTranscript).trim();
+                    resizeTextarea();
+                    voiceStatus.textContent = languageSelect.value === 'ar-TN' 
+                        ? 'Transkripsion sala.'
+                        : 'Transcription completed.';
+                } else {
+                    voiceStatus.textContent = languageSelect.value === 'ar-TN' 
+                        ? 'Ma njamsh ntranskribi.'
+                        : 'No transcription detected.';
+                }
+                
+                startVoiceBtn.style.display = 'inline-block';
+                stopVoiceBtn.style.display = 'none';
+                userInput.placeholder = languageSelect.value === 'ar-TN' 
+                    ? 'Kteb message hni...'
+                    : 'Type your message here...';
+            };
+            
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                voiceStatus.textContent = languageSelect.value === 'ar-TN' 
+                    ? `Khata2: ${event.error}`
+                    : `Error: ${event.error}`;
+                
+                startVoiceBtn.style.display = 'inline-block';
+                stopVoiceBtn.style.display = 'none';
+                userInput.placeholder = languageSelect.value === 'ar-TN' 
+                    ? 'Kteb message hni...'
+                    : 'Type your message here...';
+            };
+        }
+        
+        // Toggle Text-to-Speech
+        ttsBtn.addEventListener('click', () => {
+            isTTSEnabled = !isTTSEnabled;
+            ttsBtn.style.backgroundColor = isTTSEnabled ? '#2ecc71' : 'var(--accent-color)';
+            ttsBtn.title = isTTSEnabled 
+                ? (languageSelect.value === 'ar-TN' ? 'Tfi 3al Text-to-Speech' : 'Disable Text-to-Speech')
+                : (languageSelect.value === 'ar-TN' ? 'Activi Text-to-Speech' : 'Enable Text-to-Speech');
+            
+            // Arrêter toute synthèse vocale en cours si désactivé
+            if (!isTTSEnabled) {
+                window.speechSynthesis.cancel();
+            }
+        });
+        
+        // Maritime agent toggle button
+        maritimeButton.addEventListener('click', function() {
+            useMaritimeAgent = !useMaritimeAgent;
+            maritimeButton.classList.toggle('active', useMaritimeAgent);
+            addMessage(useMaritimeAgent ? 
+                "Mode maritime activé. Je peux maintenant vous aider avec la navigation, les ports, et les informations maritimes." : 
+                "Mode standard activé. Comment puis-je vous aider?");
+        });
+    });
+</script>
+{% endblock %}

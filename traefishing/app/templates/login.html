@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block head %}
+<style>
+    .auth-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 30px;
+        background: linear-gradient(135deg, rgba(56, 173, 169, 0.1) 0%, rgba(29, 53, 87, 0.1) 100%);
+        border-radius: 15px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .auth-title {
+        color: var(--primary-color);
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 28px;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--text-color);
+        font-weight: 500;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid rgba(56, 173, 169, 0.3);
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.9);
+        color: var(--dark-text);
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(56, 173, 169, 0.2);
+        outline: none;
+    }
+
+    .btn-auth {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, var(--primary-color) 0%, #2c8c89 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+    }
+
+    .btn-auth:hover {
+        background: linear-gradient(135deg, #2c8c89 0%, var(--primary-color) 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(44, 140, 137, 0.4);
+    }
+
+    .auth-footer {
+        text-align: center;
+        margin-top: 25px;
+        color: var(--text-color);
+    }
+
+    .auth-footer a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .auth-footer a:hover {
+        text-decoration: underline;
+    }
+
+    .alert {
+        padding: 12px 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: none;
+    }
+
+    .alert-danger {
+        background-color: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+        border: 1px solid rgba(220, 53, 69, 0.2);
+    }
+
+    .alert-success {
+        background-color: rgba(40, 167, 69, 0.1);
+        color: #28a745;
+        border: 1px solid rgba(40, 167, 69, 0.2);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h2 class="auth-title">Connexion</h2>
+    
+    <div id="alert" class="alert"></div>
+    
+    <form id="loginForm">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        
+        <button type="submit" class="btn-auth">Se connecter</button>
+    </form>
+    
+    <div class="auth-footer">
+        Vous n'avez pas de compte? <a href="/register">S'inscrire</a>
+    </div>
+</div>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const alertEl = document.getElementById('alert');
+        
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+                // Succès de connexion
+                alertEl.className = 'alert alert-success';
+                alertEl.textContent = 'Connexion réussie! Redirection...';
+                alertEl.style.display = 'block';
+                
+                // Rediriger vers le dashboard après 1 seconde
+                setTimeout(() => {
+                    window.location.href = '/dashboard';
+                }, 1000);
+            } else {
+                // Erreur de connexion
+                alertEl.className = 'alert alert-danger';
+                alertEl.textContent = data.error || 'Erreur de connexion. Veuillez réessayer.';
+                alertEl.style.display = 'block';
+            }
+        } catch (error) {
+            alertEl.className = 'alert alert-danger';
+            alertEl.textContent = 'Erreur de connexion. Veuillez réessayer.';
+            alertEl.style.display = 'block';
+            console.error('Erreur:', error);
+        }
+    });
+</script>
+{% endblock %}

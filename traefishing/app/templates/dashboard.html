@@ -1,0 +1,1215 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block head %}
+{{ super() }}
+<script src="{{ url_for('static', path='js/local-data-simulator.js') }}"></script>
+<style>
+    /* Styles pour la carte de statut */
+    .status-card {
+        background: linear-gradient(135deg, #1a2a3a 0%, #0d1b2a 100%);
+        border: 1px solid rgba(56, 173, 169, 0.5);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .status-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .status-item {
+        background-color: rgba(0, 50, 50, 0.7);
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+    }
+    
+    .status-icon {
+        font-size: 2rem;
+        color: #38ada9;
+        margin-bottom: 10px;
+    }
+    
+    .status-label {
+        color: #8adbdb;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+    }
+    
+    .status-value {
+        color: #ffffff;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    
+    /* Styles pour la carte météo */
+    .weather-card {
+        background: linear-gradient(135deg, #1a2a3a 0%, #0d1b2a 100%);
+        border: 1px solid rgba(56, 173, 169, 0.5);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .current-weather {
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .weather-main {
+        margin-bottom: 20px;
+    }
+    
+    .weather-icon {
+        font-size: 3rem;
+        color: #f9ca24;
+        margin-bottom: 10px;
+    }
+    
+    .weather-temp {
+        font-size: 2.5rem;
+        color: #ffffff;
+        font-weight: bold;
+    }
+    
+    .weather-details {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 15px;
+    }
+    
+    .weather-item {
+        color: #8adbdb;
+    }
+    
+    .weather-item i {
+        margin-right: 5px;
+    }
+    
+    .weather-forecast {
+        padding: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Styles pour l'horloge numérique autonome */
+    .digital-clock-standalone {
+        background: linear-gradient(135deg, #1a2a3a 0%, #0d1b2a 100%);
+        border: 1px solid rgba(56, 173, 169, 0.5);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        border-radius: 15px;
+        margin: 20px;
+        padding: 15px;
+    }
+
+    @media (max-width: 768px) {
+        .digital-clock-standalone {
+            margin: 10px;
+            padding: 10px;
+        }
+
+        .digital-clock .time {
+            font-size: 2.5rem;
+        }
+
+        .digital-clock .date {
+            font-size: 1.2rem;
+        }
+
+        .digital-clock .day {
+            font-size: 1rem;
+        }
+    }
+
+    /* Styles spécifiques au dashboard */
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+    
+    /* Styles pour l'horloge numérique */
+    .digital-clock-card {
+        background: linear-gradient(135deg, #1a2a3a 0%, #0d1b2a 100%);
+        border: 1px solid rgba(56, 173, 169, 0.5);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .digital-clock {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .digital-clock .time {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #38ada9;
+        text-shadow: 0 0 10px rgba(56, 173, 169, 0.5);
+        margin-bottom: 10px;
+        font-family: 'Digital', monospace;
+    }
+    
+    .digital-clock .date {
+        font-size: 1.5rem;
+        color: #ffffff;
+        margin-bottom: 5px;
+    }
+    
+    .digital-clock .day {
+        font-size: 1.2rem;
+        color: #8adbdb;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    
+    /* Styles pour les données astronomiques */
+    .astronomy-card {
+        background: linear-gradient(135deg, #1e3a8a 0%, #0d1b2a 100%);
+        border: 1px solid rgba(56, 173, 169, 0.5);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .astronomy-data {
+        padding: 15px;
+    }
+    
+    .astronomy-location {
+        font-size: 1rem;
+        color: #8adbdb;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    
+    .astronomy-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .astronomy-item {
+        background-color: rgba(0, 50, 50, 0.7);
+        border-radius: 10px;
+        padding: 10px;
+        text-align: center;
+    }
+    
+    .astronomy-icon {
+        font-size: 1.5rem;
+        color: #f9ca24;
+        margin-bottom: 5px;
+    }
+    
+    .astronomy-label {
+        font-size: 0.8rem;
+        color: #8adbdb;
+        margin-bottom: 5px;
+    }
+    
+    .astronomy-value {
+        font-size: 1.2rem;
+        color: #ffffff;
+        font-weight: bold;
+    }
+    
+    .moon-phase {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 50, 50, 0.7);
+        border-radius: 10px;
+        padding: 10px;
+    }
+    
+    .moon-phase-label {
+        font-size: 0.9rem;
+        color: #8adbdb;
+        margin-right: 10px;
+    }
+    
+    .moon-phase-value {
+        font-size: 1.1rem;
+        color: #ffffff;
+        font-weight: bold;
+    }
+
+    .dashboard-card {
+        background: linear-gradient(135deg, rgba(0, 50, 50, 0.8), rgba(0, 30, 60, 0.8));
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Mobile Sidebar Styles */
+    @media (max-width: 768px) {
+        .sidebar {
+            position: fixed;
+            left: -250px;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .main-content {
+            margin-left: 0;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .main-content.shifted {
+            margin-left: 250px;
+        }
+
+        /* Overlay when menu is open */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+    }
+
+    .ai-assistant-card {
+        background: linear-gradient(135deg, #1a2a3a 0%, #0d1b2a 100%);
+        border: 1px solid rgba(56, 173, 169, 0.5);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .ai-assistant-card .card-header {
+        background-color: rgba(56, 173, 169, 0.2);
+        border-bottom: 1px solid rgba(56, 173, 169, 0.3);
+    }
+    
+    .ai-assistant-card .card-header h2 {
+        color: #38ada9;
+    }
+    
+    .ai-assistant-promo {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    
+    .ai-assistant-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #38ada9 0%, #2c8c89 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .ai-assistant-icon i {
+        font-size: 30px;
+        color: white;
+    }
+    
+    .ai-assistant-info h3 {
+        margin: 0 0 5px 0;
+        color: #38ada9;
+        font-size: 1.2rem;
+    }
+    
+    .ai-assistant-info p {
+        margin: 0 0 10px 0;
+        color: #ccc;
+        font-size: 0.9rem;
+    }
+    
+    .ai-features {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .ai-features li {
+        margin-bottom: 5px;
+        font-size: 0.85rem;
+        color: #aaa;
+    }
+    
+    .ai-features li i {
+        color: #38ada9;
+        margin-right: 5px;
+    }
+    
+    .ai-assistant-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #38ada9 0%, #2c8c89 100%);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(56, 173, 169, 0.4);
+    }
+    
+    .ai-assistant-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(56, 173, 169, 0.6);
+    }
+    
+    .ai-assistant-button i {
+        margin-right: 10px;
+        font-size: 1.1rem;
+    }
+    
+    .pulse-circle {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.4);
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0% {
+            transform: translateY(-50%) scale(1);
+            opacity: 1;
+        }
+        70% {
+            transform: translateY(-50%) scale(1.5);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(-50%) scale(1);
+            opacity: 0;
+        }
+    }
+
+    .zone-checker-card {
+        background: linear-gradient(135deg, #1e3a8a 0%, #0d1b2a 100%);
+        border: 1px solid rgba(56, 173, 169, 0.5);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .zone-checker-card .card-header {
+        background-color: rgba(56, 173, 169, 0.2);
+        border-bottom: 1px solid rgba(56, 173, 169, 0.3);
+    }
+    
+    .zone-checker-card .card-header h2 {
+        color: #38ada9;
+    }
+    
+    .zone-checker-promo {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    
+    .zone-checker-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #38ada9 0%, #2c8c89 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .zone-checker-icon i {
+        font-size: 30px;
+        color: white;
+    }
+    
+    .zone-checker-info h3 {
+        margin: 0 0 5px 0;
+        color: #38ada9;
+        font-size: 1.2rem;
+    }
+    
+    .zone-checker-info p {
+        margin: 0 0 10px 0;
+        color: #ccc;
+        font-size: 0.9rem;
+    }
+    
+    .zone-features {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .zone-features li {
+        margin-bottom: 5px;
+        font-size: 0.85rem;
+        color: #aaa;
+    }
+    
+    .zone-features li i {
+        color: #38ada9;
+        margin-right: 5px;
+    }
+    
+    .zone-checker-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #38ada9 0%, #2c8c89 100%);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(56, 173, 169, 0.4);
+    }
+    
+    .zone-checker-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(56, 173, 169, 0.6);
+    }
+    
+    .zone-checker-button i {
+        margin-right: 10px;
+        font-size: 1.1rem;
+    }
+
+    /* Ajout de styles pour l'expérience mobile */
+    @media (max-width: 768px) {
+        .compass {
+            width: 200px;
+            height: 200px;
+        }
+        
+        .compass-inner {
+            width: 180px;
+            height: 180px;
+        }
+        
+        .status-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .init-sensors-button:active {
+            transform: scale(0.95);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="digital-clock-standalone">
+    <div class="digital-clock">
+        <div class="time" id="digital-time">00:00:00</div>
+        <div class="date" id="digital-date">Chargement...</div>
+        <div class="day" id="digital-day">Chargement...</div>
+    </div>
+</div>
+
+<div class="dashboard-grid">
+    <div class="dashboard-card status-card">
+        <div class="card-header">
+            <h2><i class="fas fa-tachometer-alt"></i> Statut Actuel</h2>
+        </div>
+        <div class="card-content">
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="status-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    <div class="status-label">Vitesse</div>
+                    <div class="status-value" id="speed-value">-- km/h</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon"><i class="fas fa-water"></i></div>
+                    <div class="status-label">Profondeur</div>
+                    <div class="status-value" id="depth-value">-- m</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon"><i class="fas fa-wind"></i></div>
+                    <div class="status-label">Vent</div>
+                    <div class="status-value" id="wind-value">-- km/h</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon"><i class="fas fa-compass"></i></div>
+                    <div class="status-label">Cap</div>
+                    <div class="status-value" id="heading-value">--°</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-card weather-card">
+        <div class="card-header">
+            <h2><i class="fas fa-cloud-sun"></i> Météo</h2>
+        </div>
+        <div class="card-content">
+            <div class="current-weather">
+                <div class="weather-main">
+                    <div class="weather-icon" id="current-weather-icon">
+                        <i class="fas fa-cloud-sun"></i>
+                    </div>
+                    <div class="weather-temp" id="current-temp">--°C</div>
+                </div>
+                <div class="weather-details">
+                    <div class="weather-item">
+                        <i class="fas fa-tint"></i>
+                        <span id="humidity-value">--%</span>
+                    </div>
+                    <div class="weather-item">
+                        <i class="fas fa-wind"></i>
+                        <span id="wind-speed-value">-- km/h</span>
+                    </div>
+                </div>
+            </div>
+            <div class="weather-forecast" id="weather-forecast">
+                <!-- Les prévisions seront ajoutées dynamiquement ici -->
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="dashboard-card astronomy-card">
+        <div class="card-header">
+            <h2><i class="fas fa-moon"></i> Données Astronomiques</h2>
+        </div>
+        <div class="card-content">
+            <div class="astronomy-data">
+                <div class="astronomy-location" id="astronomy-location">Localisation: Chargement...</div>
+                <div class="astronomy-grid">
+                    <div class="astronomy-item">
+                        <div class="astronomy-icon"><i class="fas fa-sun"></i></div>
+                        <div class="astronomy-label">Lever du soleil</div>
+                        <div class="astronomy-value" id="sunrise-value">--:--</div>
+                    </div>
+                    <div class="astronomy-item">
+                        <div class="astronomy-icon"><i class="fas fa-sun fa-rotate-180"></i></div>
+                        <div class="astronomy-label">Coucher du soleil</div>
+                        <div class="astronomy-value" id="sunset-value">--:--</div>
+                    </div>
+                    <div class="astronomy-item">
+                        <div class="astronomy-icon"><i class="fas fa-moon"></i></div>
+                        <div class="astronomy-label">Lever de lune</div>
+                        <div class="astronomy-value" id="moonrise-value">--:--</div>
+                    </div>
+                    <div class="astronomy-item">
+                        <div class="astronomy-icon"><i class="fas fa-moon fa-rotate-180"></i></div>
+                        <div class="astronomy-label">Coucher de lune</div>
+                        <div class="astronomy-value" id="moonset-value">--:--</div>
+                    </div>
+                </div>
+                <div class="moon-phase">
+                    <div class="moon-phase-label">Phase lunaire:</div>
+                    <div class="moon-phase-value" id="moon-phase-value">--</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="dashboard-card">
+        <div class="card-header">
+            <h2>Quick Navigation</h2>
+        </div>
+        <div class="card-content">
+            <div class="quick-nav-grid">
+                <a href="/current-location" class="quick-nav-item">
+                    <i class="fas fa-location-arrow"></i>
+                    <span>Current Location</span>
+                </a>
+                <a href="/map" class="quick-nav-item">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Map View</span>
+                </a>
+                <a href="/depth" class="quick-nav-item">
+                    <i class="fas fa-water"></i>
+                    <span>Depth Calculator</span>
+                </a>
+                <a href="/route-planner" class="quick-nav-item">
+                    <i class="fas fa-route"></i>
+                    <span>Route Planner</span>
+                </a>
+                <a href="/protected-areas" class="quick-nav-item">
+                    <i class="fas fa-leaf"></i>
+                    <span>Protected Areas</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-card compass-card">
+        <div class="card-header">
+            <h2>Compass</h2>
+        </div>
+        <div class="card-content">
+            <div class="compass">
+                <div class="compass-inner" id="compass-inner">
+                    <div class="compass-mark compass-mark-n">N</div>
+                    <div class="compass-mark compass-mark-e">E</div>
+                    <div class="compass-mark compass-mark-s">S</div>
+                    <div class="compass-mark compass-mark-w">W</div>
+                    <div class="compass-needle">
+                        <div class="needle-north"></div>
+                        <div class="needle-south"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="dashboard-card ai-assistant-card">
+        <div class="card-header">
+            <h2><i class="fas fa-robot"></i> AI Assistant</h2>
+        </div>
+        <div class="card-content">
+            <div class="ai-assistant-promo">
+                <div class="ai-assistant-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="ai-assistant-info">
+                    <h3>TraeFishing AI</h3>
+                    <p>Votre assistant de navigation intelligent</p>
+                    <ul class="ai-features">
+                        <li><i class="fas fa-check-circle"></i> Information en temps réel</li>
+                        <li><i class="fas fa-check-circle"></i> Contrôle vocal</li>
+                        <li><i class="fas fa-check-circle"></i> Conseils de navigation</li>
+                    </ul>
+                </div>
+            </div>
+            <a href="/chatbot" class="ai-assistant-button">
+                <span class="pulse-circle"></span>
+                <i class="fas fa-microphone"></i> Parler à l'Assistant
+            </a>
+        </div>
+    </div>
+
+    <div class="dashboard-card zone-checker-card">
+        <div class="card-header">
+            <h2><i class="fas fa-map-marked"></i> Zone Checker</h2>
+        </div>
+        <div class="card-content">
+            <div class="zone-checker-promo">
+                <div class="zone-checker-icon">
+                    <i class="fas fa-location-crosshairs"></i>
+                </div>
+                <div class="zone-checker-info">
+                    <h3>Navigation Zones</h3>
+                    <p>Vérifiez les zones de pêche autorisées</p>
+                    <ul class="zone-features">
+                        <li><i class="fas fa-check-circle"></i> Zones de pêche</li>
+                        <li><i class="fas fa-check-circle"></i> Aires protégées</li>
+                        <li><i class="fas fa-check-circle"></i> Restrictions</li>
+                    </ul>
+                </div>
+            </div>
+            <a href="/zone-checker" class="zone-checker-button">
+                <i class="fas fa-search-location"></i> Vérifier une Zone
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Fonction pour obtenir la position actuelle
+    function getCurrentPosition() {
+        return new Promise((resolve, reject) => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => resolve(position),
+                    error => {
+                        console.error('Erreur de géolocalisation:', error);
+                        // En cas d'erreur, utiliser des coordonnées par défaut (Tunis)
+                        resolve({ coords: { latitude: 36.8065, longitude: 10.1815 } });
+                    },
+                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                );
+            } else {
+                console.error('Géolocalisation non supportée');
+                // Si la géolocalisation n'est pas supportée, utiliser des coordonnées par défaut
+                resolve({ coords: { latitude: 36.8065, longitude: 10.1815 } });
+            }
+        });
+    }
+    
+    // Fonction pour récupérer les données client depuis l'API
+    async function fetchClientData(lat, lon) {
+        try {
+            // Vérifier que lat et lon sont définis
+            if (lat === undefined || lon === undefined) {
+                console.error('Coordonnées indéfinies, utilisation des valeurs par défaut');
+                lat = 36.8065; // Coordonnées par défaut (Tunis)
+                lon = 10.1815;
+            }
+            
+            // Appeler l'API que nous avons créée
+            const response = await fetch(`/api/client-data?lat=${lat}&lon=${lon}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error fetching client data:', error);
+            return null;
+        }
+    }
+    
+    // Fonction pour mettre à jour les données météo
+    async function updateWeatherData(lat, lon) {
+        try {
+            const clientData = await fetchClientData(lat, lon);
+            if (!clientData || clientData.status === 'error') {
+                throw new Error('Failed to fetch client data');
+            }
+            
+            // Mettre à jour les éléments DOM avec les vraies données météo
+            if (clientData.weather && clientData.weather.status === 'success') {
+                const weather = clientData.weather;
+                document.getElementById('wind-value').innerHTML = `${weather.wind_speed} <span class="unit">km/h</span>`;
+                
+                // Mettre à jour d'autres données météo si disponibles
+                // Pour l'instant, nous gardons certaines valeurs simulées
+                document.getElementById('speed-value').innerHTML = `${Math.round(5 + Math.random() * 10)} <span class="unit">knots</span>`;
+                document.getElementById('depth-value').innerHTML = `${Math.round(20 + Math.random() * 30)} <span class="unit">m</span>`;
+            } else {
+                // Fallback à des données simulées si l'API échoue
+                const windSpeed = Math.round(5 + Math.random() * 20);
+                document.getElementById('wind-value').innerHTML = `${windSpeed} <span class="unit">km/h</span>`;
+                document.getElementById('speed-value').innerHTML = `${Math.round(5 + Math.random() * 10)} <span class="unit">knots</span>`;
+                document.getElementById('depth-value').innerHTML = `${Math.round(20 + Math.random() * 30)} <span class="unit">m</span>`;
+            }
+        } catch (error) {
+            console.error('Error updating weather data:', error);
+            // Fallback à des données simulées en cas d'erreur
+            const windSpeed = Math.round(5 + Math.random() * 20);
+            document.getElementById('wind-value').innerHTML = `${windSpeed} <span class="unit">km/h</span>`;
+        }
+    }
+    
+    // Fonction pour mettre à jour les données astronomiques
+    async function updateAstronomyData(lat, lon) {
+        try {
+            const clientData = await fetchClientData(lat, lon);
+            if (!clientData || clientData.status === 'error') {
+                throw new Error('Failed to fetch client data');
+            }
+            
+            // Mettre à jour la localisation
+            document.getElementById('astronomy-location').textContent = `Localisation: ${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+            
+            // Mettre à jour les données astronomiques avec les vraies données
+            // Mettre à jour les données astronomiques avec les vraies données
+              if (clientData.astronomy && clientData.astronomy.status === 'success') {
+                  const astronomy = clientData.astronomy;
+                  
+                  // Formater les heures (les API retournent souvent des timestamps ISO)
+                  const formatTime = (timeStr) => {
+                      if (!timeStr) return '--:--';
+                      const date = new Date(timeStr);
+                      return `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+                  };
+                  
+                  // Mettre à jour les éléments DOM
+                  document.getElementById('sunrise-value').textContent = formatTime(astronomy.sunrise);
+                  document.getElementById('sunset-value').textContent = formatTime(astronomy.sunset);
+                  document.getElementById('moonrise-value').textContent = formatTime(astronomy.moonrise);
+                  document.getElementById('moonset-value').textContent = formatTime(astronomy.moonset);
+                  
+                  // Traduire la phase lunaire en français
+                  const moonPhaseMap = {
+                      'NEW': 'Nouvelle lune',
+                      'WAXING_CRESCENT': 'Premier croissant',
+                      'FIRST_QUARTER': 'Premier quartier',
+                      'WAXING_GIBBOUS': 'Gibbeuse croissante',
+                      'FULL': 'Pleine lune',
+                      'WANING_GIBBOUS': 'Gibbeuse décroissante',
+                      'LAST_QUARTER': 'Dernier quartier',
+                      'WANING_CRESCENT': 'Dernier croissant'
+                  };
+                  
+                  const moonPhase = moonPhaseMap[astronomy.moon_phase] || astronomy.moon_phase;
+                  document.getElementById('moon-phase-value').textContent = moonPhase;
+              } else {
+                  // Fallback à des données simulées si l'API échoue
+                  document.getElementById('sunrise-value').textContent = '06:30';
+                  document.getElementById('sunset-value').textContent = '18:45';
+                  document.getElementById('moonrise-value').textContent = '21:15';
+                  document.getElementById('moonset-value').textContent = '09:30';
+                  document.getElementById('moon-phase-value').textContent = 'Premier quartier';
+              }
+          } catch (error) {
+              console.error('Error updating astronomy data:', error);
+              // Fallback à des données simulées en cas d'erreur
+              document.getElementById('astronomy-location').textContent = 'Localisation: Non disponible';
+              document.getElementById('sunrise-value').textContent = '06:30';
+              document.getElementById('sunset-value').textContent = '18:45';
+              document.getElementById('moonrise-value').textContent = '21:15';
+              document.getElementById('moonset-value').textContent = '09:30';
+              document.getElementById('moon-phase-value').textContent = 'Premier quartier';
+          }
+      }
+      
+      // Fonction pour mettre à jour l'horloge numérique
+      function updateDigitalClock() {
+          const now = new Date();
+          
+          // Format time: HH:MM:SS
+          const hours = String(now.getHours()).padStart(2, '0');
+          const minutes = String(now.getMinutes()).padStart(2, '0');
+          const seconds = String(now.getSeconds()).padStart(2, '0');
+          const timeString = `${hours}:${minutes}:${seconds}`;
+          
+          // Format date: DD/MM/YYYY
+          const day = String(now.getDate()).padStart(2, '0');
+          const month = String(now.getMonth() + 1).padStart(2, '0');
+          const year = now.getFullYear();
+          const dateString = `${day}/${month}/${year}`;
+          
+          // Get day name in French
+          const days = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+          const dayName = days[now.getDay()];
+          
+          // Update DOM elements
+          document.getElementById('digital-time').textContent = timeString;
+          document.getElementById('digital-date').textContent = dateString;
+          document.getElementById('digital-day').textContent = dayName;
+      }
+      
+      // Initialiser le dashboard
+      async function initDashboard() {
+          // Initialiser l'horloge numérique
+          updateDigitalClock();
+          setInterval(updateDigitalClock, 1000);
+          
+          try {
+              // Obtenir la position actuelle
+              const position = await getCurrentPosition();
+              const lat = position.coords.latitude;
+              const lon = position.coords.longitude;
+              
+              // Mettre à jour les données météo et astronomiques
+              await updateWeatherData(lat, lon);
+              await updateAstronomyData(lat, lon);
+              
+              // Mettre à jour périodiquement les données
+              setInterval(() => updateWeatherData(lat, lon), 15 * 60 * 1000); // Toutes les 15 minutes
+              setInterval(() => updateAstronomyData(lat, lon), 60 * 60 * 1000); // Toutes les heures
+          } catch (error) {
+              console.error('Error initializing dashboard:', error);
+              // Utiliser des données simulées en cas d'erreur
+              updateWeatherData(36.8065, 10.1815); // Coordonnées par défaut (Tunis)
+              updateAstronomyData(36.8065, 10.1815);
+          }
+      }
+      
+      // Exécuter l'initialisation lorsque le DOM est chargé
+      document.addEventListener('DOMContentLoaded', initDashboard);
+  </script>
+
+<!-- Add geomag-js library for magnetic declination calculation -->
+<script src="https://unpkg.com/geomag-js@1.0.0/dist/geomag.min.js"></script>
+
+<script>
+    let compassInitialized = false;
+    let weatherInitialized = false;
+
+    // Function to update compass based on heading
+    function updateCompass(heading) {
+        const compassInner = document.getElementById('compass-inner');
+        if (compassInner) {
+            // Rotate the compass to point north (compensate for heading)
+            compassInner.style.transform = `rotate(${-heading}deg)`;
+        }
+    }
+
+    // Function to update the heading display in the status panel
+    function updateHeadingDisplay(heading) {
+        const headingDisplay = document.querySelector('.status-item:nth-child(4) .status-value');
+        if (headingDisplay) {
+            // Convert degrees to cardinal direction
+            const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+            const index = Math.round(heading / 45) % 8;
+            headingDisplay.innerHTML = `${directions[index]} <span class="unit">${Math.round(heading)}°</span>`;
+        }
+    }
+
+    // Function to handle device orientation data
+    function handleOrientation(event) {
+        let heading = event.alpha;
+        if (event.webkitCompassHeading) {
+            heading = event.webkitCompassHeading; // For iOS devices
+        }
+
+        if (heading !== null) {
+            // Normalize heading to 0-360 degrees
+            heading = (360 - heading) % 360;
+
+            // Update the compass and heading display with magnetic heading first
+            updateCompass(heading);
+            updateHeadingDisplay(heading);
+
+            // Attempt to adjust for true north using magnetic declination
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    try {
+                        const declination = geomag(latitude, longitude, 0, new Date()).declination;
+                        const trueHeading = (heading + declination + 360) % 360;
+                        updateCompass(trueHeading);
+                        updateHeadingDisplay(trueHeading);
+                        updateStatus('Boussole active (True North)');
+                    } catch (e) {
+                        console.error("Error calculating declination:", e);
+                        updateStatus('Boussole active (Magnetic North)');
+                    }
+                },
+                (error) => {
+                    console.error("Geolocation error:", error);
+                    updateStatus('Boussole active (Magnetic North - Geolocation unavailable)');
+                },
+                { timeout: 5000 }
+            );
+        } else {
+            updateStatus('Données d\'orientation indisponibles');
+        }
+    }
+
+    // Function to update status message
+    function updateStatus(message) {
+        const statusIndicator = document.getElementById('compass-status');
+        if (statusIndicator) {
+            statusIndicator.innerText = message;
+        }
+    }
+
+    // Function to update compass based on device orientation
+    function handleDeviceOrientation(event) {
+        if (!compassInitialized) return;
+        
+        let heading = null;
+        
+        if (event.webkitCompassHeading) {
+            // For iOS devices
+            heading = event.webkitCompassHeading;
+        } else if (event.alpha) {
+            // For Android devices
+            heading = 360 - event.alpha;
+        }
+
+        if (heading !== null) {
+            updateCompassDisplay(heading);
+        }
+    }
+
+    // Function to update compass display
+    function updateCompassDisplay(heading) {
+        const compassInner = document.getElementById('compass-inner');
+        if (compassInner) {
+            compassInner.style.transform = `rotate(${-heading}deg)`;
+            
+            // Update heading text
+            const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+            const index = Math.round(heading / 45) % 8;
+            const headingDisplay = document.querySelector('.status-item:nth-child(4) .status-value');
+            if (headingDisplay) {
+                headingDisplay.innerHTML = `${directions[index]} <span class="unit">${Math.round(heading)}°</span>`;
+            }
+        }
+    }
+
+    // Function to get weather data
+    async function getWeatherData(lat, lon) {
+        try {
+            const response = await fetch(`/api/weather?lat=${lat}&lon=${lon}`);
+            const data = await response.json();
+            if (data.status === 'success') {
+                updateWeatherDisplay(data.forecast);
+            }
+        } catch (error) {
+            console.error('Error fetching weather:', error);
+        }
+    }
+
+    // Function to update weather display
+    function updateWeatherDisplay(forecast) {
+        if (!forecast) return;
+        
+        const tempDisplay = document.querySelector('.status-item:nth-child(3) .status-value');
+        if (tempDisplay && forecast.temperature) {
+            tempDisplay.innerHTML = `${Math.round(forecast.temperature)} <span class="unit">°C</span>`;
+        }
+
+        const windDisplay = document.querySelector('.status-item:nth-child(3) .status-value');
+        if (windDisplay && forecast.windSpeed) {
+            windDisplay.innerHTML = `${Math.round(forecast.windSpeed)} <span class="unit">km/h</span>`;
+        }
+    }
+
+    // Function to initialize compass
+    async function initializeCompass() {
+        if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+            // iOS 13+ devices
+            try {
+                const permission = await DeviceOrientationEvent.requestPermission();
+                if (permission === 'granted') {
+                    compassInitialized = true;
+                    window.addEventListener('deviceorientation', handleDeviceOrientation, true);
+                } else {
+                    console.log('Permission not granted for compass');
+                }
+            } catch (error) {
+                console.error('Error requesting compass permission:', error);
+            }
+        } else {
+            // Non-iOS devices
+            compassInitialized = true;
+            window.addEventListener('deviceorientation', handleDeviceOrientation, true);
+        }
+    }
+
+    // Function to initialize geolocation and weather
+    function initializeGeolocation() {
+        if ('geolocation' in navigator) {
+            const watchId = navigator.geolocation.watchPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    if (!weatherInitialized) {
+                        weatherInitialized = true;
+                        getWeatherData(latitude, longitude);
+                    }
+                },
+                (error) => {
+                    console.error('Geolocation error:', error);
+                },
+                {
+                    enableHighAccuracy: true,
+                    maximumAge: 30000,
+                    timeout: 27000
+                }
+            );
+        }
+    }
+
+    // Initialize compass on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log("Compass initialization started");
+
+        // Add a status indicator to the compass card
+        const statusIndicator = document.createElement('div');
+        statusIndicator.id = 'compass-status';
+        statusIndicator.innerText = 'Boussole en cours d\'initialisation...';
+        statusIndicator.style.fontSize = '14px';
+        statusIndicator.style.marginTop = '10px';
+        statusIndicator.style.color = '#38ada9';
+        statusIndicator.style.textAlign = 'center';
+        document.querySelector('.compass-card .card-content').appendChild(statusIndicator);
+
+        // Check if device orientation is supported
+        if (window.DeviceOrientationEvent) {
+            console.log("DeviceOrientationEvent is supported");
+
+            // Request permission for iOS 13+ devices
+            if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                // Create a button to request permission
+                const permissionBtn = document.createElement('button');
+                permissionBtn.innerText = 'Activer la boussole';
+                permissionBtn.className = 'compass-permission-btn';
+                permissionBtn.style.padding = '8px 16px';
+                permissionBtn.style.margin = '10px auto';
+                permissionBtn.style.display = 'block';
+                permissionBtn.style.backgroundColor = '#38ada9';
+                permissionBtn.style.color = 'white';
+                permissionBtn.style.border = 'none';
+                permissionBtn.style.borderRadius = '5px';
+                permissionBtn.style.cursor = 'pointer';
+                document.querySelector('.compass-card .card-content').appendChild(permissionBtn);
+
+                permissionBtn.addEventListener('click', () => {
+                    DeviceOrientationEvent.requestPermission()
+                        .then(permissionState => {
+                            if (permissionState === 'granted') {
+                                window.addEventListener('deviceorientation', handleOrientation);
+                                permissionBtn.style.display = 'none';
+                                updateStatus('Boussole active');
+                            } else {
+                                updateStatus('Permission refusée pour la boussole');
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Permission error:", error);
+                            updateStatus('Erreur de permission: ' + error.message);
+                        });
+                });
+            } else {
+                // For non-iOS devices, just add the event listener
+                window.addEventListener('deviceorientation', handleOrientation);
+                updateStatus('Boussole active');
+            }
+        } else {
+            // Fallback for devices that don't support orientation
+            console.log("Device orientation not supported");
+            updateStatus('Boussole non disponible sur cet appareil');
+        }
+    });
+
+    // Auto-initialize on page load for mobile devices
+    document.addEventListener('DOMContentLoaded', async () => {
+        // Check if device is mobile
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        
+        if (isMobile) {
+            // Add mobile-specific UI elements
+            const compassCard = document.querySelector('.compass-card');
+            if (compassCard) {
+                const initButton = document.createElement('button');
+                initButton.className = 'init-sensors-button';
+                initButton.innerHTML = '<i class="fas fa-compass"></i> Activer les capteurs';
+                initButton.style.cssText = `
+                    background: linear-gradient(135deg, #38ada9 0%, #2c8c89 100%);
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 20px;
+                    margin: 10px auto;
+                    display: block;
+                    cursor: pointer;
+                `;
+                
+                initButton.addEventListener('click', async () => {
+                    await initializeCompass();
+                    initializeGeolocation();
+                    initButton.style.display = 'none';
+                });
+                
+                compassCard.querySelector('.card-content').prepend(initButton);
+            }
+        }
+    });
+</script>
+
+{% endblock %}

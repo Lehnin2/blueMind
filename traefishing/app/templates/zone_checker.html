@@ -1,0 +1,415 @@
+{% extends "base.html" %}
+
+{% block title %}Zone Checker{% endblock %}
+
+{% block head %}
+<style>
+    .zone-checker-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box;
+    }
+
+    .header-section {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-bg) 100%);
+        border-radius: 15px;
+        padding: 40px;
+        margin-bottom: 30px;
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box;
+    }
+
+    .header-section h2 {
+        color: var(--accent-color);
+        font-size: 2rem;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .header-section p {
+        color: var(--text-color);
+        font-size: 1.1rem;
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .coordinates-section {
+        background: linear-gradient(135deg, rgba(0, 50, 50, 0.8), rgba(0, 30, 60, 0.8));
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        animation: fadeIn 0.5s ease;
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .input-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .input-group {
+        position: relative;
+    }
+
+    .input-group label {
+        display: block;
+        margin-bottom: 10px;
+        color: var(--accent-color);
+        font-weight: 500;
+        font-size: 1.1rem;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 15px;
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        color: white;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+    }
+
+    .input-group input:focus {
+        outline: none;
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 2px rgba(56, 173, 169, 0.2);
+    }
+
+    .input-group .tooltip {
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 100;
+    }
+
+    .input-group:hover .tooltip {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .action-buttons .btn {
+        background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        box-shadow: 0 4px 15px rgba(56, 173, 169, 0.4);
+    }
+
+    .action-buttons .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(56, 173, 169, 0.6);
+    }
+
+    .action-buttons .btn i {
+        font-size: 1.2rem;
+    }
+
+    .action-buttons .btn-secondary {
+        background: linear-gradient(135deg, #4db6ac 0%, #26a69a 100%);
+    }
+
+    .action-buttons .btn-secondary:hover {
+        background: linear-gradient(135deg, #26a69a 0%, #4db6ac 100%);
+    }
+
+    .map-preview {
+        height: 300px; /* Default height for larger screens */
+        width: 100%; /* Ensure full width */
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 20px;
+        margin-bottom: 0; /* Remove unnecessary space below */
+        display: block;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .result-section {
+        background: rgba(0, 50, 50, 0.8);
+        border-radius: 15px;
+        padding: 30px;
+        animation: slideUp 0.5s ease;
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box;
+    }
+
+    @keyframes slideUp {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    .result-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .result-title {
+        color: var(--accent-color);
+        font-size: 1.3rem;
+        font-weight: 600;
+    }
+
+    .result-content {
+        background: rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+        line-height: 1.6;
+        color: #ffffff;
+    }
+
+    /* Ajustements pour mobile */
+    @media (max-width: 576px) {
+        .zone-checker-container {
+            padding: 5px; /* Reduce container padding to maximize card width */
+        }
+
+        .header-section {
+            padding: 20px;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .header-section h2 {
+            font-size: 1.5rem;
+        }
+
+        .header-section p {
+            font-size: 0.9rem;
+        }
+
+        .coordinates-section {
+            padding: 15px;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .input-grid {
+            grid-template-columns: 1fr; /* Stack inputs vertically */
+            gap: 10px;
+        }
+
+        .input-group label {
+            font-size: 0.9rem;
+        }
+
+        .input-group input {
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+
+        .input-group .tooltip {
+            font-size: 0.8rem;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .action-buttons .btn {
+            padding: 10px 15px;
+            font-size: 0.9rem;
+        }
+
+        .action-buttons .btn i {
+            font-size: 1rem;
+        }
+
+        .map-preview {
+            height: 40vh; /* Use viewport height for dynamic scaling on mobile */
+            margin-bottom: 0; /* Ensure no extra space below the map */
+        }
+
+        .result-section {
+            padding: 15px;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .result-title {
+            font-size: 1.1rem;
+        }
+
+        .result-content {
+            padding: 15px;
+            font-size: 0.9rem;
+        }
+    }
+</style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+{% endblock %}
+
+{% block content %}
+<div class="zone-checker-container">
+    <div class="header-section">
+        <h2><i class="fas fa-map-marked-alt"></i> Zone Checker</h2>
+        <p>Verify permitted fishing zones and maritime regulations based on your coordinates.</p>
+    </div>
+
+    <div class="coordinates-section">
+        <form action="/check-zones" method="get">
+            <div class="input-grid">
+                <div class="input-group">
+                    <label for="lat">Latitude</label>
+                    <input type="number" step="any" id="lat" name="lat" 
+                           placeholder="Enter latitude (e.g., 36.8183)" required>
+                    <div class="tooltip">Enter a valid latitude (e.g., 36.8183)</div>
+                </div>
+                <div class="input-group">
+                    <label for="lon">Longitude</label>
+                    <input type="number" step="any" id="lon" name="lon" 
+                           placeholder="Enter longitude (e.g., 10.1658)" required>
+                    <div class="tooltip">Enter a valid longitude (e.g., 10.1658)</div>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search-location"></i>
+                    Check Zone
+                </button>
+                <button type="button" id="use-current-loc-btn" class="btn btn-secondary">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Use Current Location
+                </button>
+            </div>
+        </form>
+
+        <div id="map-preview" class="map-preview"></div>
+    </div>
+
+    {% if results %}
+    <div class="result-section">
+        <div class="result-header">
+            <div class="result-title">
+                <i class="fas fa-info-circle"></i> Zone Analysis Results
+            </div>
+        </div>
+        <div class="result-content">
+            {{ results }}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+// Initialize Leaflet map
+const mapPreview = L.map('map-preview').setView([36.8, 10.2], 7);
+
+// Add OpenStreetMap tiles
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(mapPreview);
+
+// Add marker for selected location
+let marker = L.marker([36.8, 10.2]).addTo(mapPreview);
+
+// Update marker when coordinates change
+const latInput = document.getElementById('lat');
+const lonInput = document.getElementById('lon');
+const mapPreviewElement = document.getElementById('map-preview');
+mapPreviewElement.classList.add('active');
+
+function updateMap() {
+    const lat = parseFloat(latInput.value);
+    const lon = parseFloat(lonInput.value);
+    
+    if (!isNaN(lat) && !isNaN(lon)) {
+        marker.setLatLng([lat, lon]);
+        mapPreview.setView([lat, lon], 10);
+        mapPreviewElement.classList.add('active');
+    }
+}
+
+latInput.addEventListener('input', updateMap);
+lonInput.addEventListener('input', updateMap);
+
+// Handle map click to set coordinates and marker
+mapPreview.on('click', function(e) {
+    const lat = e.latlng.lat;
+    const lon = e.latlng.lng;
+    marker.setLatLng([lat, lon]);
+    mapPreview.setView([lat, lon], 10);
+    latInput.value = lat.toFixed(4);
+    lonInput.value = lon.toFixed(4);
+    mapPreviewElement.classList.add('active');
+});
+
+// Handle current location button
+document.getElementById('use-current-loc-btn').addEventListener('click', function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                marker.setLatLng([lat, lon]);
+                mapPreview.setView([lat, lon], 10);
+                latInput.value = lat.toFixed(4);
+                lonInput.value = lon.toFixed(4);
+                mapPreviewElement.classList.add('active');
+            },
+            function(error) {
+                alert('Unable to retrieve your location: ' + error.message);
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            }
+        );
+    } else {
+        alert('Geolocation is not supported by your browser.');
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+
+{% block title %}Depth Calculator{% endblock %}
+
+{% block head %}
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: 0 auto;
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box;
+    }
+    .map-preview {
+        height: 300px;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 20px;
+        display: block; /* Always show the map for coordinate selection */
+    }
+    .form-row {
+        display: flex;
+        gap: 20px;
+    }
+    .form-group {
+        flex: 1;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--accent-color);
+    }
+    .form-group input {
+        width: 100%;
+        padding: 8px;
+        border: 2px solid rgba(56, 173, 169, 0.5);
+        border-radius: 8px;
+        background: rgba(56, 173, 169, 0.1);
+        color: #1b5e20;
+        font-weight: 500;
+        box-sizing: border-box;
+    }
+    .form-group input:focus {
+        border-color: #38ada9;
+        box-shadow: 0 0 8px rgba(56, 173, 169, 0.4);
+        background: rgba(255, 255, 255, 0.9);
+    }
+    .coordinate-controls {
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    .btn {
+        background: linear-gradient(135deg, #38ada9 0%, #2c8c89 100%);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(56, 173, 169, 0.4);
+    }
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(56, 173, 169, 0.6);
+    }
+    .btn-secondary {
+        background: linear-gradient(135deg, #4db6ac 0%, #26a69a 100%);
+    }
+
+    /* Ajustements pour mobile */
+    @media (max-width: 576px) {
+        .dashboard-card {
+            padding-left: 5px; /* Reduce container padding to maximize card width */
+            padding-right: 5px;
+        }
+        .card-content {
+            padding: 15px; /* Slightly less padding on mobile, but still substantial */
+        }
+        .form-container {
+            max-width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .form-row {
+            flex-direction: column;
+            gap: 10px;
+        }
+        .form-group input {
+            padding: 6px;
+            font-size: 0.9em;
+        }
+        .form-group label {
+            font-size: 0.9em;
+        }
+        .map-preview {
+            height: 200px; /* Reduce map height on mobile */
+        }
+        .coordinate-controls {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .btn {
+            padding: 8px 15px;
+            font-size: 0.9em;
+            border-radius: 15px;
+        }
+        .coordinate-controls span {
+            font-size: 0.9em;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-card">
+    <div class="card-header">
+        <h2>Depth Calculator</h2>
+    </div>
+    <div class="card-content">
+        <p>Enter coordinates to calculate the estimated sea depth at that location.</p>
+        
+        <div class="form-container">
+            <form action="/calculate-depth" method="post">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="lat">Latitude</label>
+                        <input type="number" id="lat" name="lat" step="0.0001" required placeholder="e.g. 36.8183">
+                    </div>
+                    <div class="form-group">
+                        <label for="lon">Longitude</label>
+                        <input type="number" id="lon" name="lon" step="0.0001" required placeholder="e.g. 10.3053">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Calculate Depth</button>
+                </div>
+            </form>
+            
+            <!-- Add current location button and map-click instructions -->
+            <div class="coordinate-controls">
+                <button type="button" id="use-current-loc-btn" class="btn btn-secondary">Use Current Location</button>
+                <span>Or click on the map to set coordinates</span>
+            </div>
+            <div id="map-preview" class="map-preview"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+<script>
+    // Initialize map
+    const mapPreview = L.map('map-preview').setView([36.8, 10.2], 7);
+    
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mapPreview);
+    
+    // Add marker for selected location
+    let marker = L.marker([36.8, 10.2]).addTo(mapPreview);
+    
+    // Update marker when coordinates change
+    const latInput = document.getElementById('lat');
+    const lonInput = document.getElementById('lon');
+    const mapPreviewElement = document.getElementById('map-preview');
+    // Make map visible on load so it can be clicked
+    mapPreviewElement.classList.add('active');
+    
+    function updateMap() {
+        const lat = parseFloat(latInput.value);
+        const lon = parseFloat(lonInput.value);
+        
+        if (!isNaN(lat) && !isNaN(lon)) {
+            marker.setLatLng([lat, lon]);
+            mapPreview.setView([lat, lon], 10);
+            mapPreviewElement.classList.add('active');
+        }
+    }
+    
+    latInput.addEventListener('input', updateMap);
+    lonInput.addEventListener('input', updateMap);
+    
+    // Handle map click to set coordinates and marker
+    mapPreview.on('click', function(e) {
+        const lat = e.latlng.lat;
+        const lon = e.latlng.lng;
+        marker.setLatLng([lat, lon]);
+        mapPreview.setView([lat, lon], 10);
+        latInput.value = lat.toFixed(4);
+        lonInput.value = lon.toFixed(4);
+        mapPreviewElement.classList.add('active');
+    });
+    
+    // Handle current location button
+    document.getElementById('use-current-loc-btn').addEventListener('click', function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                marker.setLatLng([lat, lon]);
+                mapPreview.setView([lat, lon], 10);
+                latInput.value = lat.toFixed(4);
+                lonInput.value = lon.toFixed(4);
+                mapPreviewElement.classList.add('active');
+            }, function(error) {
+                alert('Unable to retrieve your location: ' + error.message);
+            });
+        } else {
+            alert('Geolocation is not supported by your browser.');
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+
+{% block title %}Depth Result{% endblock %}
+
+{% block head %}
+<style>
+    .result-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    .depth-display {
+        text-align: center;
+        padding: 30px;
+        background-color: rgba(0, 50, 50, 0.7);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box;
+    }
+    .depth-value {
+        font-size: 4em;
+        font-weight: bold;
+        color: var(--accent-color);
+        margin: 20px 0;
+    }
+    .depth-unit {
+        font-size: 0.5em;
+        opacity: 0.7;
+    }
+    .coordinates-display {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+    }
+    .depth-info {
+        background-color: rgba(0, 50, 50, 0.7);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box;
+    }
+    .info-item {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .info-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    .info-label {
+        font-size: 0.9em;
+        color: var(--accent-color);
+        margin-bottom: 5px;
+    }
+    .info-value {
+        font-size: 1.2em;
+    }
+    .status-success {
+        color: var(--success-color);
+    }
+    .status-error {
+        color: var(--danger-color);
+    }
+    .action-buttons {
+        display: flex;
+        justify-content: center; /* Center the button */
+        gap: 10px;
+        margin-top: 20px;
+    }
+    .action-buttons .btn {
+        background: linear-gradient(135deg, #38ada9 0%, #2c8c89 100%);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(56, 173, 169, 0.4);
+    }
+    .action-buttons .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(56, 173, 169, 0.6);
+    }
+    .protected-area-alert {
+        background-color: rgba(226, 88, 34, 0.3);
+        border-left: 4px solid var(--warning-color);
+        padding: 10px 15px;
+        margin-top: 10px;
+        border-radius: 5px;
+    }
+
+    /* Ajustements pour mobile */
+    @media (max-width: 576px) {
+        .result-container {
+            grid-template-columns: 1fr; /* Stack items vertically */
+            gap: 10px;
+        }
+        .dashboard-card {
+            padding-left: 5px; /* Reduce container padding to maximize card width */
+            padding-right: 5px;
+        }
+        .depth-display {
+            padding: 20px; /* Slightly less padding on mobile */
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .depth-value {
+            font-size: 3em; /* Reduce font size for mobile */
+        }
+        .coordinates-display {
+            font-size: 1em;
+        }
+        .depth-info {
+            padding: 15px; /* Slightly less padding on mobile */
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .info-label {
+            font-size: 0.8em;
+        }
+        .info-value {
+            font-size: 1em;
+        }
+        .action-buttons {
+            margin-top: 15px;
+        }
+        .action-buttons .btn {
+            padding: 8px 15px;
+            font-size: 0.9em;
+            border-radius: 15px;
+        }
+        .protected-area-alert {
+            padding: 8px 10px;
+            font-size: 0.9em;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-card">
+    <div class="card-header">
+        <h2>Depth Calculation Result</h2>
+    </div>
+    <div class="card-content">
+        <div class="result-container">
+            <div class="depth-display">
+                <div class="coordinates-display">
+                    Coordinates: {{ depth_info.lat }}°, {{ depth_info.lon }}°
+                </div>
+                
+                {% if depth_info.status == "success" %}
+                    <div class="depth-value">
+                        {{ depth_info.depth }}<span class="depth-unit">m</span>
+                    </div>
+                    <div class="status-success">
+                        <i class="fas fa-check-circle"></i> Depth calculated successfully
+                    </div>
+                {% else %}
+                    <div class="depth-value">
+                        --<span class="depth-unit">m</span>
+                    </div>
+                    <div class="status-error">
+                        <i class="fas fa-exclamation-circle"></i> {{ depth_info.message }}
+                    </div>
+                {% endif %}
+                
+                <div class="action-buttons">
+                    <a href="/depth" class="btn btn-primary">
+                        <i class="fas fa-calculator"></i> New Calculation
+                    </a>
+                </div>
+            </div>
+            
+            <div class="depth-info">
+                <div class="info-item">
+                    <div class="info-label">Data Source</div>
+                    <div class="info-value">
+                        {% if "bathymetric" in depth_info.message %}
+                            Bathymetric Data
+                        {% else %}
+                            Distance-based Estimation
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">Accuracy</div>
+                    <div class="info-value">
+                        {% if "bathymetric" in depth_info.message %}
+                            High (±2m)
+                        {% else %}
+                            Medium (±10m)
+                        {% endif %}
+                    </div>
+                </div>
+                
+                {% if protected_areas %}
+                <div class="info-item">
+                    <div class="info-label">Protected Areas</div>
+                    {% for area in protected_areas %}
+                    <div class="protected-area-alert">
+                        <strong>{{ area.name }}</strong><br>
+                        Status: {{ area.status }}<br>
+                        Distance: {{ area.distance_km }} km
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <div class="info-item">
+                    <div class="info-label">Note</div>
+                    <div class="info-value">
+                        Depth values are estimates and should be used for reference only. Always use proper navigation equipment for accurate measurements.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

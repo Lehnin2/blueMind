@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+
+{% block title %}Protected Marine Areas{% endblock %}
+
+{% block head %}
+<style>
+    .map-container {
+        height: 60vh;
+        width: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 0; /* Remove unnecessary space below the map */
+    }
+    .area-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 15px;
+    }
+    .area-card {
+        background-color: rgba(0, 50, 50, 0.7);
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box;
+    }
+    .area-name {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #8adbdb;
+    }
+    .area-status {
+        font-size: 0.9em;
+        color: #ffffff;
+        margin-bottom: 10px;
+    }
+    .area-distance {
+        font-size: 1em;
+        color: #ffffff;
+    }
+    .inside {
+        border-left: 4px solid #44bd32;
+    }
+    .near {
+        border-left: 4px solid #e1b12c;
+    }
+    .coordinates {
+        font-size: 0.8em;
+        color: #8adbdb;
+        margin-top: 5px;
+    }
+    .search-form {
+        background-color: rgba(0, 50, 50, 0.7);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+        display: flex;
+        gap: 10px;
+        align-items: flex-end;
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box;
+    }
+    .search-form .form-group {
+        flex: 1;
+        margin-bottom: 0;
+    }
+    .search-form .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--accent-color);
+    }
+    .search-form .form-group input {
+        width: 100%;
+        padding: 8px;
+        border: 2px solid rgba(56, 173, 169, 0.5);
+        border-radius: 8px;
+        background: rgba(56, 173, 169, 0.1);
+        color: white;
+        font-weight: 500;
+        box-sizing: border-box;
+    }
+    .search-form .form-group input:focus {
+        border-color: #38ada9;
+        box-shadow: 0 0 8px rgba(56, 173, 169, 0.4);
+        background: rgba(255, 255, 255, 0.1);
+    }
+    .search-form button {
+        height: 42px;
+        background: linear-gradient(135deg, #38ada9 0%, #2c8c89 100%);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(56, 173, 169, 0.4);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .search-form button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(56, 173, 169, 0.6);
+    }
+    .no-areas {
+        color: #ffffff;
+        font-size: 1em;
+        text-align: center;
+        padding: 20px;
+        background-color: rgba(0, 50, 50, 0.7);
+        border-radius: 10px;
+    }
+
+    /* Ajustements pour mobile */
+    @media (max-width: 576px) {
+        .dashboard-card {
+            padding-left: 5px; /* Reduce container padding to maximize card width */
+            padding-right: 5px;
+        }
+        .card-content {
+            padding: 15px; /* Slightly less padding on mobile */
+        }
+        .map-container {
+            height: 40vh; /* Reduce map height on mobile */
+            margin-bottom: 0; /* Ensure no extra space below the map */
+        }
+        .search-form {
+            flex-direction: column;
+            align-items: stretch;
+            padding: 10px;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .search-form .form-group {
+            margin-bottom: 10px;
+        }
+        .search-form .form-group label {
+            font-size: 0.9em;
+        }
+        .search-form .form-group input {
+            padding: 6px;
+            font-size: 0.9em;
+        }
+        .search-form button {
+            padding: 8px 15px;
+            font-size: 0.9em;
+            height: auto;
+            border-radius: 8px;
+        }
+        .area-list {
+            grid-template-columns: 1fr; /* Stack cards vertically */
+            gap: 10px;
+        }
+        .area-card {
+            padding: 10px;
+        }
+        .area-name {
+            font-size: 1em;
+        }
+        .area-status {
+            font-size: 0.8em;
+        }
+        .area-distance {
+            font-size: 0.9em;
+        }
+        .coordinates {
+            font-size: 0.7em;
+        }
+        .no-areas {
+            padding: 15px;
+            font-size: 0.9em;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-card">
+    <div class="card-header">
+        <h2>Protected Marine Areas</h2>
+    </div>
+    <div class="card-content">
+        <div class="search-form">
+            <div class="form-group">
+                <label for="search_lat">Latitude</label>
+                <input type="number" id="search_lat" name="lat" step="0.0001" value="{{ lat }}" placeholder="e.g. 36.8183">
+            </div>
+            <div class="form-group">
+                <label for="search_lon">Longitude</label>
+                <input type="number" id="search_lon" name="lon" step="0.0001" value="{{ lon }}" placeholder="e.g. 10.3053">
+            </div>
+            <button type="button" id="search_btn" class="btn btn-primary">Search</button>
+            <button type="button" id="current_location_btn" class="btn btn-primary">
+                <i class="fas fa-location-arrow"></i> Use Current Location
+            </button>
+            <div style="margin-top: 10px; color: #8adbdb; font-style: italic;">
+                <i class="fas fa-info-circle"></i> Cliquez directement sur la carte pour sélectionner un point
+            </div>
+        </div>
+        
+        <div class="map-container">
+            {{ map | safe }}
+        </div>
+        
+        <!-- Instruction: click on the map to search for that location -->
+        {% if areas %}
+            <h3>Protected Areas Near ({{ lat }}, {{ lon }})</h3>
+            <div class="area-list">
+                {% for area in areas %}
+                <div class="area-card {{ area.proximity }}">
+                    <div class="area-name">{{ area.name }}</div>
+                    <div class="area-status">{{ area.status }}</div>
+                    <div class="area-distance">
+                        <strong>{{ area.proximity|title }}:</strong> {{ area.distance_km }} km
+                    </div>
+                    <div class="coordinates">
+                        Coordinates: {{ area.coordinates[0] }}, {{ area.coordinates[1] }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-areas">
+                No protected areas found within 50km of this location.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById('search_btn').addEventListener('click', function() {
+        const lat = document.getElementById('search_lat').value;
+        const lon = document.getElementById('search_lon').value;
+        
+        if (lat && lon) {
+            window.location.href = `/protected-areas?lat=${lat}&lon=${lon}`;
+        }
+    });
+    
+    document.getElementById('current_location_btn').addEventListener('click', function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                
+                document.getElementById('search_lat').value = lat;
+                document.getElementById('search_lon').value = lon;
+                
+                window.location.href = `/protected-areas?lat=${lat}&lon=${lon}`;
+            }, function(error) {
+                alert('Error getting location: ' + error.message);
+            });
+        } else {
+            alert('Geolocation is not supported by this browser.');
+        }
+    });
+</script>
+<!-- Script pour la fonctionnalité de clic sur la carte -->
+<script src="{{ url_for('static', path='/js/protected_areas_map.js') }}"></script>
+{% endblock %}

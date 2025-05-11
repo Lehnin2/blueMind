@@ -1,0 +1,94 @@
+{
+    "intents": [
+        {
+            "tag": "greeting",
+            "patterns": ["hello", "hi", "hey", "bonjour", "salut", "coucou"],
+            "responses": [
+                "Hello! How can I help you with your fishing trip?", 
+                "Hi there! What information do you need about your location?",
+                "Bonjour! Comment puis-je vous aider aujourd'hui?",
+                "Salut! Que puis-je faire pour vous?"
+            ]
+        },
+        {
+            "tag": "depth",
+            "patterns": ["depth", "how deep", "profondeur", "quelle profondeur", "profond"],
+            "responses": [
+                "I'll check the depth at your current location.",
+                "Let me find out how deep the water is here.",
+                "Je vais vérifier la profondeur à votre position actuelle.",
+                "Laissez-moi vérifier la profondeur de l'eau ici."
+            ]
+        },
+        {
+            "tag": "nearest_port",
+            "patterns": ["nearest port", "closest harbor", "port le plus proche", "port près", "harbor"],
+            "responses": [
+                "Let me find the nearest port for you.",
+                "I'll locate the closest harbor to your position.",
+                "Je vais trouver le port le plus proche.",
+                "Je vais localiser le port le plus proche de votre position."
+            ]
+        },
+        {
+            "tag": "weather",
+            "patterns": ["weather", "forecast", "météo", "temps", "climat"],
+            "responses": [
+                "I'll check the weather forecast for you.",
+                "Let me get the latest weather information.",
+                "Je vais vérifier les prévisions météo.",
+                "Laissez-moi obtenir les dernières informations météorologiques."
+            ]
+        },
+        {
+            "tag": "location",
+            "patterns": ["where am i", "my location", "position", "où suis-je", "ma position"],
+            "responses": [
+                "Let me check your current location.",
+                "I'll find out where you are right now.",
+                "Je vais vérifier votre position actuelle.",
+                "Je vais déterminer où vous vous trouvez actuellement."
+            ]
+        },
+        {
+            "tag": "protected_areas",
+            "patterns": ["protected area", "zone protégée", "restricted", "zone interdite", "réserve"],
+            "responses": [
+                "I'll check if you're near any protected marine areas.",
+                "Let me see if there are any restricted zones nearby.",
+                "Je vais vérifier si vous êtes près d'une zone marine protégée.",
+                "Laissez-moi voir s'il y a des zones restreintes à proximité."
+            ]
+        },
+        {
+            "tag": "route",
+            "patterns": ["route to", "path to", "navigate to", "itinéraire vers", "chemin vers"],
+            "responses": [
+                "I'll plan a route for you.",
+                "Let me calculate the best path to your destination.",
+                "Je vais planifier un itinéraire pour vous.",
+                "Laissez-moi calculer le meilleur chemin vers votre destination."
+            ]
+        },
+        {
+            "tag": "fishing_advice",
+            "patterns": ["fishing tips", "best spot", "conseils de pêche", "meilleur endroit", "où pêcher"],
+            "responses": [
+                "Based on your location, I recommend fishing in deeper waters to the east.",
+                "The current conditions suggest good fishing near the coastal reefs.",
+                "D'après votre position, je recommande de pêcher dans les eaux plus profondes à l'est.",
+                "Les conditions actuelles suggèrent une bonne pêche près des récifs côtiers."
+            ]
+        },
+        {
+            "tag": "goodbye",
+            "patterns": ["bye", "goodbye", "au revoir", "à bientôt", "ciao"],
+            "responses": [
+                "Goodbye! Have a safe journey!",
+                "Au revoir! Bon voyage!",
+                "See you soon! Stay safe on the water!",
+                "À bientôt! Soyez prudent sur l'eau!"
+            ]
+        }
+    ]
+}

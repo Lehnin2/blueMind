@@ -1,0 +1,398 @@
+{% extends "base.html" %}
+
+{% block title %}Current Location{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+    .location-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    .map-container {
+        height: 60vh;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        grid-column: 1 / 3;
+        position: relative;
+    }
+    .location-info {
+        background-color: rgba(0, 50, 50, 0.7);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%; /* Ensure full width */
+        box-sizing: border-box;
+    }
+    .info-item {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .info-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    .info-label {
+        font-size: 0.9em;
+        color: var(--accent-color);
+        margin-bottom: 5px;
+    }
+    .info-value {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    .coordinates {
+        display: flex;
+        gap: 10px;
+    }
+    .coordinate {
+        flex: 1;
+    }
+    .status-indicator {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: 5px;
+    }
+    .status-at-sea {
+        background-color: var(--accent-color);
+    }
+    .status-near-coast {
+        background-color: var(--warning-color);
+    }
+    .status-on-land {
+        background-color: var(--danger-color);
+    }
+    .protected-area-alert {
+        background-color: rgba(226, 88, 34, 0.3);
+        border-left: 4px solid var(--warning-color);
+        padding: 10px 15px;
+        margin-top: 10px;
+        border-radius: 5px;
+    }
+    .custom-map-controls {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        z-index: 1000;
+        background: rgba(0, 50, 50, 0.8);
+        padding: 5px;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+    }
+    .map-type-btn {
+        padding: 8px 12px;
+        margin: 3px;
+        border: none;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 0.9em;
+        transition: background 0.3s;
+    }
+    .map-type-btn:hover, .map-type-btn.active {
+        background: var(--accent-color);
+    }
+    #map {
+        height: 100%;
+    }
+    .action-buttons {
+        margin-top: 10px; /* Add spacing between the label and the button */
+        display: flex;
+        justify-content: center; /* Center the button */
+    }
+    .action-buttons .btn {
+        background: linear-gradient(135deg, #38ada9 0%, #2c8c89 100%);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(56, 173, 169, 0.4);
+    }
+    .action-buttons .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(56, 173, 169, 0.6);
+    }
+
+    /* Ajustements pour mobile */
+    @media (max-width: 576px) {
+        .location-grid {
+            grid-template-columns: 1fr; /* Stack items vertically */
+            gap: 10px;
+        }
+        .map-container {
+            height: 40vh; /* Reduce map height on mobile */
+            grid-column: 1 / 2;
+        }
+        .dashboard-card {
+            padding-left: 5px; /* Reduce container padding to maximize card width */
+            padding-right: 5px;
+        }
+        .location-info {
+            padding: 15px; /* Slightly less padding on mobile, but still substantial */
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .info-label {
+            font-size: 0.8em;
+        }
+        .info-value {
+            font-size: 1em;
+        }
+        .coordinates {
+            flex-direction: column;
+            gap: 5px;
+        }
+        .custom-map-controls {
+            bottom: 5px;
+            right: 5px;
+        }
+        .map-type-btn {
+            padding: 6px 8px;
+            font-size: 0.8em;
+        }
+        .action-buttons {
+            margin-top: 8px; /* Adjusted spacing for mobile */
+        }
+        .action-buttons .btn {
+            padding: 8px 15px;
+            font-size: 0.9em;
+            border-radius: 15px;
+        }
+        .protected-area-alert {
+            padding: 8px 10px;
+            font-size: 0.9em;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-card">
+    <div class="card-header">
+        <h2>Current Location</h2>
+    </div>
+    <div class="card-content">
+        <div class="location-grid">
+            <div class="map-container" id="location-map-container">
+                <div id="map" style="height: 100%;"></div>
+                <div class="custom-map-controls">
+                    <button class="map-type-btn active" data-map-type="Standard">Standard</button>
+                    <button class="map-type-btn" data-map-type="Satellite">Satellite</button>
+                    <button class="map-type-btn" data-map-type="Ocean">Ocean</button>
+                </div>
+            </div>
+            
+            <div class="location-info">
+                <div class="info-item">
+                    <div class="info-label">Coordinates</div>
+                    <div class="coordinates">
+                        <div class="coordinate">
+                            <div class="info-label">Latitude</div>
+                            <div class="info-value" data-coord="lat">{{ location.lat }}°</div>
+                        </div>
+                        <div class="coordinate">
+                            <div class="info-label">Longitude</div>
+                            <div class="info-value" data-coord="lon">{{ location.lon }}°</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">Status</div>
+                    <div class="info-value status">
+                        {% if location.status == "at sea" %}
+                            <span class="status-indicator status-at-sea"></span> At Sea
+                        {% elif location.status == "near coast" %}
+                            <span class="status-indicator status-near-coast"></span> Near Coast
+                        {% else %}
+                            <span class="status-indicator status-on-land"></span> On Land
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">Nearest Coast/Port</div>
+                    <div class="info-value nearest-coast">{{ location.nearest_coast }}</div>
+                    <div>Distance: {{ location.distance_to_coast }} km</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">Estimated Depth</div>
+                    <div class="info-value">{{ depth }} meters</div>
+                </div>
+                
+                {% if location.protected_areas %}
+                <div class="info-item">
+                    <div class="info-label">Protected Areas</div>
+                    {% for area in location.protected_areas %}
+                    <div class="protected-area-alert">
+                        <strong>{{ area.name }}</strong><br>
+                        Status: {{ area.status }}<br>
+                        Distance: {{ area.distance_km }} km
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="location-info">
+                <div class="info-item">
+                    <div class="info-label">Weather Conditions</div>
+                    <div class="info-value">
+                        <i class="fas fa-sun"></i> Sunny
+                    </div>
+                    <div>Temperature: 28°C</div>
+                    <div>Wind: 15 km/h NE</div>
+                    <div>Humidity: 65%</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">Sea Conditions</div>
+                    <div class="info-value">Calm</div>
+                    <div>Wave Height: 0.5m</div>
+                    <div>Current: 2 knots SE</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">Actions</div>
+                    <div class="action-buttons">
+                        <a href="/route-planner?start_lat={{ location.lat }}&start_lon={{ location.lon }}" class="btn btn-primary">
+                            <i class="fas fa-route"></i> Plan Route From Here
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const mapContainer = document.getElementById('location-map-container');
+    const mapTypeButtons = document.querySelectorAll('.map-type-btn');
+    let map, currentLayer, marker;
+
+    // Function to initialize or update the map
+    function updateMap(latitude, longitude) {
+        if (!map) {
+            // Initialize Leaflet map
+            map = L.map('map').setView([latitude, longitude], 13);
+
+            // Define map layers
+            const standardLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            });
+            const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: '© Esri'
+            });
+            const oceanLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenTopoMap'
+            });
+
+            // Set default layer
+            currentLayer = standardLayer;
+            currentLayer.addTo(map);
+
+            // Add marker
+            marker = L.marker([latitude, longitude]).addTo(map)
+                .bindPopup('Current Location')
+                .openPopup();
+
+            // Handle map type buttons
+            mapTypeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const mapType = this.getAttribute('data-map-type');
+                    mapTypeButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Switch layer
+                    map.removeLayer(currentLayer);
+                    if (mapType === 'Standard') {
+                        currentLayer = standardLayer;
+                    } else if (mapType === 'Satellite') {
+                        currentLayer = satelliteLayer;
+                    } else if (mapType === 'Ocean') {
+                        currentLayer = oceanLayer;
+                    }
+                    currentLayer.addTo(map);
+                });
+            });
+        } else {
+            // Update existing map
+            map.setView([latitude, longitude], 13);
+            if (marker) {
+                marker.setLatLng([latitude, longitude]);
+                marker.openPopup();
+            }
+        }
+    }
+
+    // Fetch current position
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const { latitude, longitude } = position.coords;
+                console.log(`Geolocation success: Lat=${latitude}, Lon=${longitude}`);
+
+                // Update map
+                updateMap(latitude, longitude);
+
+                // Update DOM elements
+                document.querySelector('.coordinate .info-value[data-coord="lat"]').textContent = `${latitude.toFixed(6)}°`;
+                document.querySelector('.coordinate .info-value[data-coord="lon"]').textContent = `${longitude.toFixed(6)}°`;
+
+                // Optionally update server with new coordinates
+                fetch('/update-location', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ lat: latitude, lon: longitude })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status) {
+                        const statusElement = document.querySelector('.info-value.status');
+                        statusElement.innerHTML = '';
+                        if (data.status === 'at sea') {
+                            statusElement.innerHTML = '<span class="status-indicator status-at-sea"></span> At Sea';
+                        } else if (data.status === 'near coast') {
+                            statusElement.innerHTML = '<span class="status-indicator status-near-coast"></span> Near Coast';
+                        } else {
+                            statusElement.innerHTML = '<span class="status-indicator status-on-land"></span> On Land';
+                        }
+                    }
+                    if (data.nearest_coast) {
+                        document.querySelector('.info-value.nearest-coast').textContent = data.nearest_coast;
+                    }
+                })
+                .catch(error => console.error('Error updating location:', error));
+            },
+            (error) => {
+                console.error('Geolocation error:', error.message);
+                alert('Unable to retrieve location. Please ensure location services are enabled and try again.');
+                updateMap(0, 0); // Fallback to default coordinates
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            }
+        );
+    } else {
+        console.error('Geolocation not supported.');
+        alert('Geolocation is not supported by your browser.');
+        updateMap(0, 0); // Fallback
+    }
+});
+</script>
+{% endblock %}

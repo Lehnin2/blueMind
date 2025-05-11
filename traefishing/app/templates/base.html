@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TraeFishing</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    {% block head %}{% endblock %}
+    <style>
+        /* Menu Mobile Styles */
+        .mobile-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-bg) 100%);
+            z-index: 998;
+            padding: 0 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .burger-menu {
+            width: 50px;
+            height: 50px;
+            position: fixed;
+            top: 5px;
+            left: 10px;
+            z-index: 1002;
+            background: linear-gradient(135deg, #38ada9, #2c8c89);
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            padding: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .burger-menu .bar {
+            width: 28px;
+            height: 3px;
+            background-color: white;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .burger-menu:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(56, 173, 169, 0.4);
+        }
+
+        .burger-menu:active {
+            transform: scale(0.95);
+        }
+
+        .burger-menu.active {
+            background: #2c8c89;
+        }
+
+        .burger-menu.active .bar:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .burger-menu.active .bar:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .burger-menu.active .bar:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        .sidebar {
+            position: fixed;
+            left: -280px;
+            top: 0;
+            bottom: 0;
+            width: 280px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-bg) 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 999;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h2 {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-items {
+            padding: 10px 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .nav-item {
+            margin: 5px 10px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(56, 173, 169, 0.2);
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--accent-color);
+        }
+
+        .dropdown-content {
+            display: none;
+            background: rgba(0, 0, 0, 0.2);
+            margin: 5px 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .dropdown.active .dropdown-content {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dropdown-link {
+            display: block;
+            padding: 10px 20px 10px 52px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .dropdown-link:hover {
+            background: rgba(56, 173, 169, 0.1);
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 997;
+            backdrop-filter: blur(3px);
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .main-content {
+            transition: all 0.3s ease;
+            margin-left: 280px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-header {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .mobile-header h2 {
+                color: var(--accent-color);
+                font-size: 1.5rem;
+                margin: 0;
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            }
+
+            .sidebar {
+                left: -280px;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding-top: 60px;
+            }
+
+            .burger-menu {
+                display: flex;
+            }
+
+            .nav-link:active {
+                background: rgba(56, 173, 169, 0.2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <h2>TraeFishing</h2>
+    </div>
+
+    <!-- Burger Menu -->
+    <div class="burger-menu" id="burgerMenu">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-ship"></i> TraeFishing</h2>
+        </div>
+        <ul class="nav-items">
+            <li class="nav-item">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/map" class="nav-link">
+                    <i class="fas fa-map-marked-alt"></i> Map
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/current-location" class="nav-link">
+                    <i class="fas fa-location-arrow"></i> Location Actuelle
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/depth" class="nav-link">
+                    <i class="fas fa-water"></i> Calculateur de Profondeur
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/route-planner" class="nav-link">
+                    <i class="fas fa-route"></i> Planificateur de Route
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/protected-areas" class="nav-link">
+                    <i class="fas fa-leaf"></i> Zones Protégées
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/zone-checker" class="nav-link">
+                    <i class="fas fa-map-marked"></i> Vérificateur de Zone
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle">
+                    <i class="fas fa-anchor"></i> Ports
+                    <i class="fas fa-chevron-down" style="float: right;"></i>
+                </a>
+                <div class="dropdown-content">
+                    <a href="/ports/Tunis" class="dropdown-link">Tunis</a>
+                    <a href="/ports/Bizerte" class="dropdown-link">Bizerte</a>
+                    <a href="/ports/Sousse" class="dropdown-link">Sousse</a>
+                    <a href="/ports/Sfax" class="dropdown-link">Sfax</a>
+                    <a href="/ports/Gabes" class="dropdown-link">Gabes</a>
+                    <a href="/ports/Medenine" class="dropdown-link">Medenine</a>
+                    <a href="/ports/Monastir" class="dropdown-link">Monastir</a>
+                    <a href="/ports/Mahdia" class="dropdown-link">Mahdia</a>
+                    <a href="/ports/Jendouba" class="dropdown-link">Jendouba</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="/chatbot" class="nav-link">
+                    <i class="fas fa-robot"></i> Assistant IA
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const burgerMenu = document.getElementById('burgerMenu');
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.getElementById('overlay');
+            const dropdowns = document.querySelectorAll('.dropdown');
+
+            // Toggle menu function with touch event handling
+            function toggleMenu(e) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                burgerMenu.classList.toggle('active');
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+            }
+
+            // Event listeners with touch events
+            burgerMenu.addEventListener('click', toggleMenu);
+            burgerMenu.addEventListener('touchend', toggleMenu);
+            overlay.addEventListener('click', toggleMenu);
+            overlay.addEventListener('touchend', toggleMenu);
+
+            // Handle dropdowns with touch events
+            dropdowns.forEach(dropdown => {
+                const toggle = dropdown.querySelector('.dropdown-toggle');
+                if (toggle) {
+                    const handleDropdown = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        dropdown.classList.toggle('active');
+                    };
+                    
+                    toggle.addEventListener('click', handleDropdown);
+                    toggle.addEventListener('touchend', handleDropdown);
+                }
+            });
+
+            // Close menu when clicking/touching a link
+            const links = sidebar.querySelectorAll('a:not(.dropdown-toggle)');
+            links.forEach(link => {
+                const handleLink = () => {
+                    if (window.innerWidth <= 768) {
+                        toggleMenu();
+                    }
+                };
+                
+                link.addEventListener('click', handleLink);
+                link.addEventListener('touchend', handleLink);
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    burgerMenu.classList.remove('active');
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Prevent page scrolling when menu is open on touch devices
+            sidebar.addEventListener('touchmove', (e) => {
+                e.stopPropagation();
+            }, { passive: true });
+        });
+    </script>
+
+    {% block scripts %}{% endblock %}
+    
+    <!-- UI Chatbot contextuel (bulle flottante) -->
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/ui_chatbot.css') }}">
+    <script src="{{ url_for('static', path='/js/ui_chatbot.js') }}"></script>
+</body>
+</html>

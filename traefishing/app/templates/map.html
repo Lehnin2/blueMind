@@ -1,0 +1,871 @@
+{% extends "base.html" %}
+
+{% block title %}Fisherman's Map View{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+    :root {
+        --primary: #1e40af;
+        --secondary: #22d3ee;
+        --accent: #f97316;
+        --background: #e0f2fe;
+        --card-bg: #ffffff;
+        --text: #1e293b;
+        --tunisian-red: #ef4444;
+        --tunisian-white: #ffffff;
+        --button-bg: #f1f5f9;
+        --button-hover: #dbeafe;
+        --button-active: #3b82f6;
+    }
+
+    .map-container {
+        height: 70vh;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+        background: linear-gradient(45deg, #dbeafe, #f0f9ff);
+    }
+
+    #map {
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    .custom-map-controls {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 1000;
+        background: linear-gradient(45deg, #f0f9ff, #dbeafe);
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        width: 200px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .map-type-btn {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        border: none;
+        background: transparent;
+        color: var(--text);
+        font-weight: 600;
+        text-align: left;
+        cursor: pointer;
+        width: 100%;
+        border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+        transition: all 0.3s ease;
+        font-size: 15px;
+        gap: 12px;
+    }
+
+    .map-type-btn:last-child {
+        border-bottom: none;
+    }
+
+    .map-type-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateX(5px);
+        color: var(--primary);
+    }
+
+    .map-type-btn.active {
+        background: var(--button-active);
+        color: var(--tunisian-white);
+        font-weight: 700;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .map-type-btn i {
+        font-size: 18px;
+        color: var(--text);
+        transition: color 0.3s ease;
+    }
+
+    .map-type-btn:hover i {
+        color: var(--primary);
+    }
+
+    .map-type-btn.active i {
+        color: var(--tunisian-white);
+    }
+
+    .map-zoom-controls {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .zoom-btn, .fullscreen-btn, .reset-btn {
+        width: 45px;
+        height: 45px;
+        border-radius: 8px;
+        background: linear-gradient(45deg, #f0f9ff, #dbeafe);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        color: var(--text);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .zoom-btn:hover, .fullscreen-btn:hover, .reset-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(1.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .zoom-btn:active, .fullscreen-btn:active, .reset-btn:active {
+        background: var(--button-active);
+        color: var(--tunisian-white);
+    }
+
+    .coordinate-display {
+        position: absolute;
+        bottom: 20px;
+        left: 10px;
+        z-index: 1000;
+        background: linear-gradient(45deg, #f0f9ff, #dbeafe);
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+        color: var(--text);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .log-container {
+        margin-top: 20px;
+        height: 150px;
+        background: linear-gradient(45deg, #202a6c, #032831);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .log-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 15px;
+        scrollbar-width: thin;
+        scrollbar-color: var(--button-active) rgba(229, 231, 235, 0.5);
+    }
+
+    .log-message {
+        margin-bottom: 10px;
+        padding: 10px 15px;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 8px;
+        font-size: 14px;
+        color: var(--text);
+        border-left: 4px solid var(--tunisian-red);
+        animation: slideIn 0.4s ease-in-out;
+        transition: background 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .log-message:hover {
+        background: rgba(255, 255, 255, 0.8);
+    }
+
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateX(-20px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    @media (max-width: 768px) {
+        .map-container {
+            height: 60vh;
+        }
+
+        .custom-map-controls {
+            width: 180px;
+        }
+
+        .map-type-btn {
+            font-size: 14px;
+            padding: 10px 12px;
+            gap: 10px;
+        }
+
+        .zoom-btn, .fullscreen-btn, .reset-btn {
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+        }
+
+        .log-container {
+            height: 120px;
+        }
+
+        .coordinate-display {
+            font-size: 12px;
+            padding: 4px 8px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-card">
+    <div class="card-header">
+        <h2>Fisherman's Map View</h2>
+    </div>
+    <div class="card-content">
+        <div class="map-container" id="map-container">
+            <div id="map"></div>
+
+            <!-- Map type controls -->
+            <div class="custom-map-controls">
+                <button class="map-type-btn active" data-map-type="Carte Maritime">
+                    <i class="fas fa-water"></i> Carte Maritime
+                </button>
+                <button class="map-type-btn" data-map-type="Vue Satellite">
+                    <i class="fas fa-satellite"></i> Vue Satellite
+                </button>
+                <button class="map-type-btn" data-map-type="Carte Topographique">
+                    <i class="fas fa-mountain"></i> Carte Topographique
+                </button>
+                <button class="map-type-btn" data-map-type="Ports Tunisiens" id="toggle-markers">
+                    <i class="fas fa-anchor"></i> Ports Tunisiens
+                </button>
+                <button class="map-type-btn" id="measure-distance">
+                    <i class="fas fa-ruler"></i> Mesurer Distance
+                </button>
+            </div>
+
+            <!-- Zoom, fullscreen, and reset controls -->
+            <div class="map-zoom-controls">
+                <button class="zoom-btn" id="zoom-in" title="Zoom In"><i class="fas fa-plus"></i></button>
+                <button class="zoom-btn" id="zoom-out" title="Zoom Out"><i class="fas fa-minus"></i></button>
+                <button class="fullscreen-btn" id="fullscreen" title="Toggle Fullscreen"><i class="fas fa-expand"></i></button>
+                <button class="reset-btn" id="reset-view" title="Reset View"><i class="fas fa-compress-arrows-alt"></i></button>
+            </div>
+
+            <!-- Coordinate display -->
+            <div class="coordinate-display" id="coordinate-display">Lat: 0, Lng: 0</div>
+        </div>
+
+        <!-- Log interface -->
+        <div class="log-container">
+            <div id="log-messages" class="log-messages">
+                <!-- Messages will be added here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+<script>
+    // Tunisian Ports Database
+    const TUNISIAN_PORTS = [
+        {"name": "Port de Tabarka", "governorate": "Jendouba", "lat": 36.9558, "lon": 8.7339},
+        {"name": "Port de Monastir", "governorate": "Monastir", "lat": 35.7789, "lon": 10.8262},
+        {"name": "Port de Sayada", "governorate": "Monastir", "lat": 35.6500, "lon": 11.0833},
+        {"name": "Port de Ksibet Mediouni", "governorate": "Monastir", "lat": 35.5667, "lon": 11.0333},
+        {"name": "Port de Gabes", "governorate": "Gabes", "lat": 33.8869, "lon": 10.1082},
+        {"name": "Port de Zarat", "governorate": "Gabes", "lat": 33.7333, "lon": 10.2667},
+        {"name": "Port de Zarzouna", "governorate": "Bizerte", "lat": 37.2744, "lon": 9.8746},
+        {"name": "Port de Ghar El Melh", "governorate": "Bizerte", "lat": 37.1667, "lon": 10.2167},
+        {"name": "Port de Cap Zebib", "governorate": "Bizerte", "lat": 37.2333, "lon": 10.0500},
+        {"name": "Port de Sidi Mechreg", "governorate": "Bizerte", "lat": 37.2333, "lon": 9.8000},
+        {"name": "Port de Zarzis", "governorate": "Medenine", "lat": 33.5039, "lon": 11.1172},
+        {"name": "Port de Houmet Souk", "governorate": "Medenine", "lat": 33.9167, "lon": 10.8667},
+        {"name": "Port d'Ajim", "governorate": "Medenine", "lat": 33.9500, "lon": 10.8167},
+        {"name": "Port de Boughrara", "governorate": "Medenine", "lat": 33.7500, "lon": 10.9667},
+        {"name": "Port de Mahdia", "governorate": "Mahdia", "lat": 35.5050, "lon": 11.0620},
+        {"name": "Port de Chebba", "governorate": "Mahdia", "lat": 35.4333, "lon": 11.1167},
+        {"name": "Port de Salakta", "governorate": "Mahdia", "lat": 35.5500, "lon": 11.0333},
+        {"name": "Port de Malloulech", "governorate": "Mahdia", "lat": 35.5167, "lon": 11.0833},
+        {"name": "Port de Kalaat Landalous", "governorate": "Ariana", "lat": 36.8500, "lon": 10.3167},
+        {"name": "Port de la Goulette", "governorate": "Tunis", "lat": 36.8333, "lon": 10.3167},
+        {"name": "Port de Kelibia", "governorate": "Nabeul", "lat": 36.8444, "lon": 11.0889},
+        {"name": "Port de Beni Khiar", "governorate": "Nabeul", "lat": 36.7333, "lon": 10.8833},
+        {"name": "Port de Haouaria", "governorate": "Nabeul", "lat": 36.8167, "lon": 10.9500},
+        {"name": "Port de Sidi Daoud", "governorate": "Nabeul", "lat": 36.7500, "lon": 10.8833},
+        {"name": "Port de Sfax", "governorate": "Sfax", "lat": 34.7272, "lon": 10.7603},
+        {"name": "Port de Mahres", "governorate": "Sfax", "lat": 34.5333, "lon": 10.5000},
+        {"name": "Port de Skhira", "governorate": "Sfax", "lat": 34.3000, "lon": 10.1000},
+        {"name": "Port de Kraten", "governorate": "Sfax", "lat": 34.6500, "lon": 10.6500},
+        {"name": "Port de Sousse", "governorate": "Sousse", "lat": 35.8272, "lon": 10.6356},
+        {"name": "Port de Hergla", "governorate": "Sousse", "lat": 36.0333, "lon": 10.5000},
+        {"name": "Port de Louza – Louata", "governorate": "Sousse", "lat": 35.8167, "lon": 10.6000},
+        {"name": "Port de Zaboussa", "governorate": "Sousse", "lat": 35.8500, "lon": 10.6333},
+        {"name": "Port d'El Aouabed", "governorate": "Sousse", "lat": 35.8333, "lon": 10.6167}
+    ];
+
+    // Initialize Map
+    let map;
+    let currentLayer = 'Carte Maritime';
+    let mapLayers;
+
+    function initializeMap() {
+        try {
+            map = L.map('map', {
+                zoomControl: false,
+                attributionControl: true
+            }).setView([36.8065, 10.1815], 8);
+
+            const maritime = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles © Esri'
+            });
+
+            const topographic = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                attribution: 'Map data: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            });
+
+            mapLayers = {
+                'Carte Maritime': maritime,
+                'Vue Satellite': satellite,
+                'Carte Topographique': topographic,
+                'Ports Tunisiens': maritime
+            };
+
+            setTimeout(() => {
+                map.invalidateSize();
+            }, 100);
+
+            return mapLayers;
+        } catch (error) {
+            console.error('Error initializing map:', error);
+            addMessage(getLocalizedMessage('error'));
+        }
+    }
+
+    // Markers for Ports
+    let markers = [];
+    let markersVisible = false;
+
+    function showPorts() {
+        try {
+            if (!markersVisible) {
+                TUNISIAN_PORTS.forEach(port => {
+                    const marker = L.marker([port.lat, port.lon], {
+                        icon: L.divIcon({
+                            className: 'custom-icon',
+                            html: `<i class="fas fa-anchor" style="color: #ef4444; font-size: 28px;"></i>`,
+                            iconSize: [40, 40],
+                            iconAnchor: [20, 40]
+                        })
+                    })
+                        .bindPopup(`<b>${port.name}</b><br>${port.governorate}`)
+                        .addTo(map);
+                    markers.push(marker);
+                });
+                markersVisible = true;
+                addMessage(getLocalizedMessage('show_ports'));
+            }
+        } catch (error) {
+            console.error('Error showing ports:', error);
+            addMessage(getLocalizedMessage('error'));
+        }
+    }
+
+    function hidePorts() {
+        try {
+            if (markersVisible) {
+                markers.forEach(marker => map.removeLayer(marker));
+                markers = [];
+                markersVisible = false;
+                addMessage(getLocalizedMessage('hide_ports'));
+            }
+        } catch (error) {
+            console.error('Error hiding ports:', error);
+            addMessage(getLocalizedMessage('error'));
+        }
+    }
+
+    // Distance Measurement
+    let distancePoints = [];
+    let measuring = false;
+    let polyline = null;
+
+    function clearMeasurement() {
+        try {
+            console.log('Clearing measurement');
+            distancePoints = [];
+            if (polyline) {
+                map.removeLayer(polyline);
+                polyline = null;
+            }
+            map.eachLayer(layer => {
+                if (layer instanceof L.CircleMarker) map.removeLayer(layer);
+            });
+            measuring = false;
+            const measureDistanceBtn = document.getElementById('measure-distance');
+            if (measureDistanceBtn) {
+                measureDistanceBtn.classList.remove('active');
+            }
+        } catch (error) {
+            console.error('Error clearing measurement:', error);
+            addMessage(getLocalizedMessage('error'));
+        }
+    }
+
+    // Log Messages
+    function addMessage(content) {
+        try {
+            const logMessages = document.getElementById('log-messages');
+            if (logMessages) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'log-message';
+                messageDiv.textContent = content;
+                logMessages.appendChild(messageDiv);
+                logMessages.scrollTop = logMessages.scrollHeight;
+            }
+        } catch (error) {
+            console.error('Error adding message:', error);
+        }
+    }
+
+    // Localized Messages
+    function getLocalizedMessage(key, params = []) {
+        const messages = {
+            'fr': {
+                'switch_maritime': "Passé à la carte maritime, prêt à naviguer ! 🌊",
+                'switch_satellite': "Vue satellite activée, tout est clair ! 🛰️",
+                'switch_topographic': "Carte topographique affichée, explorez le relief ! 🏞️",
+                'show_ports': "Tous les ports tunisiens sont là, prêts à t'accueillir ! ⚓",
+                'hide_ports': "Les ports sont cachés, mais la mer est toujours à toi ! 🗺️",
+                'zoom_in': "On zoome, capitaine ! Tout est plus clair maintenant ? 🧭",
+                'zoom_out': "Vue large, comme un vrai marin tunisien ! Ça va ? 🗺️",
+                'reset_view': "Retour au bercail, centré sur la Tunisie !",
+                'fullscreen_on': "La mer en grand écran, profite bien ! 🌅",
+                'fullscreen_off': "Retour au cockpit, prêt à naviguer ? ⚓",
+                'start_measure': "Prêt à mesurer ? Clique sur la carte, capitaine ! 📏",
+                'stop_measure': "Fini de mesurer, on repart en mer ? ⛵",
+                'distance_measured': "Distance mesurée : %s km ! 🌊",
+                'error': "Oups, une petite tempête numérique ! Réessaye, marin ! 🌩️",
+                'default_response': "Je suis prêt à vous guider en mer, capitaine ! ⚓"
+            },
+            'en': {
+                'switch_maritime': "Switched to maritime map, ready to sail! 🌊",
+                'switch_satellite': "Satellite view on, all clear! 🛰️",
+                'switch_topographic': "Topographic map shown, explore the terrain! 🏞️",
+                'show_ports': "All Tunisian ports are on the map, ready for you! ⚓",
+                'hide_ports': "Ports hidden, but the sea's still yours! 🗺️",
+                'zoom_in': "Zooming in, mate! See better now? 🧭",
+                'zoom_out': "Big picture, like a true sailor! All good? 🗺️",
+                'reset_view': "Back to Tunisia, centered and ready!",
+                'fullscreen_on': "Full sea view, enjoy it! 🌅",
+                'fullscreen_off': "Back to normal, ready to sail? ⚓",
+                'start_measure': "Ready to measure? Click the map, mate! 📏",
+                'stop_measure': "Done measuring, back to sailing? ⛵",
+                'distance_measured': "Distance measured: %s km! 🌊",
+                'error': "Whoops, a digital storm! Try again, sailor! 🌩️",
+                'default_response': "Ready to guide you on the sea, mate! ⚓"
+            },
+            'ar': {
+                'switch_maritime': "تحولنا للخريطة البحرية، جاهز تبحر ! 🌊",
+                'switch_satellite': "منظر القمر الصناعي شغال، كل شي واضح ! 🛰️",
+                'switch_topographic': "خريطة طبوغرافية ظهرت، اكتشف التضاريس ! 🏞️",
+                'show_ports': "كل المراسي التونسية هنا، يستنوك ! ⚓",
+                'hide_ports': "المواني راحت، لكن البحر ملكك ! 🗺️",
+                'zoom_in': "نقربوا النظر، شفت أحسن دلوقتي؟ 🧭",
+                'zoom_out': "شوف الكل، زي بحار تونسي ! مليح؟ 🗺️",
+                'reset_view': "رجعنا لتونس، مركزين وجاهزين !",
+                'fullscreen_on': "البحر كبير قدامك، استمتع ! 🌅",
+                'fullscreen_off': "رجعنا للعادي، جاهز تبحر؟ ⚓",
+                'start_measure': "جاهز تقيس؟ اضغط عالخريطة، يا ولدي ! 📏",
+                'stop_measure': "خلّصنا القياس، نرجعوا للبحر؟ ⛵",
+                'distance_measured': "المسافة المقاسة: %s كم ! 🌊",
+                'error': "يا ساتر، عاصفة ديجيتال ! جرب مرة أخرى، يا بحار ! 🌩️",
+                'default_response': "جاهز نساعدك في البحر، يا خويا ! ⚓"
+            }
+        };
+
+        let lang = 'fr';
+        let message = messages[lang][key] || messages['fr'][key];
+        params.forEach((param, index) => {
+            message = message.replace(`%s`, param);
+        });
+        return message;
+    }
+
+    // Initialize everything inside DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', () => {
+        try {
+            // Initialize WebSocket
+            connectWebSocket();
+
+            // Initialize Map
+            mapLayers = initializeMap();
+
+            // Handle map layer switching
+            document.querySelectorAll('.map-type-btn[data-map-type]').forEach(button => {
+                button.addEventListener('click', function() {
+                    try {
+                        const mapType = this.getAttribute('data-map-type');
+                        document.querySelectorAll('.map-type-btn[data-map-type]').forEach(btn => btn.classList.remove('active'));
+                        this.classList.add('active');
+                        currentLayer = mapType;
+                        hidePorts();
+                        clearMeasurement();
+                        Object.values(mapLayers).forEach(layer => map.removeLayer(layer));
+                        mapLayers[mapType].addTo(map);
+                        addMessage(getLocalizedMessage(mapType === 'Carte Maritime' ? 'switch_maritime' : mapType === 'Vue Satellite' ? 'switch_satellite' : 'switch_topographic'));
+                    } catch (error) {
+                        console.error('Error switching map layer:', error);
+                        addMessage(getLocalizedMessage('error'));
+                    }
+                });
+            });
+
+            // Toggle Markers (Ports)
+            const toggleMarkersBtn = document.getElementById('toggle-markers');
+            if (toggleMarkersBtn) {
+                toggleMarkersBtn.addEventListener('click', () => {
+                    try {
+                        if (markersVisible) {
+                            hidePorts();
+                            toggleMarkersBtn.classList.remove('active');
+                        } else {
+                            showPorts();
+                            toggleMarkersBtn.classList.add('active');
+                        }
+                    } catch (error) {
+                        console.error('Error toggling markers:', error);
+                        addMessage(getLocalizedMessage('error'));
+                    }
+                });
+            }
+
+            // Distance Measurement
+            const measureDistanceBtn = document.getElementById('measure-distance');
+            if (measureDistanceBtn) {
+                measureDistanceBtn.addEventListener('click', (e) => {
+                    try {
+                        e.preventDefault();
+                        console.log('Measure Distance button clicked, measuring state before toggle:', measuring);
+                        measuring = !measuring;
+                        measureDistanceBtn.classList.toggle('active', measuring);
+                        console.log('Measuring state after toggle:', measuring);
+
+                        if (!measuring) {
+                            distancePoints = [];
+                            if (polyline) {
+                                map.removeLayer(polyline);
+                                polyline = null;
+                            }
+                            map.eachLayer(layer => {
+                                if (layer instanceof L.CircleMarker) map.removeLayer(layer);
+                            });
+                            addMessage(getLocalizedMessage('stop_measure'));
+                        } else {
+                            // Clear previous measurement but keep measuring mode active
+                            distancePoints = [];
+                            if (polyline) {
+                                map.removeLayer(polyline);
+                                polyline = null;
+                            }
+                            map.eachLayer(layer => {
+                                if (layer instanceof L.CircleMarker) map.removeLayer(layer);
+                            });
+                            addMessage(getLocalizedMessage('start_measure'));
+                        }
+                    } catch (error) {
+                        console.error('Error toggling measure distance:', error);
+                        addMessage(getLocalizedMessage('error'));
+                    }
+                });
+            } else {
+                console.error('Measure Distance button not found');
+            }
+
+            // Map Click Event for Measurement
+            map.on('click', function(e) {
+                try {
+                    console.log('Map clicked, measuring state:', measuring);
+                    if (measuring) {
+                        distancePoints.push(e.latlng);
+                        L.circleMarker(e.latlng, {
+                            radius: 6,
+                            color: '#ef4444',
+                            fillOpacity: 0.8
+                        }).addTo(map);
+                        console.log('Point added, total points:', distancePoints.length);
+
+                        if (distancePoints.length >= 2) {
+                            if (polyline) map.removeLayer(polyline);
+                            polyline = L.polyline(distancePoints, {
+                                color: '#3b82f6',
+                                weight: 4,
+                                dashArray: '5, 10'
+                            }).addTo(map);
+
+                            let totalDistance = 0;
+                            for (let i = 1; i < distancePoints.length; i++) {
+                                totalDistance += map.distance(distancePoints[i-1], distancePoints[i]);
+                            }
+                            addMessage(getLocalizedMessage('distance_measured', [(totalDistance / 1000).toFixed(2)]));
+                        }
+                    } else {
+                        document.getElementById('coordinate-display').textContent = `Lat: ${e.latlng.lat.toFixed(4)}, Lng: ${e.latlng.lng.toFixed(4)}`;
+                        L.popup()
+                            .setLatLng(e.latlng)
+                            .setContent(`Lat: ${e.latlng.lat.toFixed(4)}<br>Lng: ${e.latlng.lng.toFixed(4)}`)
+                            .openOn(map);
+                    }
+                } catch (error) {
+                    console.error('Error handling map click:', error);
+                    addMessage(getLocalizedMessage('error'));
+                }
+            });
+
+            // Map Controls
+            const zoomInBtn = document.getElementById('zoom-in');
+            if (zoomInBtn) {
+                zoomInBtn.addEventListener('click', () => {
+                    try {
+                        map.zoomIn();
+                        addMessage(getLocalizedMessage('zoom_in'));
+                    } catch (error) {
+                        console.error('Error zooming in:', error);
+                        addMessage(getLocalizedMessage('error'));
+                    }
+                });
+            }
+
+            const zoomOutBtn = document.getElementById('zoom-out');
+            if (zoomOutBtn) {
+                zoomOutBtn.addEventListener('click', () => {
+                    try {
+                        map.zoomOut();
+                        addMessage(getLocalizedMessage('zoom_out'));
+                    } catch (error) {
+                        console.error('Error zooming out:', error);
+                        addMessage(getLocalizedMessage('error'));
+                    }
+                });
+            }
+
+            const resetViewBtn = document.getElementById('reset-view');
+            if (resetViewBtn) {
+                resetViewBtn.addEventListener('click', () => {
+                    try {
+                        map.setView([36.8065, 10.1815], 8);
+                        addMessage(getLocalizedMessage('reset_view'));
+                    } catch (error) {
+                        console.error('Error resetting view:', error);
+                        addMessage(getLocalizedMessage('error'));
+                    }
+                });
+            }
+
+            const fullscreenBtn = document.getElementById('fullscreen');
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener('click', () => {
+                    try {
+                        const mapContainer = document.getElementById('map-container');
+                        if (!document.fullscreenElement) {
+                            mapContainer.requestFullscreen().then(() => {
+                                map.invalidateSize();
+                                fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                                addMessage(getLocalizedMessage('fullscreen_on'));
+                            });
+                        } else {
+                            document.exitFullscreen().then(() => {
+                                map.invalidateSize();
+                                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                                addMessage(getLocalizedMessage('fullscreen_off'));
+                            });
+                        }
+                    } catch (error) {
+                        console.error('Error toggling fullscreen:', error);
+                        addMessage(getLocalizedMessage('error'));
+                    }
+                });
+            }
+
+            // Coordinate Display on Mousemove
+            map.on('mousemove', function(e) {
+                try {
+                    document.getElementById('coordinate-display').textContent = `Lat: ${e.latlng.lat.toFixed(4)}, Lng: ${e.latlng.lng.toFixed(4)}`;
+                } catch (error) {
+                    console.error('Error updating coordinates:', error);
+                }
+            });
+        } catch (error) {
+            console.error('Error in DOMContentLoaded:', error);
+            addMessage(getLocalizedMessage('error'));
+        }
+    });
+
+    // Backend-Driven Map Actions
+    function showRouteOnMap(route) {
+        try {
+            map.eachLayer(layer => {
+                if (layer instanceof L.Polyline && !(layer instanceof L.Marker)) {
+                    map.removeLayer(layer);
+                }
+            });
+
+            const routePoints = route.points.map(point => [point.latitude, point.longitude]);
+            const routeLine = L.polyline(routePoints, {
+                color: '#22d3ee',
+                weight: 5,
+                opacity: 0.7
+            }).addTo(map);
+
+            if (routePoints.length > 0) {
+                const startMarker = L.marker(routePoints[0], {
+                    title: 'Start'
+                }).addTo(map);
+
+                const endMarker = L.marker(routePoints[routePoints.length - 1], {
+                    title: 'Destination'
+                }).addTo(map);
+
+                map.fitBounds(routeLine.getBounds(), {
+                    padding: [50, 50]
+                });
+            }
+            addMessage(getLocalizedMessage('default_response'));
+        } catch (error) {
+            console.error('Error showing route:', error);
+            addMessage(getLocalizedMessage('error'));
+        }
+    }
+
+    function showDepthMarker(lat, lon, depth) {
+        try {
+            const depthMarker = L.marker([lat, lon], {
+                title: `Depth: ${depth}m`
+            }).addTo(map);
+
+            depthMarker.bindPopup(`<b>Depth:</b> ${depth} meters`).openPopup();
+            map.setView([lat, lon], 12);
+            addMessage(getLocalizedMessage('default_response'));
+        } catch (error) {
+            console.error('Error showing depth marker:', error);
+            addMessage(getLocalizedMessage('error'));
+        }
+    }
+
+    function showPortMarker(port) {
+        try {
+            const portMarker = L.marker([port.latitude, port.longitude], {
+                title: port.name
+            }).addTo(map);
+
+            const popupContent = `
+                <div class="port-info">
+                    <h3>${port.name}</h3>
+                    <p><b>Distance:</b> ${port.distance || 'N/A'} km</p>
+                    <p><b>Facilities:</b> ${port.facilities || 'Standard port facilities'}</p>
+                </div>
+            `;
+
+            portMarker.bindPopup(popupContent).openPopup();
+            map.setView([port.latitude, port.longitude], 12);
+            addMessage(getLocalizedMessage('default_response'));
+        } catch (error) {
+            console.error('Error showing port marker:', error);
+            addMessage(getLocalizedMessage('error'));
+        }
+    }
+
+    function showMapAlert(message, lat, lon) {
+        try {
+            if (lat && lon) {
+                const alertMarker = L.marker([lat, lon], {
+                    icon: L.divIcon({
+                        className: 'alert-icon',
+                        html: '<i class="fas fa-exclamation-triangle text-red-500 text-2xl"></i>'
+                    })
+                }).addTo(map);
+
+                alertMarker.bindPopup(`<b>Alert:</b> ${message}`).openPopup();
+                map.setView([lat, lon], 12);
+                setTimeout(() => alertMarker.remove(), 8000);
+            }
+            addMessage(`⚠️ ${message}`);
+        } catch (error) {
+            console.error('Error showing map alert:', error);
+            addMessage(getLocalizedMessage('error'));
+        }
+    }
+
+    // WebSocket Connection
+    function connectWebSocket() {
+        try {
+            window.ws = new WebSocket(`ws://${window.location.host}/api/ws`);
+
+            window.ws.onopen = function() {
+                console.log("WebSocket connection established");
+            };
+
+            window.ws.onmessage = function(event) {
+                try {
+                    const data = JSON.parse(event.data);
+                    addMessage(data.response);
+                    if (data.actions && data.actions.length > 0) {
+                        data.actions.forEach(action => {
+                            switch(action.type) {
+                                case 'show_map':
+                                    if (action.data && action.data.route) {
+                                        showRouteOnMap(action.data.route);
+                                    }
+                                    break;
+                                case 'show_depth':
+                                    if (action.data && action.data.depth) {
+                                        showDepthMarker(action.data.latitude, action.data.longitude, action.data.depth);
+                                    }
+                                    break;
+                                case 'show_port':
+                                    if (action.data && action.data.port) {
+                                        showPortMarker(action.data.port);
+                                    }
+                                    break;
+                                case 'alert':
+                                    if (action.data && action.data.message) {
+                                        showMapAlert(action.data.message, action.data.latitude, action.data.longitude);
+                                    }
+                                    break;
+                            }
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error handling WebSocket message:', error);
+                    addMessage(getLocalizedMessage('error'));
+                }
+            };
+
+            window.ws.onclose = function() {
+                console.log("WebSocket connection closed");
+                window.ws = null;
+            };
+
+            window.ws.onerror = function(error) {
+                console.error("WebSocket error:", error);
+            };
+        } catch (error) {
+            console.error('Error connecting WebSocket:', error);
+            addMessage(getLocalizedMessage('error'));
+        }
+    }
+</script>
+{% endblock %}
