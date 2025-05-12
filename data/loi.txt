@@ -1,0 +1,813 @@
+See discussions, stats, and author profiles for this publication at: https://www.researchgate.net/publication/268807686
+GUIDE DU MARIN PÊCHEUR EN TUNISIE
+Book · April 2011
+DOI: 10.13140/2.1.1147.5522
+CITATIONS
+0
+READS
+3,230
+5 authors, including:
+Juan Antonio Camiñas
+Spanish Herpetologicas Association (AHE)
+327 PUBLICATIONS   2,321 CITATIONS   
+SEE PROFILE
+Matthieu Bernardon
+Food and Agriculture Organization of the United Nations
+26 PUBLICATIONS   24 CITATIONS   
+SEE PROFILE
+Rocio Sintas
+6 PUBLICATIONS   0 CITATIONS   
+SEE PROFILE
+All content following this page was uploaded by Juan Antonio Camiñas on 27 November 2014.
+The user has requested enhancement of the downloaded file.
+GUIDE DU 
+MARIN PÊCHEUR
+EN TUNISIE
+GUIaE aU 
+MARIN PÊCeEUR
+EN TUNISIE
+fao 2011
+FAO ArtFiMed. Guide du marin pêcheur en Tunisie. FAO-ArtFiMed 
+Développement durable de la pêche artisanale méditerranéenne au 
+Maroc et en Tunisie. Malaga, Espagne, 2011. 27 p.
+Le projet FAO-ArtFiMed, Développement durable de la pêche artisanale 
+méditerranéenne au Maroc et en Tunisie, est un projet régional pilote financé 
+par l’Espagne au travers de l’Agence espagnole de coopération internationale 
+pour le développement (AECID) et exécuté par la Division de l’utilisation et 
+de la conservation des ressources des pêches et de l’aquaculture (FIR) du 
+Département des pêches et de l’aquaculture (FI) de la FAO.
+Le projet est exécuté dans trois sites de pêche artisanale en Tunisie et au Maroc :
+Dikky, dans la province de Tanger 
+au Maroc, proche du détroit de 
+Gibraltar, où les pêcheurs utilisent 
+des lignes et palangres pour 
+capturer des espèces de grande 
+valeur commerciale.
+Ghannouch, petit village proche de 
+Gabès en Tunisie, où les pêcheurs 
+utilisent différents types de filets 
+pour capturer une grande varíété 
+d’espèces présentes dans le golfe 
+de Gabès.
+El Akarit, dans le golfe de Gabès en 
+Tunisie, où ce sont principalement 
+les femmes qui pratiquent la pêche 
+des palourdes à marée basse sur la 
+zone intertidale.
+Coordination et réalisation : Juan A. Camiñas et Matthieu Bernardon (FAO/FIRF)
+Révision technique et traduction en arabe : Othman Jarboui (INSTM)
+Expert local ArtFiMed : Hamadi Elaiba (FAO/FIRF)
+Graphisme et mise en page : Rocío Sintas (Consultante FAO CopeMed II)
+Photo couverture : FAO 		 		 
+© FAO 2011 
+Les résultats et produits du projet ArtFiMed contribuent à améliorer les 
+processus d’appui aux pêches artisanales et à renforcer la visualisation de ces 
+pêcheries au niveau national. Au niveau de la région Méditerranéenne, sous 
+la responsabilité de la Commission générale des pêches pour la Méditerranée 
+(CGPM), ArtFiMed soutient la prise en compte des pêches artisanales dans 
+l’évaluation des stocks partagés, renforce les échanges d’expériences, pour 
+améliorer la visibilité de la pêche artisanale au bénéfice d’une durabilité 
+sociale, économique et environnementale des pêches en Méditerranée.
+Préparation du document
+Ce guide est un support de promotion de la pêche durable pour une utilisation 
+responsable des ressources exploitées par la pêche artisanale en Tunisie. Il 
+s’agit d’un outil pratique qui peut être utilisé par les pêcheurs mais également 
+les responsables des administrations des pêches et les communautés de 
+pêche, pour connaître la réglementation en vigueur en Tunisie relative à 
+l’exercice de la pêche.
+Les informations de ce guide, sont extraites de la Loi no 75-17 du 31/03/1975
+portant promulgation du code du pêcheur, paru dans le Journal Officiel de la 
+République Tunisienne du 1er avril 1975.
+Ce guide a été produit dans le cadre des activités mises en œuvre par le projet 
+ArtFiMed depuis février 2008, pour la promotion de la pêche durable au travers 
+de l’application des principes de l’Approche Ecosystémique des Pêches
+(Ecosystem Approach for Fisheries (EAF)) et du Code de Conduite pour une 
+Pêche Responsable (CCPR) de la FAO, dans l’objectif de contribuer à faire 
+connaître le métier de pêcheur en Tunisie et de vulgariser la réglementation 
+des pêches en Tunisie.
+TABLE aE MATIÈRES
+1. Contexte........................................................................................................... 1 
+2. L’administration et les principaux acteurs des pêches en Tunisie..................... 1
+3. Loi portant promulgation du code de pêche...................................................... 6
+4. Papiers du marin pêcheur................................................................................. 8
+5. L’enrôlement des pêcheurs............................................................................... 8
+6. Des Obligations du pêcheur et l’organisation du travail à bord......................... 9
+7. Les obligations de l’armateur envers le pêcheur.............................................. 11
+8. Les papiers du bateau de pêche..................................................................... 12
+9. Les espaces de pêche.................................................................................... 12
+10. Les types et engins de pêche....................................................................... 12
+11. Les engins de pêche prohibés...................................................................... 13
+12. Les campagnes de pêche............................................................................. 13
+13. Les zones de pêche interdites...................................................................... 14
+14. Constat des infractions à la pêche, leur suivi et leur réprimande........................ 15
+15. Mise à niveau du secteur de la pêche.......................................................... 16
+16. Les pénalités................................................................................................. 16
+Annexes
+1. Cartes des zones de pêche dans le golfe de Gabès ..................................... 21
+2. Principaux textes réglementaires régissant le secteur de la pêche en Tunisie... 25
+1. Contexte
+Afin de répondre aux besoins exprimés par les bénéficiaires du Projet, Art￾FiMed a mis en œuvre dans un contexte de promotion de la pêche durable, 
+plusieurs activités de formation et de vulgarisation sur la réglementation des 
+pêches en Tunisie. Ces activités ont permis de faire ressortir chez les commu￾nautés de pêcheurs artisans ciblées, le faible niveau de connaissance de la 
+réglementation des pêches en vigueur en Tunisie.
+Ainsi, pour capitaliser les travaux effectués par le projet ArtFiMed et pour 
+contribuer à vulgariser les pratiques de pêche responsable et lutter contre la 
+pêche illicite, non déclarée ou non réglementée, il a été concevu cet outil de 
+vulgarisation de la réglementation. Afin d’être accessible aux pêcheurs mais 
+aussi pour un large public, ce guide est disponible en version française et 
+arabe. 
+Il s’agit d’un outil pratique qui peut être utilisé par les pêcheurs mais égale￾ment les responsables des administrations des pêches et les communautés 
+de pêche, pour connaître la réglementation en vigueur en Tunisie, pour l’exer￾cice de la pêche.
+2. L’administration et les principaux acteurs des 
+pêches en Tunisie
+En Tunisie, les administrations qui interviennent dans le secteur de la pêche 
+sont nombreuses. La majorité d’entre elles sont sous la tutelle du Ministère de 
+l’Agriculture et de l’Environnement dont : 
+1. La Direction Générale de la Pêche et de l’Aquaculture (DGPA) 
+Elle comprend trois Directions :
+- La Direction de la conservation des ressources halieutiques
+- La Direction de l’exploitation
+- La Direction de la promotion de la pêche. 
+La DGPA est chargée notamment de :
+- Élaborer les stratégies et les plans de développement de la pêche et 
+de l’aquaculture et les programmes spécifiques tendant à la protection et 
+à la reconstitution des ressources halieutiques et de veiller à leur mise en 
+œuvre et à leur évaluation
+- Évaluer les opportunités de l’investissement dans le secteur et notam￾ment dans les moyens de production et les services
+- Concevoir les mesures d’encouragement et d’appui technique au sec￾teur et veiller à leur mise en œuvre en collaboration avec les organismes 
+concernés 
+- Favoriser la promotion de la production notamment par l’introduction de 
+nouvelles techniques de pêche et l’amélioration des conditions de manu￾tention des produits à bord
+- Promouvoir, en collaboration avec les départements et organismes spé-
+cialisés, la qualité des produits ainsi que les techniques et technologies de 
+leur conditionnement et de leur transformation
+- Assurer la coordination des actions relatives à la mise à niveau du sec￾teur et veiller à leur mise en œuvre en collaboration avec les organismes 
+concernés
+- Concevoir et évaluer les études tendant au développement du secteur 
+y compris celles portant sur l’opportunité de construction, d’extension et de 
+protection des ports de pêches et assurer le suivi de l’exécution des travaux 
+correspondants
+- Participer à l’élaboration des programmes de recherche, de formation 
+et de vulgarisation en matière de pêche et d’aquaculture et contribuer à la 
+valorisation des résultats de ces programmes
+- Veiller à l’exploitation rationnelle des ressources halieutiques vivantes 
+et mettre en œuvre toute mesure tendant à préserver et à assurer la péren￾nité de ces ressources
+- Proposer les règles régissant la pêche et les pêcheurs et veiller à leur 
+application en collaboration avec les organismes concernés
+- Contribuer à la promotion des structures professionnelles et à l’encadre￾ment des pêcheurs
+- Contribuer aux travaux des instances internationales et régionales exer-
+çant des compétences en matière de conservation des ressources halieu￾tiques et veiller à la mise en œuvre des recommandations et résolutions 
+issues de ces instances
+- Promouvoir et mettre en œuvre les projets de coopération internationale 
+intéressant le secteur de la pêche et de l’aquaculture en collaboration avec 
+les services concernés. 
+2. Le Commissariat Régional de Développement Agricole
+Le Commissariat Régional de Développement Agricole est chargé, dans le 
+cadre du gouvernorat, de la mise en œuvre de la politique agricole arrêté par 
+le gouvernement. 
+Le CRDA est composé des plusieurs divisions et arrondissements dont l’arron￾dissement de pêche et de l’aquaculture qui contient :
+- Le service des campagnes de pêche et développement de production
+- Le service des gens de mer et de l’aide professionnelle.
+Son rôle principal est la préservation des ressources maritimes et la fourniture 
+de plusieurs services aux pêcheurs.
+3. Agence des Ports et des Installations Portuaires (APIP)
+Les attributions de l’APIP sont : 
+- L’exploitation, le fonctionnement, l’entretien et le développement des 
+ports de pêche, y compris les rades, leurs dépendances ainsi que les ins￾tallations qui y sont rattachées
+- La gestion du domaine public portuaire
+- L’exercice de la police 
+- La fourniture de prestations de services aux embarcations de pêche 
+moyennant contrepartie
+- La participation aux études de construction et d’extension des ports de 
+pêche 
+- L’exécution de toutes les missions qui lui sont confiées par le gouverne￾ment dans le cadre de ses attributions.
+4. Agence de la Promotion des Investissements Agricoles (APIA)
+Les principaux services de l’APIA destinés aux agriculteurs, aux pêcheurs, aux 
+jeunes promoteurs et aux investisseurs tunisiens et étrangers sont : 
+- L’octroi des avantages financiers et fiscaux 
+- L’identification des opportunités d’investissement
+- L’assistance des promoteurs
+- La formation des jeunes promoteurs agricoles et leur encadrement du￾rant les phases d’identification, d’étude et de réalisation de leurs projets 
+dans le cadre de pépinières d’entreprises et de programmes spécifiques 
+de formation.
+5. L’Agence de Vulgarisation et de Formation Agricole (AVFA)
+C’est un établissement public à caractère administratif qui veille à la réalisa￾tion des programmes afférents aux plans de développement économique et 
+sociale et essentiellement en matière de formation et de vulgarisation.
+L’AVFA est chargée particulièrement de :
+- L’élaboration et le suivi des programmes et de toutes les activités en re￾lation avec la formation de base et continue (formation des jeunes pêcheurs 
+et recyclage des anciens pêcheurs)
+- L’exécution et le suivi des programmes de mise à niveau des établisse￾ments de formation et ce pour répondre aux besoins de la profession et à la 
+demande du marché de l’emploi
+- L’appui aux programmes de vulgarisation de terrain élaborés par les 
+commissariats régionaux de développement agricole dans le but d’amélio￾rer le niveau des compétences et du savoir faire des vulgarisateurs et ce 
+par l’organisation des ateliers de travail et l’élaboration de supports de vul￾garisation (supports audiovisuels, films documentaires, supports écrits…)
+6. Le Groupement Interprofessionnel des Produits de la Pêche 
+(GIPP)
+Le GIPP est un établissement public d’intérêt économique doté de la respon￾sabilité civile et de l’autonomie financière. C’est un organisme interprofes￾sionnel chargé de la régulation du marché, de l’amélioration de la qualité, de 
+l’encadrement des professionnels et de la promotion des exportations dans le 
+secteur de la pêche et de l’aquaculture en Tunisie. En effet, il assure la liaison 
+entre les différentes phases par lesquelles passent les produits dans le cadre 
+des filières. Il facilite la concertation entre les professionnels et l’administra￾tion afin d’arrêter les objectifs des différentes filières. Il contribue à l’équilibre 
+du marché en usant des différents mécanismes adéquats en collaboration et 
+coordination avec les organismes professionnels et administratifs concernés.
+7. Le centre Technique de l’Aquaculture (CTA) 
+Créé en 2007, le CTA est un organisme qui fait le lien entre la recherche scien￾tifique et la profession dans le domaine de l’aquaculture en Tunisie. Ces prin￾cipales missions se résument comme suit :
+- Proposer des thèmes de recherche dans le secteur aquacole
+- Elaborer des projets d’aquaculture et identifier la carte des zones habi￾litées à cette activité
+- Mettre au point des filières techniques appropriées économiquement 
+aux projets d’aquaculture au profit des créateurs et des exploitants
+- Réaliser des opérations pilotes d’implantation de quelques barrages et 
+encadrer ses exploitants
+- Etudier l’opportunité de mettre en œuvre de nouveaux modes d’élevage
+- Participer à mettre en œuvre des solutions aux problèmes concernant 
+l’alimentation, les maladies et les aspects techniques des projets aquacoles.
+8. L’Institut National des Sciences et Technologies de la Mer 
+(INSTM)
+Les principales missions de l’INSTM sont :
+- Mener des programmes de recherche sur contrat dans des domaines 
+liés directement ou indirectement à la mer et à ses ressources: Pêche, Agri￾culture, Environnement marin, Technologies de la mer, Océanographie, etc
+- Participer aux différents réseaux nationaux, régionaux et internationaux 
+en relation avec la mer
+- Contribuer à résoudre les problèmes liés au développement des acti￾vités urbaines et économiques sur le littoral et dans les eaux territoriales
+- Transférer son savoir-faire et les résultats de ses recherches aux déci￾deurs et aux professionnels de la mer et aux scientifiques
+- Servir d’instrument d’aide à la décision en vue d’une gestion durable de 
+la mer et de ses ressources.
+- Contribuer à la diffusion de la culture marine et à la sensibilisation du 
+public à la protection et à la préservation de la mer et de sa biodiversité.
+9. L’Union Tunisienne de l’Agriculture et la Pêche (UTAP)
+L’Union Tunisienne de l’Agriculture et de la Pêche est une organisation pro￾fessionnelle nationale de développement, à caractère syndical. Cette union 
+regroupe les exploitants des secteurs de l’agriculture et de la pêche, petits ou 
+grands, ainsi que les coopératives et contribue, en tant que membre actif de la 
+société civile, à la concrétisation des grands choix et des principales orienta￾tions de la Tunisie dans le domaine de l’agriculture et la pêche. Ses principaux 
+objectifs sont :
+- Représenter les agriculteurs et les pêcheurs auprès des instances res￾ponsables pour la défense de leurs intérêts et la protection de leurs droits
+- Encadrer techniquement les agriculteurs et les pêcheurs et améliorer 
+leurs conditions économiques et sociales
+- Contribuer à sensibiliser les agriculteurs et les pêcheurs et à les ex￾horter à pratiquer les méthodes culturales scientifiques et techniques afin 
+d’accroître la production et d’améliorer la productivité 
+- Insister au niveau des autorités concernées pour faciliter les investis￾sements agricoles et fournir le financement nécessaire pour répondre aux 
+besoins des agriculteurs et des pêcheurs, particulièrement lors des saisons 
+agricoles 
+- Contribuer à la préparation des études et des scénarios visant à déve￾lopper les secteurs de l’agriculture et de la pêche pour relever les défis et 
+gagner le pouvoir concurrentiel
+- Renforcer l’information agricole pour rapprocher les adhérents des nou￾veautés mondiales et organiser les foires et les manifestations agricoles 
+- Contribuer au renforcement de la position de la Tunisie dans les ins￾tances internationales et profiter des opportunités de partenariat et de coo￾pération et constituer de meilleures relations avec les différentes organisa￾tions internationales.
+10. La marine marchande 
+Parmi les rôles de la marine marchande on peut citer :
+- L’immatriculation des navires
+- La gestion des épaves maritimes
+- La sécurité des navires et de la navigation maritime.
+11. Les services de surveillance 
+Les principaux services de surveillances du secteur de la pêche sont :
+- La Garde nationale maritime
+- La marine nationale
+- Les services de la douane. 
+Parmi les rôles de ces services: constater les infractions de pêche et rédiger 
+les procès verbaux.
+12. Les instances de financement 
+Les banques et les fonds de financement. Le rôle principal de ces instances
+est le financement des projets liés à la pêche et à l’aquaculture.
+3. Loi portant promulgation du Code de pêche
+La loi 75-17 du 31 mars 1975 portant promulgation du code du pêcheur. 
+Promulgation de la loi dont la teneur suit (cf Annexe 2) :
+Article 1 
+Les textes relatifs au travail de la pêche et publiés ci-après, sont réunis en un 
+seul corps, sous le titre de « Code du pêcheur ». 
+Article 2 
+Les dispositions du « Code du pêcheur » entreront en vigueur, à compter du 
+1er janvier 1975. Elles n’ont pas d’effet rétroactif. Toutefois, les procédures en 
+cours à la date du 1er janvier 1975 restent soumises à la législation en vigueur 
+à la date de promulgation de la présente loi jusqu’à leur règlement définitif. 
+Ce délai ne peut en aucun cas dépasser la période d’une année à compter de 
+l’entrée en vigueur de la présente loi.
+Article 3 
+Toutes dispositions antérieures contraires au présent code sont abrogées, à 
+compter de la date de son entrée en vigueur.
+La présente loi sera publiée au Journal Officiel de la République Tunisienne 
+(JORT) et exécutée comme loi de l’Etat.
+Article premier
+Le présent code s’applique aux engagements contractés pour servir :
+Soit à bord de tout bateau de pêche immatriculé dans un port tunisien
+Soit au sein d’une équipe opérant à pied à partir du littoral
+Soit à titre individuel et à pied.
+On entend par :
+1. Bateau de pêche :
+Tous les bateaux navires ou bâtiments quels qu’ils soient, immatriculés et mu￾nis de papier de bord de propriété publique ou privée affectée à la pêche mari￾time dans les eaux salées à l’exception des navires et bateaux utilisés pour 
+les pêches sportives ou de plaisance, des navires de recherches, des navires 
+affectés aux madragues qui assurent un service de liaison et de transport, des 
+navires de surveillance et de protection des pêcheries, des navires-écoles et 
+de vulgarisation. Sont considérés également comme bateaux de pêche, les 
+bateaux munis d’un système mécanique de compression d’air atmosphérique, 
+utilisés pour la pêche aux éponges, au corail et autres ressources de pêche.
+2. Armateur de la pêche : 
+Toute personne physique ou morale qui assure l’équipement d’un bateau de 
+pêche. Est assimilée à l’armateur, toute personne physique ou morale qui as￾sure l’exploitation des ressources maritimes par d’autres systèmes.
+3. Autorité compétente :
+a) le directeur des pêches ou ses répresentants dans les arrondissements, 
+subdivisions et centres des pêches maritimes, les ports et les centres de dé-
+6
+barquement des produits de la pêche, réputés comme tels ; et
+b) à l’étranger, l’autorité consulaire tunisienne.
+4. Patron : 
+Toute personne remplissant les conditions légales chargée du commande￾ment d’un bateau de pêche. 
+5. Second :
+Toute personne chargée en second du commandement d’un bateau de pêche, 
+y compris les personnes autres que les pilotes, peuvent à tout moment être 
+chargées d’assurer la navigation.
+6. Mécanicien :
+Toute personne ayant la direction permanente du service assurant la propul￾sion mécanique d’un bateau de pêche ou toute personne qui, à bord d’un 
+bateau-scaphandre, est chargée de la direction permanente du service assu￾rant le renouvellement de l’air aux appareils scaphandres.
+7. Aide mécanicien :
+Toute personne chargée d’assister le mécanicien et pouvant à tout moment 
+être chargée de la direction du service assurant la propulsion mécanique d’un 
+bateau de pêche.
+8. Ramandeur :
+Toute personne embarquée ou non, chargée de l’entretien et de la réparation 
+des filets et autres engins de pêche.
+9. Guide :
+Tout pêcheur embarqué à bord d’un bateau-scaphandre qui assure la direction 
+et l’organisation des plongées, qui veille à la sécurité des plongeurs, contrôle 
+et entretient des engins d’immersion et leurs accessoires.
+10. Pêcheur : 
+Toute personne employée et engagée à quelque titre que ce soit à bord d’un 
+bateau de pêche, à l’exception des pilotes, des élèves des navires-écoles et 
+des apprentis lorsqu’ils sont liés par un contrat spécial d’apprentissage, des 
+équipages de la flotte de guerre et des autres personnes au service permanent 
+de l’Etat.
+Sont assimilés aux pêcheurs :
+Toute personne opérant à partir du littoral à titre individuel ou au sein d’une 
+équipe et concourant à des opérations de pêche
+Les plongeurs de scaphandre pour la pêche aux éponges, au corail et autres 
+ressources de pêche.
+11. Mousse :
+Toute personne embarquée à bord des bateaux de pêche en vue de l’appren￾tissage de la profession de pêcheur.
+12. Equipage :
+L’ensemble des pêcheurs embarqués à bord d’un bateau de pêche, engagés 
+par l’armateur et ayant conclu, avec ce dernier ou son représentant ou toute 
+autre personne qualifiée pour ce faire, un contrat en vue d’accomplir un ser￾vice à bord et concourant à des opérations de pêche.
+4. Papiers du marin pêcheur
+Le papier officiel du marin pêcheur est le livret professionnel. Le livret est ob￾tenu par un marin ayant pratiqué pour une période dépassant les vingt-quatre 
+mois. 
+Les papiers exigés pour l’obtention du livret sont :
+- Un certificat de naissance
+- Un certificat médical
+- Une autorisation parentale pour personne d’âge moins de dix-huit ans
+- Une déclaration sur l’honneur pour personne d’âge plus de dix-huit ans
+- Le bulletin n°3
+- Quatre photos d’identité.
+5. L’enrôlement des pêcheurs
+Article 10
+Le recrutement des pêcheurs se fait par l’armateur et leur enrôlement par l’au￾torité compétente, conformément aux conditions prévues pour les marins par 
+le code de travail maritime.
+Article 3
+Nul ne peut exercer la profession de pêcheur s’il n’est inscrit sur un registre 
+matriculé des pêcheurs détenu au siège de chaque arrondissement des 
+pêches maritimes.
+Article 4 
+Tout pêcheur, embarqué à bord des bateaux de pêche astreint au registre 
+d’équipage, doit être titulaire du livret professionnel prévu par le code de tra￾vail maritime. La demande du livret professionnel des gens de mer désirant 
+exercer la profession de pêcheur est instruite et le livret remis à son titulaire 
+par l’autorité compétente.
+Article 5
+Tout pêcheur, embarqué à bord des bateaux de pêche non astreint au registre 
+d’équipage, doit être en possession d’une carte professionnelle qui lui est déli￾vrée par l’autorité compétente. Les pêcheurs non embarqués, opérant au sein 
+d’une équipe ou à titre individuel, sont soumis aux mêmes dispositions.
+Tout pêcheur non embarqué, opérant au sein d’une équipe ou à titre individuel, 
+doit être en possession d’une carte professionnelle de pêche qui lui est déli￾vrée par l’autorité compétente.
+Article 6 
+Les enfants de moins de quinze ans ne peuvent être employés à bord des 
+bateaux de pêche et de ce fait, ne peuvent prétendre à la délivrance du livret 
+professionnel des gens de mer.
+Toutefois, ils peuvent prendre part occasionnellement aux activités à bord des 
+bateaux de pêche, durant les vacances scolaires, à conditions que ces acti￾vités ne soient pas nuisibles à leur santé et à leur développement normal, ne 
+soient pas de nature à porter préjudice à leur assiduité à l’école et n’aient pas 
+pour objet un bénéfice commercial.
+Article 7 
+Tout embarquement d’un enfant âgé de quatorze ans au moins, pour un tra￾vail à bord des bateaux de pêche dans les conditions prévues à l’article 6 du 
+présent code, est soumis à une autorisation délivrée par l’autorité compétente.
+Article 8
+Les pêcheurs sont tenus de se soumettre aux obligations concernant l’examen
+médical prévues à l’article 20 du code du travail maritime.
+Toutefois, le certificat médical des personnes de mois de vingt et un ans reste 
+valide pendant une période ne dépassant pas une année, à compter de sa 
+délivrance.
+Le certificat médical des personnes, âgées de vingt et un ans révolus, restera
+valide pendant une période qui sera fixée par l’autorité compétente après avis 
+du conseil supérieur de pêche.
+6. Des Obligations du pêcheur et l’organisation du 
+travail à bord
+Section 1 : Des Obligations du pêcheur 
+Article 20
+Le pêcheur est tenu de se rendre à bord du navire pour le service duquel il 
+s’est engagé, au jour et à l’heure fixés par l’armateur ou le patron.
+Si, après clôture du registre, des pêcheurs enrôlés font défaut, le patron peut, 
+exceptionnellement et s’il y a urgence, pourvoir à leur remplacement, jusqu’à 
+concurrence d’un quart de l’équipage sans l’intervention de l’autorité compé-
+tente, en observant les prescriptions des règlements en vigueur.
+Le patron doit adresser à l’autorité compétente, avant le départ du navire, 
+une liste des pêcheurs ainsi embarqués. La régularisation des inscriptions au 
+registre d’équipage doit être faite dès l’arrivée du navire au premier port où 
+l’autorité compétente est représentée. 
+Article 21 
+Dès son inscription au rôle d’équipage, le pêcheur est tenu de travailler pour 
+préparer le départ du navire vers les lieux de pêche.
+Article 22
+L’équipage est tenu de prendre soin du navire et du matériel qui lui est confié 
+par l’armateur.
+Il est tenu, à la demande du patron, d’accomplir, tant au port qu’à la mer, les 
+travaux de menu entretien que nécessite le bon fonctionnement du navire et 
+du matériel, y compris les travaux du ramendage qu’il serait nécessaire d’exé-
+cuter à bord mais, à l’exclusion de ceux qui sont normalement effectués à terre 
+par une équipe spéciale.
+Article 23
+Le pêcheur est tenu d’accomplir, en dehors de ses heures de service, le travail 
+de mise en état de propreté de son poste d’équipage des annexes de ce poste 
+de ses objets de couchage de ses ustensiles des plats sans que ce travail 
+puisse donner lieu à une rémunération supplémentaire.
+Article 24
+L’équipage s’engage à travailler sur le navire dans toutes ses destinations 
+pour la pêche ou pour la vente du poisson sans indemnité particulière.
+Article 25 
+L’équipage est tenu d’accomplir sans rémunération supplémentaire, tous les 
+travaux nécessités par circonstances de forces majeures et celles où le salut 
+du navire, des personnes embarquées ou la cargaison est en jeu, circons￾tances dont le patron est seul juge ou par les opérations d’assistance à un 
+navire ou à des personnes en danger.
+Article 26
+En cas d’immobilisation du navire par arrêt du travail, le matériel de pêche qui 
+risque de se détériorer par le fait de son maintien à bord, devra être débarqué 
+par l’équipage dès l’arrivée du navire au port, et conservé à la diligence de 
+l’armateur dans le lieu adéquat qu’il désignera. 
+Section 2 : De la réglementation du travail à bord 
+Article 27 
+Le régime du travail à bord est fixé par le patron de pêche. Celui-ci est le seul 
+juge de l’heure de l’appareillage et de celle du retour au port.
+Toutefois, il accordera un repos minimum de dix heures par période de vingt￾quatre heures de travail par roulement ou fractionnement et sans que le travail 
+ne puisse être arrêté.
+Article 28 
+Les heures supplémentaires des pêcheurs payés à salaire fixe, seront arrê-
+tées par le ministre chargé des pêches.
+Article 29
+Un arrêté conjoint des ministres, chargés des pêches et de la marine mar￾chande, fixera, après avis du conseil supérieur de la pêche, les effectifs mini￾mums des bateaux affectés à la pêche en tenant compte des conditions de 
+navigation, du travail à bord, de la puissance des appareils propulsifs du genre 
+de pêche et des usages locaux.
+7. Les obligations de l’armateur envers le pêcheur
+Article 30
+L’armateur arme et entretient le navire de pêche. Il fournit les appareils de 
+manœuvre et instruments de navigation, ainsi que les engins de pêche y com￾pris les casiers à poissons.
+Il équipera progressivement le navire des appareils modernes, susceptibles 
+d’augmenter la productivité et d’assurer le maximum de sécurité des membres 
+de l’équipage et du navire. 
+Article 31 
+L’armateur prend à sa charge les droits et taxes auxquels est astreint le bateau 
+de pêche.
+Article 32
+L’armateur est tenu d’assurer les pêcheurs à son service contre les accidents 
+du travail et les maladies professionnelles.
+Article 33
+En cas d’accident survenu au pêcheur pendant son travail au service du na￾vire, l’armateur est tenu de soigner le pêcheur à ses frais jusqu’à ce qu’il soit 
+pris en charge par le régime de l’assurance contre les accidents du travail. Il 
+est également tenu d’assurer le retour du pêcheur à son port d’embarquement.
+Après le débarquement du pêcheur, l’armateur doit lui verser, pendant deux 
+mois, une indemnité journalière dont le montant est égal à la différence entre 
+le salaire minimum et l’indemnité temporaire allouée par les organismes d’as￾surance. Par la suite, il lui verse, pendant également deux autres mois, une 
+indemnité journalière dont le montant est égal à la différence entre la moitié su 
+salaire minimum et l’indemnité temporaire allouée par les organismes d’assu￾rance. 
+Lorsque le pêcheur est rémunéré à la part, les salaires qui lui sont dus, aux 
+termes du présent article, sont calculés d’après le salaire journalier minimum 
+attribué dans le port d’embarquement aux pêcheurs des mêmes grades et 
+catégories et sont déterminés par l’autorité compétente, sauf recourt devant 
+les tribunaux. 
+Article 34 
+L’armateur est tenu de fournir le matériel nécessaire à l’habitabilité et l’hygiène 
+à bord.
+Article 35
+Les objets de couchage et les ustensiles et plats fournis par l’armateur seront 
+placés sous la responsabilité des pêcheurs qui auront l’obligation d’en prendre 
+soin.
+Article 36
+Tout armateur est tenu d’adhérer à la caisse de sécurité sociale.
+Article 37
+L’imputation à la masse commune des dépenses de la cotisation de l’armateur 
+à la caisse de sécurité sociale se fera par tiers à l’occasion des trois léquida￾tions mensuelles du trimestre suivant immédiatement de leur paiement. 
+8. Les papiers du bateau de pêche
+- Le congé de police
+- Permis de navigation (visite technique)
+- Permis de pêche
+- Livrets des pêcheurs
+- Rôle d’équipage
+- Affiliation à la caisse nationale de sécurité sociale. Ces papiers sont 
+exigés pour les bateaux ayant une jauge brute supérieure à 5 tonneaux. 
+9. Les espaces de pêche
+Ils sont constituées par :
+1. Les eaux intérieures 
+Qui s’étendent du golfe de Tunis jusqu’à la ligne joignant Ras Sidi Ali El Makki, 
+l’île plaine, la zone nord de l’île de Zembra et Ras Etaib.
+En ce qui concerne le golfe de Gabès, elles s’étendent jusqu’à la ligne joignant 
+Ras Esmou et Ras Teguermas.
+2. Les eaux territoriales 
+Elles sont comprises entre les frontières Tuniso-Algérienne et Tuniso-Li￾byenne, s’étendant jusqu’à douze milles au large.
+3. Les zones réservées de pêche
+Elles s’étendent jusqu’aux frontières établies par la loi internationale. En cas 
+de nécessité, il y a établissement de convention avec les pays voisins, d’où 
+la République tunisienne pratique ses droits d’autorité en vue d’explorer, ex￾ploiter, préserver, gérer et protéger les ressources naturelles vivantes et non 
+vivantes des eaux et le fond marin et domaine souterrain. 
+10. Les types et engins de pêche
+1. La pêche côtière 
+Est assurée par l’utilisation des techniques telles que les filets maillants et les 
+filets trémails. Ce type de pêche caractérisé par la diversité des techniques il 
+s’agit généralement d’une pêche sélective qui préserve les ressources ma￾rines.
+2. La pêche en profondeur
+C’est la pêche par chalutage, qui consiste à traîner les filets à fin de rassem￾bler les poissons au fond du sac. Cette pêche est interdite dans des profon￾deurs inférieures à 50 mètres.
+3. La pêche aux feux
+Cette technique utilise du feu (lumière) àfin d’attirer des poissons bleus qui 
+sont capturés par encerclement. Cette technique est interdite dans des pro￾fondeurs inférieures à 35 mètres.
+4. La pêche à la senne tournante
+S’effectue par prospection acoustique des poissons puis leur encerclement. 
+Cette technique est employée pour la pêche des poissons bleus et elle est 
+interdite dans des profondeurs inférieures à 20 mètres.
+11. Les engins de pêche prohibés
+La pêche est interdite :
+- Avec le « kiss », filet traînant benthique ou semi pélagique 
+- Avec la senne de plage « Hlig » et « Tilla », qui sont classés parmi les 
+filets traînants. C’est un long filet de longueur comprise entre 400 mètres et 
+600 mètres et il opère à partir du rivage par faible profondeur
+- Avec des armes à feu
+- Avec des explosifs
+- Avec des produits chimiques
+- Au feu, sauf les poissons migrateurs
+- En troublant l’eau par quelque moyen que ce soit ou en effrayant les 
+espèces aquatiques pour les avoir dans les filets
+- A l’aide des barrages à l’entrée ou à la sortie des oueds
+- Avec la gangave et la croix de Sain André pour la pêche au corail.
+12. Les campagnes de pêche
+1. La pêche de la palourde
+Elle s’étend du 1er octobre jusqu’au 14 mai de chaque année.
+2. La pêche aux poulpes
+Du 15 octobre jusqu’au 15 mai de chaque année.
+3. La pêche à la crevette à l’aide des filets traînants de la première série 
+dans le golfe de Gabès
+Du 16 octobre au 30 novembre et du 15 mai au 30 juin de chaque année.
+4. La pêche aux serres avec la senne tournante et coulissante 
+Du 1er mai au 31 août de chaque année.
+5. La pêche aux thons rouges
+Du 16 mai au 14 juin de chaque année.
+6. Campagne de pêche des éponges par plongée 
+Du 1er juin jusqu’au fin février de chaque année.
+7. Campagne de pêche dans les barrages 
+Du 1er mai jusqu’au fin février de chaque année.
+8. Campagne de pêche à la langouste 
+Du 1er mars au 15 juillet de chaque année (dans les eaux tunisiennes).
+Du 1er mars au 15 septembre de chaque année (dans les eaux internatio￾nales).
+13. Les zones de pêche interdites
+Article 25
+La pêche est interdite :
+- A l’intérieur des ports et dans leurs chenaux d’accès à l’exception de la 
+pêche de plaisance à la ligne armée de deux hameçons au plus
+- Sur les parties du littoral, des lacs, lagunes ou retenues d’eau faisant 
+l’objet d’autorisation de pêcheries fixes ou à moins de 500 m de ces pêche￾ries
+- A l’intérieur de zones de protection plus ou moins étendues qui pourront 
+être délimitées par des autorisations d’exploitation de pêcheries fixes
+- A 1,5 mile de l’île Zembra et Zembretta
+- A 1,5 mile autour des îles de la Galite et du Galiton
+- A moins de 500 m autour des puits pétroliers.
+Article 26
+La pêche aux filets, aux lignes et à pied est interdite :
+- Dans toute l’étendue du cours de l’Oued Tindja et dans le lac de Bizerte 
+dans un rayon de 2 000 m à partir de l’embouchure de l’oued Tindja
+- Sur le littoral de la commune de Carthage, entre la pointe de Borj Ouled 
+Lara et le Borj Mustapha Ben Ismail et jusqu’à 500 m en mer.
+Article 27
+La pêche aux filets traînants est interdite : 
+- A l’intérieur de la zone comprise entre la laisse de basse mer et la ligne 
+de 3 miles au large
+- Par tous les fonds inférieurs à 50 m autour de l’Ile Kuriat et des Bancs 
+de Korba, Nabeul et Maamour
+- A moins de 3 miles des filets dérivants ou tournants déployés
+- Dans le golfe de Tunis en deçà de la ligne droite joignant le cap Sidi Ali 
+El Mekki, l’Ile Plane, le point Nord de l’Ile Zembra et le cap Bon, du 1er mars 
+au 31 décembre de chaque année.
+- La pêche au chalut dans la dite zone du golfe de Tunis n’est autorisée 
+qu’au cours de la période du 1er janvier à la fin février de chaque année par 
+des profondeurs supérieurs à 50 m
+- Au sud du parallèle de Ras Kapoudia par des fonds inférieurs à 50 m 
+sous réserve des dispositions prises pour la réglementation de la cam￾pagne de pêche à la crevette.
+Article 28
+L’emploi des filets tournants est interdit par les profondeurs inférieurs à 20 m.
+Article 29
+La pêche au feu est interdite :
+- Par les fonds de moins de 35 m
+- A moins de 500 m des autres unités de pêche
+- A moins de 3 000 m des madragues. 
+Article30
+La pêche des éponges au scaphandre est interdite par les fonds de moins de 
+20 m.
+Article 31
+La pêche au corail est interdite à l’intérieur de la baie de Bizerte, en deçà de la 
+ligne joignant Cap Zébib au Cap Blanc, ainsi qu’au large des Iles Cani par les 
+fonds inférieurs à 50 m.
+Article 32
+La pêche aux éponges au moyen de scaphandre est interdite du 1er avril au 
+31 mai de chaque année.
+Article 33
+La pêche des langoustes, homards, cigales et maia est interdite du 15 sep￾tembre au fin février de chaque année. 
+14. Constat des infractions à la pêche, leur suivi et 
+leur réprimande
+Des agents d’autorité spécialisés dans la pêche et assermentés dans ce but, 
+ont le droit d’inspecter des unités de pêche, des engins fixes et tous les outils 
+et les conteneurs qui peuvent contenir des espèces aquatiques ou du matériel 
+de pêche.
+Les dits agents rédigent des rapports qui seront transmis aux autorités spé-
+cialisées tout en confisquant les appâts et les produits interdits dans la pêche, 
+ainsi que les espèces qui ont été pêchées. Ils peuvent aussi confisquer les 
+unités de pêche et le matériel. 
+15. Mise à niveau du secteur de la pêche
+L’infrastructure portière en vu d’amélioration de la qualité des produits et de 
+l’application des règles d’hygiène. Il dépend de trois éléments :
+1. Mise à niveau de l’infrastructure portuaire 
+- Marché des gros et usines de transformation
+- Clôture des ports et leur liaison au réseau sanitaire.
+2. Mise à niveau de la flottille 
+Par application des règles d’hygiène au produit débarqué. 
+3. Habilitation de membre humain
+Par application des règles d’hygiène aux membres d’équipage et accomplisse￾ment du travail dans le respect des règles d’hygiène.
+16. Les pénalités
+Selon la loi N° 94-13 du 31 janvier 1994 relative à l’exercice de la pêche :
+Article 33 
+Est puni d’un emprisonnement de deux mois à deux ans et d’une amende de 
+1 000 dinars à 100 000 dinars :
+- Quiconque enfreint les dispositions de l’article 3 de la présente loi
+- Quiconque enfreint les dispositions des paragraphes 1, 2, et 3 de l’ar￾ticle 10 de la présente loi. 
+Article 34
+Est puni d’un emprisonnement d’un mois à un an et d’une amende de 200 
+dinars à 10 000 dinars ou de l’une de ces deux peines seulement : 
+- Quiconque enfreint les dispositions de l’article 5 de la présente loi
+- Quiconque se livre à la pêche dans les zones ou pendant les périodes 
+prohibées ou en utilisant les engins de pêche non conformes aux normes 
+fixées à cet effet 
+- Quiconque enfreint les dispositions de l’article 9 de la présente loi 
+- Quiconque pêche, transporte, vend, stocke, transforme ou utilise 
+comme appâts les espèces aquatiques interdites et ce en infraction aux 
+dispositions de l’alinéa premier de l’article 12 et des articles 13 et 14 de la 
+présente loi
+- Quiconque exploite une pêcherie fixe en infraction aux dispositions de 
+l’article 23 de la présente loi. 
+Article 35
+Est puni d’un emprisonnement de 16 jours à 3 mois et d’une amende de 100 
+dinars à 5 000 dinars ou de l’une de ces deux peines seulement : 
+- Quiconque enfreint les dispositions des paragraphes 4,5 et 6 de l’article 
+10 de la présente loi
+- Quiconque enfreint les dispositions de l’article 11 de la présente loi 
+- Quiconque enfreint les dispositions des articles 19 et 20 de la présente 
+loi. 
+Article 36
+Est puni d’une amende de 100 dinars à 2 000 dinars : 
+- Quiconque enfreint les dispositions de l’article 6, des alinéas 2 et 3 de 
+l’article 7, de l’alinéa 2 de l’article 12 et des articles 16, 17, 18, 21 et 22 de 
+la présente loi
+- Quiconque n’obtempère pas aux ordres et signaux émanant des agents 
+de constatation visés à l’article 27 de la présente loi
+- Quiconque entrave l’opération de saisie prévue à l’article 30 de la pré-
+sente loi ou dispose des objets saisis. 
+Article 37
+En cas de jugement d’incrimination, le tribunal prononce la confiscation des 
+produits provenant de la vente des espèces périssables saisis ainsi, que la 
+confiscation des unités et engins de pêche et des moyens et objets conte￾nant des appâts, des matières, des engins ou des espèces interdits et ce à la 
+requête de l’autorité compétente et à l’occasion des infractions commises et 
+punies conformément aux articles 33 et 34 de la présente loi. 
+Article 38
+En cas de récidive, les peines sont portées au double. 
+Article 39
+A l’occasion de toute infraction prévue par la présente loi, l’autorité compétente 
+peut décider le retrait provisoire du permis de pêche ou son retrait définitif 
+dans les cas prévus à l’article 42 de la présente loi.
+
+ANALYSE TERRITO R I A LE DE LA REGL E M ENTATION D E P E C H E EN T UNISIE Page 95 
+2.10. Constitution des di érentes ones interdites à la pêch z e
+Zones interdites pour la pêche au feu,
+On a établie la carte suivante conformément aux dispositions réglementaires de 
+l’article 29 de l’arrêté du Ministre de l’agriculture du 28 septembre 1995 réglementant 
+l’exercice de la pêche. 
+Ces dispositions sont détaillées dans le paragraphe 2.2.3.3.2 du troisième chapitre. 
+Figure 43 : Cartographie des zones à accès interdit pour la pêche au fe. u
+Zones interdites por la pêche aux u lets tournants
+On a établie la carte suivante conformément aux dispositions réglementaires de 
+l’article 28 de l’arrêté du Ministre de l’agriculture du 28 septembre 1995 réglementant 
+l’exercice de la pêche. 
+Ces dispositions sont détaillées dans le paragraphe 2.2.3.3.3 du troisième chapitre. 
+
+
+ANALYSE TERRITO R I A LE DE LA REGL E M ENTATION D E P E C H E EN T UNISIE Page 97 
+2.11. Zones de pêche à accès restreint
+Zone autorisée pourla pêche aux lets traînantdans le s Golfe de Tunis
+On a établie la carte suivante conformément aux dispositions réglementaires du 
+paragraphe 4 nouveau de l’article 27 de l’arrêté du Ministre de l’agriculture du 28 
+septembre 1995 réglementant l’exercice de la pêche tel qu'il a été modi é par l'arrêté du 8 
+juin 2004.
+Ces dispositions sont détaillées dans le paragraphe 2.2.3.3.4 du troisième chapitre. 
+Figure 46 : Cartographie de la zone autoriséepour la pêche aux lets traînants dans leGolfe de
+Tunis pendant le mois de juillet de chaque anné . e
+Zones autorisées pourla pêche aux ts traînants dans le Golfe de Gabes
+(campagne de pêche à la crevette)
+On a établie les cartes suivantes conformément aux dispositions réglementaires de 
+l’article 40 de l’arrêté du Ministre de l’agriculture du 28 septembre 1995 réglementant 
+l’exercice de la pêche.
+Ces dispositions sont détaillées dans le paragraphe 2.2.3.1.1 du troisième chapitre. 
+60 0 60 120 Kilometers
+
+- Loi no 2010-21 du 26/04/2010 modifiant et complétant la loi no 94-
+13 du 31 janvier 1994 relative a l’exercice de la pêche.
+- Loi no 2009-59 du 20/07/2009 portant simplification des procédures 
+administratives dans le secteur de l’agriculture et de la pêche.
+- Loi no 2009-48 du 08/07/2009 portant promulgation du code des 
+ports maritimes : code des ports maritimes.
+- Loi no 2009-17 du 16/03/2009 relative au régime du repos biolo￾gique dans le secteur de la pêche et son financement.
+- Loi no 2004-24 du 15/03/2004 modifiant et complétant la loi no 99-
+43 du 10 mai 1999, relative aux groupements de développement dans le 
+secteur de l’agriculture et de la pêche.
+- Loi no 2002-47 du 14/05/2002 relative aux ports de pêche.
+- Loi no 2001-28 du 19/03/2001 portant simplification des procédures 
+administratives dans le secteur de l’agriculture et de la pêche.
+- Loi no 99-74 du 26/07/1999 modification et complétant la loi no 94-
+13 du 31 janvier 1994 relative à l’exercice de la pêche.
+- Loi no 99-43 du 10/05/1999 relative aux groupements de dévelop￾pement dans le secteur de l’agriculture et de la pêche.
+- Loi no 99-25 du 18/03/1999 portant promulgation du code des ports 
+maritimes de commerce : code des ports maritimes de commerce.
+- Loi no 97-88 du 29/12/1997 portant loi de finances pour la gestion 
+1998 : institution d’un droit de timbre sur le renouvellement des livrets 
+professionnels délivrés aux pêcheurs - Art. 84.
+- Loi no 97-34 du 26/05/1997 modifiant la loi no 94-13 du 31 janvier 
+1994, relative à l’exercice de la pêche.
+- Loi no 95-109 du 25/12/1995 portant loi de finances pour la gestion 
+1996 : fusion d’établissements de recherche : est créé un établissement 
+public à caractère administratif dénommé Institut national des sciences 
+et technologies de la mer et sont supprimes les deux établissements 
+publics ci-après : l’Institut national scientifique et technique d’océanogra￾phie et de pêche et le centre national de l’aquaculture de Monastir - Art. 
+22 et 23.
+- Loi no 95-59 du 03/07/1995 portant amendement de certains articles 
+du code du travail maritime.
+- Loi no 94-13 du 31/01/1994 relative a l’exercice de la pêche.
+- Loi no 92-32 du 07/04/1992 portant création de l’agence des ports 
+et des installations de pêche.
+- Loi no 91-98 du 31/12/1991 portant loi de finances pour la gestion 
+Annexe 2. Principaux textes réglementaires 
+régissant le secteur de la pêche en Tunisie
+26
+1992 : titre 8 : établissements publics : rattachement des établissements 
+de recherche scientifique au premier ministère.
+- Loi no 89-48 du 08/03/1989 modifiant le code de travail maritime - 
+Art. 1 abrogeant et remplaçant l’article 2 du code du travail maritime.
+- Loi no 87-57 du 31/10/1987 ratifiant le décret-loi no 87-3 du 11 
+septembre 1987 modifiant la loi no 79-42 du 15 août 1979 instituant le 
+Commissariat général a la pêche.
+- Loi no 87-3 du 11/09/1987 modifiant la loi no 79-42 du 15 août 1979 
+instituant le Commissariat général a la pêche.
+- Loi no 87-12 du 23/03/1987 portant modification de l’article 25 du 
+décret du 26 juillet 1951 portant refonte de la législation de la police de la 
+pêche maritime.
+- Loi no 80-37 du 28/05/1980 modifiant la loi no 79-42 du 15 août 
+1979, instituant le Commissariat général a la pêche.
+- Loi no 79-42 du 15/08/1979 instituant le Commissariat général a la 
+pêche.
+- Loi no 75-17 du 31/03/1975 portant promulgation du Code du 
+pêcheur : Code du pêcheur.
+- Loi no 73-37 du 10/07/1973 portant organisation de l’enseignement 
+des pêches.
+- Loi no 70-61 du 08/12/1970 portant modification de la loi no 58-115 
+du 4 novembre 1958, portant création de l’office nationale des pêches.
+- Loi no 69-11 du 24/01/1969 portant encouragement de l’Etat à la 
+pêche.
+- Loi no 67-52 du 07/12/1967 portant promulgation du code du travail 
+maritime.
+- Loi no 67-10 du 08/03/1967 portant modification de la loi no 58-115 
+du 4 novembre 1958, portant création d’un office national des pêches.
+- Loi no 65-39 du 21/12/1965 modifiant l’article 4 de la loi no 58-115 
+du 4 novembre 1958 portant création d’un organisme dénommé « Office 
+national des pêches ».
+- Loi no 63-49 du 30/12/1963 portant modification du décret du 26 
+juillet 1951, portant refonte de la législation de la police de la pêche.
+- Loi no 62-62 du 17/12/1962 (20 rejeb 1382), portant ratification de 
+la convention internationale du travail no 112 concernant l’âge minimum 
+d’admission au travail des pêcheurs.
+- Loi no 62-63 du 17/12/1962 (20 rejeb 1382), portant ratification de la 
+convention internationale du travail nº 113 concernant l’examen médical 
+des pêcheurs.
+- Loi no 62-64 du 17/12/1962 (20 rejeb 1382), portant ratification de la 
+convention internationale du travail nº 114 concernant le contrat d’enga￾gement des pêcheurs.
+27
+- Loi no 62-35 du 16/10/1962 (18 joumada 1 1382), modifiant le dé-
+cret du 26 juillet 1951 (22 chaoual 1370), portant refonte de la législation 
+de la police de la pêche maritime et délimitation des eaux territoriales de 
+la République tunisienne.
+- Loi no 58-115 du 04/11/1958 portant création d’un organisme 
+dénommé « Office national des pêches ».
+- Loi no 58-81 du 25/08/1958 modifiant le décret du 26 juillet 1951, 
+portant refonte de la législation de la police de la pêche maritime.
+Projet FAO-ArtFiMed
+Subdelegación del Gobierno en Málaga 
+Paseo de Sancha 64, Oficinas 305-307 
+29071 Málaga (España)
+artfimed@fao.org 
+www.faoartfimed.org
+www.faocopemed.org
+www.fao.org
+View publication stats

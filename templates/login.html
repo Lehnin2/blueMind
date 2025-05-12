@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4"><i class="bi bi-shield-lock me-2"></i>Connexion</h2>
+                    
+                    <form id="login-form" method="post" action="/api/auth/login">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Mot de passe</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                                <button class="btn btn-outline-secondary" type="button" id="toggle-password">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                            <label class="form-check-label" for="remember">Se souvenir de moi</label>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Se connecter</button>
+                        </div>
+                        
+                        <div id="login-error" class="alert alert-danger mt-3" style="display: none;">
+                            Identifiants incorrects. Veuillez réessayer.
+                        </div>
+                    </form>
+                    
+                    <div class="text-center mt-4">
+                        <p><a href="/forgot-password">Mot de passe oublié?</a></p>
+                        <p class="mb-0">Pas encore de compte? <a href="/register">S'inscrire</a></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mt-4 shadow-sm">
+                <div class="card-body p-4">
+                    <h5 class="card-title"><i class="bi bi-info-circle me-2"></i>Information</h5>
+                    <p class="card-text">La connexion est nécessaire pour accéder aux fonctionnalités complètes de l'application d'assistance réglementaire pour la pêche.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Toggle password visibility
+        const togglePassword = document.getElementById('toggle-password');
+        const password = document.getElementById('password');
+        
+        togglePassword.addEventListener('click', function() {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.querySelector('i').classList.toggle('bi-eye');
+            this.querySelector('i').classList.toggle('bi-eye-slash');
+        });
+        
+        // Form submission
+        const loginForm = document.getElementById('login-form');
+        const loginError = document.getElementById('login-error');
+        
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // For demo purposes, simulate login
+            // In a real application, this would be an actual API call
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Simulate successful login (in a real app, this would be an API call)
+            // For demo, we'll just set a cookie and redirect
+            document.cookie = "auth_token=demo_token; path=/; max-age=86400";
+            window.location.href = '/';
+            
+            // If you want to simulate a failed login instead, uncomment this:
+            // loginError.style.display = 'block';
+        });
+    });
+</script>
+{% endblock %}

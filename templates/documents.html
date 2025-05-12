@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}Documents{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h1 class="mb-4"><i class="bi bi-file-earmark-text me-2"></i>Documents réglementaires</h1>
+    
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-light">
+                    <h2 class="card-title h4 mb-0">Documents officiels</h2>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-1">Code de l'environnement - Partie pêche</h5>
+                                <p class="mb-1 text-muted">Extraits du code de l'environnement relatifs à la pêche en eau douce et en mer</p>
+                            </div>
+                            <span class="badge bg-primary rounded-pill">PDF</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-1">Arrêtés préfectoraux 2023</h5>
+                                <p class="mb-1 text-muted">Compilation des arrêtés préfectoraux par département</p>
+                            </div>
+                            <span class="badge bg-primary rounded-pill">ZIP</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-1">Réglementation européenne</h5>
+                                <p class="mb-1 text-muted">Directives et règlements européens concernant la pêche</p>
+                            </div>
+                            <span class="badge bg-primary rounded-pill">PDF</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-1">Tailles minimales de capture</h5>
+                                <p class="mb-1 text-muted">Document officiel listant les tailles minimales par espèce</p>
+                            </div>
+                            <span class="badge bg-primary rounded-pill">PDF</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-light">
+                    <h2 class="card-title h4 mb-0">Guides pratiques</h2>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-1">Guide du pêcheur responsable</h5>
+                                <p class="mb-1 text-muted">Bonnes pratiques pour une pêche durable et respectueuse</p>
+                            </div>
+                            <span class="badge bg-success rounded-pill">PDF</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-1">Identification des espèces</h5>
+                                <p class="mb-1 text-muted">Guide illustré pour reconnaître les différentes espèces</p>
+                            </div>
+                            <span class="badge bg-success rounded-pill">PDF</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-1">Techniques de pêche autorisées</h5>
+                                <p class="mb-1 text-muted">Présentation des techniques de pêche conformes à la réglementation</p>
+                            </div>
+                            <span class="badge bg-success rounded-pill">PDF</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-light">
+                    <h3 class="card-title h5 mb-0">Recherche de documents</h3>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="document-search" class="form-label">Mot-clé</label>
+                            <input type="text" class="form-control" id="document-search" placeholder="Ex: taille, quota, arrêté...">
+                        </div>
+                        <div class="mb-3">
+                            <label for="document-type" class="form-label">Type de document</label>
+                            <select class="form-select" id="document-type">
+                                <option selected>Tous les types</option>
+                                <option>Réglementation</option>
+                                <option>Guide pratique</option>
+                                <option>Formulaire</option>
+                                <option>Carte</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="document-region" class="form-label">Région</label>
+                            <select class="form-select" id="document-region">
+                                <option selected>Toutes les régions</option>
+                                <option>Bretagne</option>
+                                <option>Normandie</option>
+                                <option>Nouvelle-Aquitaine</option>
+                                <option>Occitanie</option>
+                                <option>Provence-Alpes-Côte d'Azur</option>
+                            </select>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Rechercher</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-light">
+                    <h3 class="card-title h5 mb-0">Documents récents</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item px-0">
+                            <a href="#" class="text-decoration-none">Mise à jour des quotas de pêche 2023</a>
+                            <p class="text-muted small mb-0">Ajouté le 15/04/2023</p>
+                        </li>
+                        <li class="list-group-item px-0">
+                            <a href="#" class="text-decoration-none">Nouvelles zones protégées en Méditerranée</a>
+                            <p class="text-muted small mb-0">Ajouté le 02/04/2023</p>
+                        </li>
+                        <li class="list-group-item px-0">
+                            <a href="#" class="text-decoration-none">Formulaire de déclaration de capture</a>
+                            <p class="text-muted small mb-0">Ajouté le 28/03/2023</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h3 class="card-title h5 mb-0">Besoin d'aide?</h3>
+                </div>
+                <div class="card-body">
+                    <p>Vous ne trouvez pas le document que vous cherchez?</p>
+                    <div class="d-grid gap-2">
+                        <a href="/assistance" class="btn btn-outline-primary">Contacter l'assistance</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

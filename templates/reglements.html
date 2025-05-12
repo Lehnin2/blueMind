@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Réglements de pêche{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h1 class="mb-4"><i class="bi bi-journal-text me-2"></i>Réglements de pêche</h1>
+    
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h2 class="card-title h4">Réglementation nationale</h2>
+                    <p class="card-text">Consultez les réglementations nationales en vigueur concernant la pêche en eau douce et en mer.</p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <button class="btn btn-primary" type="button">Consulter</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h2 class="card-title h4">Réglementation locale</h2>
+                    <p class="card-text">Découvrez les réglementations spécifiques à votre région ou département.</p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <button class="btn btn-primary" type="button">Consulter par région</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h2 class="card-title h4">Périodes d'ouverture</h2>
+                    <p class="card-text">Informez-vous sur les périodes d'ouverture et de fermeture de la pêche selon les espèces.</p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <button class="btn btn-primary" type="button">Voir le calendrier</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-light">
+                    <h3 class="card-title h5 mb-0">Recherche rapide</h3>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="keyword" class="form-label">Mot-clé</label>
+                            <input type="text" class="form-control" id="keyword" placeholder="Ex: taille minimale, quota...">
+                        </div>
+                        <div class="mb-3">
+                            <label for="region" class="form-label">Région</label>
+                            <select class="form-select" id="region">
+                                <option selected>Toutes les régions</option>
+                                <option>Bretagne</option>
+                                <option>Normandie</option>
+                                <option>Nouvelle-Aquitaine</option>
+                                <option>Occitanie</option>
+                                <option>Provence-Alpes-Côte d'Azur</option>
+                            </select>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Rechercher</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h3 class="card-title h5 mb-0">Documents utiles</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <span>Guide du pêcheur responsable</span>
+                            <a href="#" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i></a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <span>Tailles minimales de capture</span>
+                            <a href="#" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i></a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <span>Quotas de pêche 2023</span>
+                            <a href="#" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

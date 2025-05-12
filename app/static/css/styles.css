@@ -1,0 +1,110 @@
+/* Variables globales */
+:root {
+    --primary-color: #8B4513; /* Brun sépia */
+    --secondary-color: #A0522D; /* Terre de Sienne */
+    --accent-color: #CD853F; /* Bois de Pérou */
+    --dark-bg: #2D2016; /* Brun foncé */
+    --card-bg: linear-gradient(135deg, rgba(50, 30, 0, 0.8), rgba(60, 30, 10, 0.8));
+    --text-color: #e0e0e0;
+    --danger-color: #ff6b6b;
+    --warning-color: #ffd93d;
+    --success-color: #6dd5b4;
+    --info-color: #f0c05a;
+    --border-color: rgba(205, 133, 63, 0.3);
+    --hover-bg: rgba(205, 133, 63, 0.1);
+    --input-bg: #3D2E1E; /* Fond pour les inputs */
+    --form-bg: #342418; /* Fond pour les formulaires */
+    --button-bg: #A0522D; /* Fond pour les boutons */
+    --light-element-bg: #4A3520; /* Remplace les éléments blancs */
+}
+
+/* Styles généraux */
+body {
+    background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1209 100%);
+    color: var(--text-color);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s ease;
+}
+
+/* Bannière principale */
+.banner-overlay {
+    background: linear-gradient(rgba(139, 69, 19, 0.8), rgba(205, 133, 63, 0.8)),
+                url('/static/img/fishing-banner.jpg') center/cover;
+    z-index: 0;
+}
+
+/* Navigation */
+.navbar {
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Responsive design pour mobile */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .navbar-collapse {
+        background-color: var(--primary-color);
+        padding: 10px;
+        border-radius: 0 0 8px 8px;
+    }
+}
+
+.navbar-brand i {
+    color: #fff;
+}
+
+.nav-link {
+    position: relative;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--accent-color) !important;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: var(--accent-color);
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Cartes */
+.dashboard-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}

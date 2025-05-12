@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistance Réglementaire Pêche - {% block title %}Accueil{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
+    <meta name="theme-color" content="#8B4513">
+    <meta name="description" content="Assistance réglementaire pour les pêcheurs">
+    <script src="{{ url_for('static', path='/js/floating-chat.js') }}"></script>
+    <script src="{{ url_for('static', path='/js/gemini-chat.js') }}"></script>
+    <style>
+        /* Styles globaux */
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #ffffff;
+        }
+        
+        /* Styles pour les boutons */
+        .btn-primary {
+            background-color: var(--button-bg) !important;
+            border-color: var(--accent-color) !important;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent-color) !important;
+        }
+        
+        /* Remplacer les éléments blancs */
+        .bg-white, .bg-light {
+            background-color: var(--light-element-bg) !important;
+        }
+        
+        .border-light {
+            border-color: var(--border-color) !important;
+        }
+        
+        .text-dark {
+            color: var(--text-color) !important;
+        }
+
+        /* Styles pour les cartes */
+        .card {
+            background: linear-gradient(135deg, rgba(30, 20, 10, 0.9), rgba(50, 30, 20, 0.9));
+            border: 1px solid rgba(205, 133, 63, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+        
+        /* Styles pour les tableaux */
+        table, .table {
+            color: var(--text-color) !important;
+        }
+        
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(60, 40, 20, 0.5) !important;
+        }
+        
+        .table-hover tbody tr:hover {
+            background-color: rgba(80, 50, 30, 0.4) !important;
+        }
+        
+        /* Styles pour la pagination */
+        .page-item .page-link {
+            background-color: var(--light-element-bg);
+            border-color: var(--border-color);
+            color: var(--text-color);
+        }
+        
+        .page-item.active .page-link {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        
+        .page-item.disabled .page-link {
+            background-color: rgba(60, 40, 20, 0.3);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(205, 133, 63, 0.4);
+        }
+
+        .card-header {
+            background: rgba(30, 30, 30, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #CD853F;
+        }
+
+        .card-body {
+            background: transparent;
+        }
+
+        /* Styles pour les formulaires */
+        form {
+            background: var(--form-bg);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(205, 133, 63, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        input, select, textarea {
+            background: var(--input-bg) !important;
+            border: 1px solid rgba(205, 133, 63, 0.2) !important;
+            color: #ffffff !important;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            background: rgba(80, 50, 30, 0.9) !important;
+            border-color: #CD853F !important;
+            box-shadow: 0 0 0 0.2rem rgba(205, 133, 63, 0.25) !important;
+        }
+
+        /* Styles pour le système de notification global */
+        #global-notification-area {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+            width: 350px;
+            max-width: 90%;
+        }
+        
+        .notification {
+            display: flex;
+            background: rgba(50, 30, 10, 0.8);
+            border-left: 4px solid #CD853F;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .notification.success {
+            border-left-color: #28a745;
+        }
+        
+        .notification.warning {
+            border-left-color: #ffc107;
+        }
+        
+        .notification.danger {
+            border-left-color: #dc3545;
+        }
+        
+        .notification.info {
+            border-left-color: #CD853F;
+        }
+        
+        .notification-icon {
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+        }
+        
+        .notification.success .notification-icon {
+            color: #28a745;
+        }
+        
+        .notification.warning .notification-icon {
+            color: #ffc107;
+        }
+        
+        .notification.danger .notification-icon {
+            color: #dc3545;
+        }
+        
+        .notification.info .notification-icon {
+            color: #CD853F;
+        }
+        
+        /* Styles pour le menu latéral */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            height: 100%;
+            width: 280px;
+            background-color: #1a1a1a;
+            z-index: 1050;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+        }
+        
+        .sidebar.active {
+            left: 0;
+        }
+        
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .sidebar-link {
+            display: block;
+            padding: 15px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        .sidebar-link:hover, .sidebar-link:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1040;
+            display: none;
+            transition: all 0.3s ease;
+        }
+        
+        /* Ajustements pour la navbar */
+        .navbar {
+            background-color: #8B4513;
+            padding: 15px 0;
+            z-index: 1030;
+        }
+        
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+        
+        /* Ajustement pour le contenu principal */
+        .container.mt-5.pt-5 {
+            padding-top: 5rem !important;
+        }
+    </style>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <!-- Menu latéral (Sidebar) -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="/" class="d-flex align-items-center text-decoration-none">
+                <i class="bi bi-life-preserver me-2"></i>
+                <span>Assistance Réglementaire Pêche</span>
+            </a>
+            <button type="button" class="btn-close text-reset" id="closeSidebar" aria-label="Close"></button>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="/"><i class="bi bi-house-door me-2"></i> Accueil</a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="/reglements"><i class="bi bi-journal-text me-2"></i> Réglements</a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="/especes"><i class="bi bi-fish me-2"></i> Espèces</a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="/calendrier"><i class="bi bi-calendar-date me-2"></i> Calendrier</a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="/assistance"><i class="bi bi-question-circle me-2"></i> Assistance</a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="/documents"><i class="bi bi-file-earmark-text me-2"></i> Documents</a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="/carte"><i class="bi bi-geo-alt me-2"></i> Carte</a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="/learning"><i class="bi bi-book me-2"></i> Learning</a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="/contribution"><i class="bi bi-people me-2"></i> Contribution</a>
+            </li>
+        </ul>
+    </div>
+    
+    <!-- Overlay pour fermer le menu -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Barre de navigation avec bouton burger -->
+    <nav class="navbar navbar-dark fixed-top">
+        <div class="container-fluid">
+            <button class="navbar-toggler border-0" type="button" id="sidebarToggle">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <i class="bi bi-life-preserver me-2"></i>
+                <span>Assistance Réglementaire Pêche</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Zone de contenu principal -->
+    <div class="container mt-5 pt-5">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Pied de page -->
+    <footer class="mt-auto py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2023 Assistance Réglementaire Pêche. Tous droits réservés.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-decoration-none me-3"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-decoration-none me-3"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="text-decoration-none"><i class="bi bi-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Zone de notification globale -->
+    <div id="global-notification-area"></div>
+
+    <!-- Scripts JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Fonction pour ajouter une notification
+        function showNotification(title, message, type = 'info') {
+            const notificationArea = document.getElementById('global-notification-area');
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
+            const icon = document.createElement('div');
+            icon.className = 'notification-icon';
+            
+            let iconClass = 'bi-info-circle';
+            if (type === 'success') iconClass = 'bi-check-circle';
+            if (type === 'warning') iconClass = 'bi-exclamation-triangle';
+            if (type === 'danger') iconClass = 'bi-x-circle';
+            
+            icon.innerHTML = `<i class="bi ${iconClass}"></i>`;
+            
+            const content = document.createElement('div');
+            content.className = 'notification-content';
+            content.innerHTML = `
+                <div class="notification-title">${title}</div>
+                <div class="notification-message">${message}</div>
+                <div class="notification-time">${new Date().toLocaleTimeString()}</div>
+            `;
+            
+            notification.appendChild(icon);
+            notification.appendChild(content);
+            notificationArea.appendChild(notification);
+            
+            // Supprimer la notification après 5 secondes
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 5000);
+        }
+        
+        // Gestion du menu latéral
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const closeSidebar = document.getElementById('closeSidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            
+            // Ouvrir le menu latéral
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.add('active');
+                sidebarOverlay.style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Empêcher le défilement
+            });
+            
+            // Fermer le menu latéral
+            function closeSidebarMenu() {
+                sidebar.classList.remove('active');
+                sidebarOverlay.style.display = 'none';
+                document.body.style.overflow = ''; // Réactiver le défilement
+            }
+            
+            closeSidebar.addEventListener('click', closeSidebarMenu);
+            sidebarOverlay.addEventListener('click', closeSidebarMenu);
+            
+            // Fermer le menu sur les petits écrans quand un lien est cliqué
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 992) {
+                        closeSidebarMenu();
+                    }
+                });
+            });
+        });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

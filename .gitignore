@@ -1,0 +1,23 @@
+# Fichiers d'environnement contenant des informations sensibles
+.env
+
+# Fichiers Python compilés
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Environnements virtuels
+venv/
+env/
+ENV/
+
+# Fichiers de logs
+*.log
+
+# Fichiers de cache
+.cache/

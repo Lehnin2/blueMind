@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Espèces de poissons{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h1 class="mb-4"><i class="bi bi-fish me-2"></i>Espèces de poissons</h1>
+    
+    <div class="row mb-4">
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ url_for('static', path='/img/bar.jpg') }}" class="card-img-top" alt="Bar" onerror="this.src='https://via.placeholder.com/300x200?text=Bar'">
+                <div class="card-body">
+                    <h5 class="card-title">Bar (Dicentrarchus labrax)</h5>
+                    <p class="card-text">Poisson marin très apprécié des pêcheurs sportifs pour sa combativité.</p>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item"><strong>Taille minimale:</strong> 42 cm</li>
+                        <li class="list-group-item"><strong>Période de pêche:</strong> Toute l'année (restrictions possibles)</li>
+                        <li class="list-group-item"><strong>Quota:</strong> 2 par jour et par pêcheur</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Détails complets</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ url_for('static', path='/img/dorade.jpg') }}" class="card-img-top" alt="Dorade" onerror="this.src='https://via.placeholder.com/300x200?text=Dorade'">
+                <div class="card-body">
+                    <h5 class="card-title">Dorade royale (Sparus aurata)</h5>
+                    <p class="card-text">Reconnaissable à sa bande dorée entre les yeux et sa tache noire sur l'opercule.</p>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item"><strong>Taille minimale:</strong> 23 cm</li>
+                        <li class="list-group-item"><strong>Période de pêche:</strong> Toute l'année</li>
+                        <li class="list-group-item"><strong>Quota:</strong> Pas de limitation spécifique</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Détails complets</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ url_for('static', path='/img/maquereau.jpg') }}" class="card-img-top" alt="Maquereau" onerror="this.src='https://via.placeholder.com/300x200?text=Maquereau'">
+                <div class="card-body">
+                    <h5 class="card-title">Maquereau (Scomber scombrus)</h5>
+                    <p class="card-text">Poisson pélagique reconnaissable à ses rayures bleues-vertes sur le dos.</p>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item"><strong>Taille minimale:</strong> 20 cm</li>
+                        <li class="list-group-item"><strong>Période de pêche:</strong> Printemps-Été</li>
+                        <li class="list-group-item"><strong>Quota:</strong> 15 par jour et par pêcheur</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Détails complets</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h2 class="card-title h4">Recherche d'espèces</h2>
+            <form class="row g-3">
+                <div class="col-md-4">
+                    <label for="species-name" class="form-label">Nom de l'espèce</label>
+                    <input type="text" class="form-control" id="species-name" placeholder="Ex: Bar, Dorade...">
+                </div>
+                <div class="col-md-4">
+                    <label for="habitat" class="form-label">Habitat</label>
+                    <select class="form-select" id="habitat">
+                        <option selected>Tous</option>
+                        <option>Eau douce</option>
+                        <option>Eau de mer</option>
+                        <option>Eau saumâtre</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="region" class="form-label">Région</label>
+                    <select class="form-select" id="region">
+                        <option selected>Toutes</option>
+                        <option>Atlantique</option>
+                        <option>Méditerranée</option>
+                        <option>Manche</option>
+                        <option>Mer du Nord</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Rechercher</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+
+# Dépendances pour l'indexation et la recherche sémantique
+llama-index-core>=0.10.0
+llama-index-vector-stores-faiss>=0.1.0
+faiss-cpu==1.7.4
+sentence-transformers==2.2.2
+torch>=2.0.0
+
+# Language models for spaCy
+# Install with: python -m spacy download fr_core_news_md
+# Install with: python -m spacy download en_core_web_sm

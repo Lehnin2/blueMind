@@ -1,0 +1,340 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block head %}
+<style>
+    /* Styles spécifiques à la page d'accueil */
+    .hero {
+        background: linear-gradient(135deg, rgba(139, 69, 19, 0.8), rgba(205, 133, 63, 0.8)),
+                    url('/static/img/fishing-banner.jpg') center/cover;
+        color: white;
+        padding: 80px 0;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23CD853F" fill-opacity="0.05" d="M50 0 C22.4 0 0 22.4 0 50 C0 77.6 22.4 100 50 100 C77.6 100 100 77.6 100 50 C100 22.4 77.6 0 50 0 Z M50 20 C63.2 20 74 30.8 74 44 C74 57.2 63.2 68 50 68 C36.8 68 26 57.2 26 44 C26 30.8 36.8 20 50 20 Z"/></svg>');
+        background-size: 200px 200px;
+        background-position: center;
+        opacity: 0.1;
+        pointer-events: none;
+    }
+    
+    .stat-card {
+        background: linear-gradient(135deg, rgba(50, 30, 0, 0.8), rgba(60, 30, 10, 0.8));
+        border-radius: 15px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(205, 133, 63, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23CD853F" fill-opacity="0.05" d="M50 0 C22.4 0 0 22.4 0 50 C0 77.6 22.4 100 50 100 C77.6 100 100 77.6 100 50 C100 22.4 77.6 0 50 0 Z M50 20 C63.2 20 74 30.8 74 44 C74 57.2 63.2 68 50 68 C36.8 68 26 57.2 26 44 C26 30.8 36.8 20 50 20 Z"/></svg>');
+        background-size: 200px 200px;
+        background-position: center;
+        opacity: 0.1;
+        pointer-events: none;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+    
+    .stat-icon {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        color: var(--accent-color);
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: white;
+    }
+    
+    .feature-card {
+        background: linear-gradient(135deg, rgba(50, 30, 0, 0.8), rgba(60, 30, 10, 0.8));
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(205, 133, 63, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        min-height: 300px;
+        position: relative;
+    }
+    
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23CD853F" fill-opacity="0.05" d="M50 0 C22.4 0 0 22.4 0 50 C0 77.6 22.4 100 50 100 C77.6 100 100 77.6 100 50 C100 22.4 77.6 0 50 0 Z M50 20 C63.2 20 74 30.8 74 44 C74 57.2 63.2 68 50 68 C36.8 68 26 57.2 26 44 C26 30.8 36.8 20 50 20 Z"/></svg>');
+        background-size: 200px 200px;
+        background-position: center;
+        opacity: 0.1;
+        pointer-events: none;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+    
+    .feature-icon {
+        font-size: 3rem;
+        color: var(--accent-color);
+        margin-bottom: 15px;
+    }
+    
+    .feature-content {
+        padding: 25px;
+        flex: 1;
+    }
+    
+    .feature-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Section Héro -->
+<div class="hero p-5 mb-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <h1 class="display-4 fw-bold mb-4">Assistance Réglementaire pour les Pêcheurs</h1>
+                <p class="lead mb-4">Accédez facilement aux réglementations de pêche, recevez des conseils personnalisés et restez informé des changements législatifs.</p>
+                <div class="d-flex gap-3">
+                    <a href="/reglements" class="btn btn-light btn-lg px-4 py-2"><i class="bi bi-journal-text me-2"></i>Consulter les réglements</a>
+                    <a href="/assistance" class="btn btn-outline-light btn-lg px-4 py-2"><i class="bi bi-question-circle me-2"></i>Obtenir de l'aide</a>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block">
+                <!-- Placeholder pour une illustration -->
+                <div class="text-center">
+                    <i class="bi bi-life-preserver" style="font-size: 200px; opacity: 0.8;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Section Statistiques -->
+<div class="container mb-5">
+    <h2 class="text-center mb-5">Chiffres clés</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="bi bi-journal-text"></i>
+                </div>
+                <div class="stat-number">150+</div>
+                <div class="stat-title">Réglementations</div>
+                <p class="text-light">Accédez à plus de 150 réglementations de pêche à jour</p>
+                <a href="/reglements" class="btn btn-sm mt-3" style="background-color: var(--accent-color); color: white;">Explorer</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="bi bi-fish"></i>
+                </div>
+                <div class="stat-number">80+</div>
+                <div class="stat-title">Espèces</div>
+                <p class="text-light">Informations détaillées sur plus de 80 espèces réglementées</p>
+                <a href="/especes" class="btn btn-sm mt-3" style="background-color: var(--accent-color); color: white;">Découvrir</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="bi bi-geo-alt"></i>
+                </div>
+                <div class="stat-number">25+</div>
+                <div class="stat-title">Zones de pêche</div>
+                <p class="text-light">Cartographie complète de plus de 25 zones de pêche</p>
+                <a href="/zones" class="btn btn-sm mt-3" style="background-color: var(--accent-color); color: white;">Consulter</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Section Fonctionnalités -->
+<div class="container mb-5">
+    <h2 class="text-center mb-5">Nos Services</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-content">
+                    <div class="feature-icon">
+                        <i class="bi bi-calendar-date"></i>
+                    </div>
+                    <h3 class="feature-title">Calendrier des périodes de pêche</h3>
+                    <p>Consultez les périodes d'ouverture et de fermeture pour chaque espèce et zone de pêche.</p>
+                    <a href="/calendrier" class="btn btn-sm mt-3" style="background-color: var(--accent-color); color: white;">Voir le calendrier</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-content">
+                    <div class="feature-icon">
+                        <i class="bi bi-robot"></i>
+                    </div>
+                    <h3 class="feature-title">Assistant de Pêche</h3>
+                    <p>Posez vos questions sur la réglementation et recevez des réponses précises et adaptées.</p>
+                    <a href="/assistance" class="btn btn-sm mt-3" style="background-color: var(--accent-color); color: white;">Discuter</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-content">
+                    <div class="feature-icon">
+                        <i class="bi bi-file-earmark-text"></i>
+                    </div>
+                    <h3 class="feature-title">Documents réglementaires</h3>
+                    <p>Générez et téléchargez les documents nécessaires pour votre activité de pêche.</p>
+                    <a href="/documents" class="btn btn-sm mt-3" style="background-color: var(--accent-color); color: white;">Générer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Section Fonctionnalités Supplémentaires -->
+<div class="container mb-5">
+    <h2 class="text-center mb-5">Fonctionnalités Avancées</h2>
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="feature-card">
+                <div class="feature-content">
+                    <div class="feature-icon">
+                        <i class="bi bi-search"></i>
+                    </div>
+                    <h3 class="feature-title">Recherche</h3>
+                    <p>Trouvez rapidement les informations réglementaires dont vous avez besoin.</p>
+                    <a href="/recherche" class="btn btn-sm mt-3" style="background-color: var(--accent-color); color: white;">Rechercher</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="feature-card">
+                <div class="feature-content">
+                    <div class="feature-icon">
+                        <i class="bi bi-question-circle"></i>
+                    </div>
+                    <h3 class="feature-title">Questions Fréquentes</h3>
+                    <p>Consultez les réponses aux questions les plus posées par les pêcheurs.</p>
+                    <a href="/faq" class="btn btn-sm mt-3" style="background-color: var(--accent-color); color: white;">Consulter</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="feature-card">
+                <div class="feature-content">
+                    <div class="feature-icon">
+                        <i class="bi bi-mortarboard"></i>
+                    </div>
+                    <h3 class="feature-title">Apprentissage</h3>
+                    <p>Testez vos connaissances sur la réglementation avec nos quiz interactifs.</p>
+                    <a href="/apprentissage" class="btn btn-sm mt-3" style="background-color: var(--accent-color); color: white;">Apprendre</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="feature-card">
+                <div class="feature-content">
+                    <div class="feature-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <h3 class="feature-title">Contribuer</h3>
+                    <p>Partagez vos observations et contribuez à l'amélioration des données.</p>
+                    <a href="/contribuer" class="btn btn-sm mt-3" style="background-color: var(--accent-color); color: white;">Participer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Section Actualités -->
+<div class="container mb-5">
+    <h2 class="text-center mb-5">Dernières actualités réglementaires</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card bg-dark text-light border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Nouvelles tailles minimales pour certaines espèces</h5>
+                    <p class="card-text">Les tailles minimales de capture ont été révisées pour plusieurs espèces marines.</p>
+                    <p class="text-muted">Publié le 15 juin 2023</p>
+                    <a href="#" class="btn btn-sm" style="background-color: var(--accent-color); color: white;">Lire plus</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-dark text-light border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Modification des zones de pêche côtières</h5>
+                    <p class="card-text">De nouvelles délimitations des zones de pêche côtières entrent en vigueur ce mois-ci.</p>
+                    <p class="text-muted">Publié le 2 juin 2023</p>
+                    <a href="#" class="btn btn-sm" style="background-color: var(--accent-color); color: white;">Lire plus</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-dark text-light border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Calendrier des périodes de pêche mis à jour</h5>
+                    <p class="card-text">Le calendrier des périodes d'ouverture et de fermeture a été mis à jour pour la saison.</p>
+                    <p class="text-muted">Publié le 28 mai 2023</p>
+                    <a href="#" class="btn btn-sm" style="background-color: var(--accent-color); color: white;">Lire plus</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Afficher une notification de bienvenue
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+            showNotification(
+                'Bienvenue sur l\'Assistance Réglementaire Pêche', 
+                'Consultez les dernières réglementations et obtenez de l\'aide personnalisée.', 
+                'info'
+            );
+        }, 1000);
+    });
+</script>
+{% endblock %}

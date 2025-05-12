@@ -1,0 +1,559 @@
+{% extends "base.html" %}
+
+{% block title %}Contributions{% endblock %}
+
+{% block head %}
+<style>
+    .contribution-form {
+        background: linear-gradient(135deg, rgba(50, 30, 0, 0.8), rgba(60, 30, 10, 0.8));
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(205, 133, 63, 0.3);
+    }
+    
+    .contribution-card {
+        background: linear-gradient(135deg, rgba(50, 30, 0, 0.8), rgba(60, 30, 10, 0.8));
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(205, 133, 63, 0.3);
+        transition: transform 0.3s ease;
+    }
+    
+    .contribution-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .contribution-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(205, 133, 63, 0.3);
+    }
+    
+    .contribution-type {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    
+    .type-observation {
+        background-color: rgba(25, 135, 84, 0.7);
+        color: white;
+    }
+    
+    .type-regulation {
+        background-color: rgba(13, 110, 253, 0.7);
+        color: white;
+    }
+    
+    .type-feedback {
+        background-color: rgba(255, 193, 7, 0.7);
+        color: black;
+    }
+    
+    .contribution-status {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    
+    .status-pending {
+        background-color: rgba(255, 193, 7, 0.7);
+        color: black;
+    }
+    
+    .status-validated {
+        background-color: rgba(25, 135, 84, 0.7);
+        color: white;
+    }
+    
+    .status-rejected {
+        background-color: rgba(220, 53, 69, 0.7);
+        color: white;
+    }
+    
+    .contribution-date {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .contribution-content {
+        margin-bottom: 15px;
+    }
+    
+    .contribution-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.9rem;
+    }
+    
+    .contribution-actions {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .nav-tabs .nav-link {
+        color: rgba(255, 255, 255, 0.7);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 30px;
+        margin-right: 5px;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-tabs .nav-link:hover {
+        color: white;
+        background-color: rgba(205, 133, 63, 0.3);
+    }
+    
+    .nav-tabs .nav-link.active {
+        color: white;
+        background-color: rgba(205, 133, 63, 0.7);
+        border: none;
+    }
+    
+    .form-control, .form-select {
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(205, 133, 63, 0.3);
+        color: white;
+    }
+    
+    .form-control:focus, .form-select:focus {
+        background-color: rgba(255, 255, 255, 0.15);
+        border-color: rgba(205, 133, 63, 0.5);
+        color: white;
+        box-shadow: 0 0 0 0.25rem rgba(205, 133, 63, 0.25);
+    }
+    
+    .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .form-label {
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 500;
+    }
+    
+    .btn-primary {
+        background-color: rgba(205, 133, 63, 0.8);
+        border-color: rgba(205, 133, 63, 0.8);
+    }
+    
+    .btn-primary:hover {
+        background-color: rgba(139, 69, 19, 0.9);
+        border-color: rgba(139, 69, 19, 0.9);
+    }
+    
+    .stats-card {
+        background: linear-gradient(135deg, rgba(50, 30, 0, 0.8), rgba(60, 30, 10, 0.8));
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(205, 133, 63, 0.3);
+        margin-bottom: 20px;
+    }
+    
+    .stats-number {
+        font-size: 2rem;
+        font-weight: bold;
+        color: rgba(205, 133, 63, 1);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="display-5 fw-bold text-white mb-3">Contributions Communautaires</h1>
+            <p class="text-white-50 mb-4">Partagez vos observations, suggestions et mises à jour concernant la réglementation de la pêche. Votre expérience est précieuse pour la communauté.</p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-8">
+            <ul class="nav nav-tabs mb-4" id="contributionTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="submit-tab" data-bs-toggle="tab" data-bs-target="#submit" type="button" role="tab" aria-controls="submit" aria-selected="true">
+                        <i class="bi bi-plus-circle me-2"></i>Soumettre
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="browse-tab" data-bs-toggle="tab" data-bs-target="#browse" type="button" role="tab" aria-controls="browse" aria-selected="false">
+                        <i class="bi bi-list-ul me-2"></i>Parcourir
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="my-contributions-tab" data-bs-toggle="tab" data-bs-target="#my-contributions" type="button" role="tab" aria-controls="my-contributions" aria-selected="false">
+                        <i class="bi bi-person me-2"></i>Mes contributions
+                    </button>
+                </li>
+            </ul>
+            
+            <div class="tab-content" id="contributionTabsContent">
+                <!-- Onglet Soumettre -->
+                <div class="tab-pane fade show active" id="submit" role="tabpanel" aria-labelledby="submit-tab">
+                    <div class="contribution-form">
+                        <form id="contributionForm">
+                            <div class="mb-3">
+                                <label for="contributionType" class="form-label">Type de contribution</label>
+                                <select class="form-select" id="contributionType" required>
+                                    <option value="" selected disabled>Sélectionnez un type...</option>
+                                    <option value="observation">Observation de terrain</option>
+                                    <option value="regulation_update">Mise à jour réglementaire</option>
+                                    <option value="feedback">Retour d'expérience</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Champs pour Observation -->
+                            <div id="observationFields" class="contribution-fields" style="display: none;">
+                                <div class="mb-3">
+                                    <label for="observationLocation" class="form-label">Lieu de l'observation</label>
+                                    <input type="text" class="form-control" id="observationLocation" placeholder="Ex: Étang de Thau, Côte Atlantique...">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="observationDate" class="form-label">Date de l'observation</label>
+                                    <input type="date" class="form-control" id="observationDate">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="observationDescription" class="form-label">Description détaillée</label>
+                                    <textarea class="form-control" id="observationDescription" rows="4" placeholder="Décrivez ce que vous avez observé..."></textarea>
+                                </div>
+                            </div>
+                            
+                            <!-- Champs pour Mise à jour réglementaire -->
+                            <div id="regulationFields" class="contribution-fields" style="display: none;">
+                                <div class="mb-3">
+                                    <label for="regulationId" class="form-label">Identifiant de la réglementation</label>
+                                    <input type="text" class="form-control" id="regulationId" placeholder="Ex: Arrêté du 15/01/2023...">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="updateDescription" class="form-label">Description de la mise à jour</label>
+                                    <textarea class="form-control" id="updateDescription" rows="4" placeholder="Décrivez les changements réglementaires..."></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sourceType" class="form-label">Type de source</label>
+                                    <select class="form-select" id="sourceType">
+                                        <option value="" selected disabled>Sélectionnez une source...</option>
+                                        <option value="journal_officiel">Journal Officiel</option>
+                                        <option value="ministere">Ministère</option>
+                                        <option value="prefecture">Préfecture</option>
+                                        <option value="site_gouvernemental">Site gouvernemental</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sourceUrl" class="form-label">URL de la source (optionnel)</label>
+                                    <input type="url" class="form-control" id="sourceUrl" placeholder="https://...">
+                                </div>
+                            </div>
+                            
+                            <!-- Champs pour Retour d'expérience -->
+                            <div id="feedbackFields" class="contribution-fields" style="display: none;">
+                                <div class="mb-3">
+                                    <label for="feedbackContent" class="form-label">Votre retour d'expérience</label>
+                                    <textarea class="form-control" id="feedbackContent" rows="4" placeholder="Partagez votre expérience..."></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="feedbackRating" class="form-label">Note (1-5)</label>
+                                    <select class="form-select" id="feedbackRating">
+                                        <option value="5">5 - Excellent</option>
+                                        <option value="4">4 - Très bien</option>
+                                        <option value="3" selected>3 - Bien</option>
+                                        <option value="2">2 - Moyen</option>
+                                        <option value="1">1 - À améliorer</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Soumettre la contribution</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Onglet Parcourir -->
+                <div class="tab-pane fade" id="browse" role="tabpanel" aria-labelledby="browse-tab">
+                    <div class="mb-4">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="searchContributions" placeholder="Rechercher des contributions...">
+                            <button class="btn btn-primary" type="button"><i class="bi bi-search"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <label class="form-label text-white-50 mb-0 me-2">Filtrer par:</label>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-sm btn-outline-light active">Tous</button>
+                                    <button type="button" class="btn btn-sm btn-outline-light">Observations</button>
+                                    <button type="button" class="btn btn-sm btn-outline-light">Réglementations</button>
+                                    <button type="button" class="btn btn-sm btn-outline-light">Retours</button>
+                                </div>
+                            </div>
+                            <div>
+                                <select class="form-select form-select-sm" style="width: auto;">
+                                    <option>Plus récents</option>
+                                    <option>Plus anciens</option>
+                                    <option>Plus pertinents</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="contributionsList">
+                        <!-- Les contributions seront chargées dynamiquement ici -->
+                        <div class="contribution-card">
+                            <div class="contribution-header">
+                                <div>
+                                    <span class="contribution-type type-observation">Observation</span>
+                                    <span class="contribution-status status-validated ms-2">Validée</span>
+                                </div>
+                                <span class="contribution-date">15/06/2023</span>
+                            </div>
+                            <div class="contribution-content">
+                                <h5 class="text-white">Présence importante de juvéniles à l'embouchure</h5>
+                                <p class="text-white-50">J'ai observé une concentration importante de juvéniles de dorades à l'embouchure de la rivière. Il serait peut-être judicieux de limiter temporairement la pêche dans cette zone pour préserver la ressource.</p>
+                            </div>
+                            <div class="contribution-footer">
+                                <span class="text-white-50">Lieu: Étang de Thau</span>
+                                <div class="contribution-actions">
+                                    <button class="btn btn-sm btn-outline-light"><i class="bi bi-hand-thumbs-up"></i> 12</button>
+                                    <button class="btn btn-sm btn-outline-light"><i class="bi bi-chat"></i> 3</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="contribution-card">
+                            <div class="contribution-header">
+                                <div>
+                                    <span class="contribution-type type-regulation">Réglementation</span>
+                                    <span class="contribution-status status-pending ms-2">En attente</span>
+                                </div>
+                                <span class="contribution-date">10/06/2023</span>
+                            </div>
+                            <div class="contribution-content">
+                                <h5 class="text-white">Mise à jour de la taille minimale pour le bar</h5>
+                                <p class="text-white-50">Selon le nouvel arrêté préfectoral du 05/06/2023, la taille minimale de capture pour le bar est désormais de 42 cm dans notre région.</p>
+                            </div>
+                            <div class="contribution-footer">
+                                <span class="text-white-50">Source: Préfecture Maritime</span>
+                                <div class="contribution-actions">
+                                    <button class="btn btn-sm btn-outline-light"><i class="bi bi-hand-thumbs-up"></i> 5</button>
+                                    <button class="btn btn-sm btn-outline-light"><i class="bi bi-chat"></i> 1</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-center mt-4">
+                        <button class="btn btn-outline-light">Charger plus</button>
+                    </div>
+                </div>
+                
+                <!-- Onglet Mes contributions -->
+                <div class="tab-pane fade" id="my-contributions" role="tabpanel" aria-labelledby="my-contributions-tab">
+                    <div class="text-center py-5">
+                        <i class="bi bi-person-circle" style="font-size: 3rem; color: rgba(205, 133, 63, 0.8);"></i>
+                        <h4 class="mt-3 text-white">Connectez-vous pour voir vos contributions</h4>
+                        <p class="text-white-50">Vous pourrez suivre l'état de vos contributions et recevoir des notifications lorsqu'elles sont validées.</p>
+                        <a href="/login" class="btn btn-primary mt-2">Se connecter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 mt-4 mt-lg-0">
+            <div class="stats-card mb-4">
+                <h5 class="text-white mb-3"><i class="bi bi-graph-up me-2"></i>Statistiques</h5>
+                <div class="row text-center">
+                    <div class="col-4">
+                        <div class="stats-number">124</div>
+                        <div class="text-white-50">Total</div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stats-number">98</div>
+                        <div class="text-white-50">Validées</div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stats-number">26</div>
+                        <div class="text-white-50">En attente</div>
+                    </div>
+                </div>
+                <hr class="border-secondary">
+                <div class="row text-center">
+                    <div class="col-4">
+                        <div class="stats-number">57</div>
+                        <div class="text-white-50">Observations</div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stats-number">42</div>
+                        <div class="text-white-50">Règlements</div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stats-number">25</div>
+                        <div class="text-white-50">Retours</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card bg-dark text-white border-0 rounded-4 shadow-sm">
+                <div class="card-header bg-transparent border-bottom border-secondary">
+                    <h5 class="mb-0"><i class="bi bi-info-circle me-2"></i>Guide de contribution</h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="text-white">Types de contributions</h6>
+                    <ul class="mb-3">
+                        <li><strong>Observations</strong> - Partagez ce que vous avez observé sur le terrain</li>
+                        <li><strong>Mises à jour réglementaires</strong> - Signalez les changements de réglementation</li>
+                        <li><strong>Retours d'expérience</strong> - Partagez votre expérience avec la communauté</li>
+                    </ul>
+                    
+                    <h6 class="text-white">Processus de validation</h6>
+                    <p class="small text-white-50">Toutes les contributions sont examinées par notre équipe avant d'être publiées. Les mises à jour réglementaires nécessitent une source officielle pour être validées.</p>
+                    
+                    <h6 class="text-white">Conseils pour une bonne contribution</h6>
+                    <ul class="small text-white-50 mb-0">
+                        <li>Soyez précis et factuel</li>
+                        <li>Incluez des détails pertinents (lieu, date, espèces)</li>
+                        <li>Citez vos sources pour les informations réglementaires</li>
+                        <li>Respectez les autres contributeurs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Gestion de l'affichage des champs en fonction du type de contribution
+        const contributionType = document.getElementById('contributionType');
+        const observationFields = document.getElementById('observationFields');
+        const regulationFields = document.getElementById('regulationFields');
+        const feedbackFields = document.getElementById('feedbackFields');
+        
+        contributionType.addEventListener('change', function() {
+            // Masquer tous les champs
+            observationFields.style.display = 'none';
+            regulationFields.style.display = 'none';
+            feedbackFields.style.display = 'none';
+            
+            // Afficher les champs correspondants au type sélectionné
+            if (this.value === 'observation') {
+                observationFields.style.display = 'block';
+            } else if (this.value === 'regulation_update') {
+                regulationFields.style.display = 'block';
+            } else if (this.value === 'feedback') {
+                feedbackFields.style.display = 'block';
+            }
+        });
+        
+        // Gestion de la soumission du formulaire
+        const contributionForm = document.getElementById('contributionForm');
+        contributionForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Récupérer le type de contribution
+            const type = contributionType.value;
+            if (!type) return;
+            
+            // Préparer les données en fonction du type
+            let data = {};
+            
+            if (type === 'observation') {
+                data = {
+                    type: 'observation',
+                    location: document.getElementById('observationLocation').value,
+                    date: document.getElementById('observationDate').value,
+                    description: document.getElementById('observationDescription').value
+                };
+            } else if (type === 'regulation_update') {
+                data = {
+                    type: 'regulation_update',
+                    regulation_id: document.getElementById('regulationId').value,
+                    update_description: document.getElementById('updateDescription').value,
+                    source_type: document.getElementById('sourceType').value,
+                    source: document.getElementById('sourceType').value, // Pour la validation
+                    source_url: document.getElementById('sourceUrl').value
+                };
+            } else if (type === 'feedback') {
+                data = {
+                    type: 'feedback',
+                    content: document.getElementById('feedbackContent').value,
+                    rating: document.getElementById('feedbackRating').value
+                };
+            }
+            
+            try {
+                // Envoyer les données à l'API
+                const formData = new FormData();
+                formData.append('contribution_type', type);
+                formData.append('data', JSON.stringify(data));
+                
+                const response = await fetch('/api/contributions/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.contribution_id) {
+                    // Afficher un message de succès
+                    alert('Contribution soumise avec succès ! ID: ' + result.contribution_id);
+                    contributionForm.reset();
+                    
+                    // Masquer tous les champs spécifiques
+                    observationFields.style.display = 'none';
+                    regulationFields.style.display = 'none';
+                    feedbackFields.style.display = 'none';
+                } else {
+                    // Afficher un message d'erreur
+                    alert('Erreur lors de la soumission: ' + (result.error || 'Erreur inconnue'));
+                }
+                
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Une erreur est survenue lors de la soumission de votre contribution.');
+            }
+        });
+        
+        // Charger les contributions validées au chargement de la page
+        async function loadContributions() {
+            try {
+                const response = await fetch('/api/contributions/pending?limit=5');
+                const data = await response.json();
+                
+                // Mettre à jour les statistiques
+                const statsResponse = await fetch('/api/contributions/statistics');
+                const stats = await statsResponse.json();
+                
+                // Mettre à jour l'affichage des statistiques
+                if (stats && stats.total) {
+                    document.querySelector('.stats-number:nth-child(1)').textContent = stats.total;
+                    document.querySelector('.stats-number:nth-child(2)').textContent = stats.by_status.validated;
+                    document.querySelector('.stats-number:nth-child(3)').textContent = stats.by_status.pending;
+                }
+                
+            } catch (error) {
+                console.error('Erreur lors du chargement des contributions:', error);
+            }
+        }
+        
+        // Appeler la fonction au chargement
+        // loadContributions();
+    });
+</script>
+{% endblock %}
