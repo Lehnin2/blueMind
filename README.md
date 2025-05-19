@@ -77,11 +77,11 @@ Built using a client-server architecture, AquaSense integrates computer vision, 
 ```bash
 git clone https://github.com/Lehnin2/aquasense.git
 cd aquasense
-
+```
 2. Backend Setup (FastAPI)
 ⚠️ Model files are not included in this repository due to size limits.
 👉 Download models like model_fishonly_0016499.pth, model_final.pth, etc., from the GitHub Release.
-
+```bash
 cd backend
 python -m venv venv
 # Activate the virtual environment
@@ -89,13 +89,19 @@ python -m venv venv
 venv\Scripts\activate
 # macOS/Linux:
 source venv/bin/activate
+```
+---
 
+```bash
 # Install dependencies
 pip install -r requirements.txt
+```
+---
 
+```bash
 # Start the FastAPI server
 uvicorn app:app --reload
-
+```
 MIT License – Free to use and adapt for non-commercial purposes.
 
 Let me know if you'd like:
