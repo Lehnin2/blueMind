@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyse - AquaMed</title>
+    <style>
+        :root {
+            --aqua-blue: #0077be;
+            --deep-blue: #003a5d;
+            --sea-foam: #4dd0e1;
+            --coral-orange: #ff7043;
+            --medical-green: #4caf50;
+            --type-blue: #1e90ff;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--aqua-blue) 0%, var(--deep-blue) 100%);
+            min-height: 100vh;
+            color: var(--white);
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20,10 L80,10 L70,30 L90,30 L90,90 L10,90 L10,30 L30,30 Z" fill="rgba(255,255,255,0.03)"/></svg>');
+            background-size: 120px 120px;
+            animation: microscope 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes microscope {
+            0% { background-position: 0 0; }
+            100% { background-position: 120px 120px; }
+        }
+
+        .navbar {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .user-info {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin-bottom: 2rem;
+        }
+
+        .user-role {
+            margin-left: 10px;
+            color: var(--sea-foam);
+        }
+
+        /* Sélecteur de type d'analyse */
+        .analysis-type-selector {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .selector-title {
+            text-align: center;
+            color: var(--sea-foam);
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .analysis-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .analysis-option {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .analysis-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .analysis-option.selected {
+            border-color: var(--sea-foam);
+            background: rgba(77, 208, 225, 0.2);
+        }
+
+        .analysis-option.pathology.selected {
+            border-color: var(--medical-green);
+            background: rgba(76, 175, 80, 0.2);
+        }
+
+        .analysis-option.type.selected {
+            border-color: var(--type-blue);
+            background: rgba(30, 144, 255, 0.2);
+        }
+
+        .option-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .option-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .option-subtitle {
+            font-size: 0.9rem;
+            color: var(--sea-foam);
+            margin-bottom: 1rem;
+        }
+
+        .option-description {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.4;
+        }
+
+        .dataset-info {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 10px;
+            border-left: 3px solid var(--coral-orange);
+        }
+
+        .dataset-info .label {
+            font-weight: bold;
+            color: var(--coral-orange);
+            font-size: 0.8rem;
+        }
+
+        .dataset-info .value {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .upload-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            border: 2px dashed rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            display: none; /* Caché par défaut */
+        }
+
+        .upload-section.visible {
+            display: block;
+        }
+
+        .upload-section:hover {
+            border-color: var(--sea-foam);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .drop-zone {
+            position: relative;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .drop-zone-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-label {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, var(--coral-orange), var(--medical-green));
+            color: var(--white);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        .file-label:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .file-info {
+            margin-top: 1rem;
+            color: var(--sea-foam);
+        }
+
+        .selected-file {
+            margin-top: 1rem;
+            padding: 10px 20px;
+            background: rgba(76, 175, 80, 0.2);
+            border-radius: 10px;
+            color: var(--medical-green);
+        }
+
+        .flash-messages {
+            margin-bottom: 2rem;
+        }
+
+        .flash-message {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .flash-error {
+            background: rgba(244, 67, 54, 0.2);
+            color: #ff1744;
+            border-left: 4px solid #ff1744;
+        }
+
+        .flash-success {
+            background: rgba(76, 175, 80, 0.2);
+            color: #00e676;
+            border-left: 4px solid #00e676;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .info-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            color: var(--sea-foam);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            display: none;
+            width: 100%;
+            height: 10px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, var(--coral-orange), var(--medical-green));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 2rem 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .upload-section {
+                padding: 2rem;
+            }
+
+            .analysis-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">🐠 AquaMed</div>
+            <div class="nav-links">
+                <a href="{{ url_for('analyze') }}">Analyser</a>
+                <a href="{{ url_for('logout') }}">Déconnexion</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="header">
+            <h1>Analyse de Coraux</h1>
+            {% if session.user %}
+                <div class="user-info">
+                    <span>👤 {{ session.user }}</span>
+                    <span class="user-role">
+                        {% if session.role == 'pharmacist' %}
+                            ⚕️ Pharmacien
+                        {% else %}
+                            🧬 Biologiste
+                        {% endif %}
+                    </span>
+                </div>
+            {% endif %}
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Sélecteur de type d'analyse -->
+        <div class="analysis-type-selector">
+            <h2 class="selector-title">Choisissez le type d'analyse</h2>
+            <div class="analysis-options">
+                <div class="analysis-option pathology" onclick="selectAnalysisType('pathology')">
+                    <span class="option-icon">🏥</span>
+                    <div class="option-title">Analyse Pathologique</div>
+                    <div class="option-subtitle">État de Santé</div>
+                    <div class="option-description">
+                        Classification de l'état de santé du corail : Healthy, Bleached, ou Dead.
+                        Recommandations médicales et pharmaceutiques personnalisées.
+                    </div>
+                    <div class="dataset-info">
+                        <div class="label">Dataset:</div>
+                        <div class="value">class-yenrt (pathology detection)</div>
+                    </div>
+                </div>
+
+                <div class="analysis-option type" onclick="selectAnalysisType('type')">
+                    <span class="option-icon">🦠</span>
+                    <div class="option-title">Classification Morphologique</div>
+                    <div class="option-subtitle">Type de Corail</div>
+                    <div class="option-description">
+                        Identification du type morphologique : Branching, Encrusting, Foliose, Massive, Mushroom, Submassive, Tabulate.
+                    </div>
+                    <div class="dataset-info">
+                        <div class="label">Dataset:</div>
+                        <div class="value">corals_clasification-fvezg-k5oxw</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section d'upload -->
+        <form method="POST" enctype="multipart/form-data" id="uploadForm">
+            <input type="hidden" name="analysis_type" id="analysisType" value="">
+            <div class="upload-section" id="uploadSection">
+                <div class="drop-zone" id="dropZone">
+                    <div class="drop-zone-icon">📸</div>
+                    <h3 id="uploadTitle">Téléchargez une image de corail</h3>
+                    <p id="uploadSubtitle">Glissez-déposez votre image ou cliquez pour sélectionner</p>
+                    
+                    <label for="file" class="file-label">
+                        Choisir une image
+                    </label>
+                    <input type="file" id="file" name="file" class="file-input" accept="image/*" required>
+                    
+                    <div class="file-info">
+                        <small>Formats acceptés: PNG, JPG, JPEG, GIF (Max: 16MB)</small>
+                    </div>
+                    
+                    <div id="selectedFile" class="selected-file" style="display: none;"></div>
+                    
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Cartes d'information -->
+        <div class="info-cards" id="infoCards">
+            <div class="info-card">
+                <div class="card-icon">🔬</div>
+                <div class="card-title">Analyse AI</div>
+                <p>Notre algorithme d'intelligence artificielle évalue les coraux avec une précision médicale</p>
+            </div>
+            <div class="info-card">
+                <div class="card-icon">⚡</div>
+                <div class="card-title">Résultats Rapides</div>
+                <p>Obtenez une classification détaillée en quelques secondes pour un diagnostic efficient</p>
+            </div>
+            <div class="info-card">
+                <div class="card-icon">📊</div>
+                <div class="card-title">Rapport Détaillé</div>
+                <p>Recevez un rapport complet avec confidence score et recommandations adaptées</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedAnalysisType = null;
+
+        function selectAnalysisType(type) {
+            selectedAnalysisType = type;
+            
+            // Retire la sélection de toutes les options
+            document.querySelectorAll('.analysis-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Ajoute la sélection à l'option choisie
+            document.querySelector(`.analysis-option.${type}`).classList.add('selected');
+            
+            // Met à jour le champ caché
+            document.getElementById('analysisType').value = type;
+            
+            // Affiche la section d'upload
+            document.getElementById('uploadSection').classList.add('visible');
+            
+            // Met à jour les textes selon le type d'analyse
+            updateUploadTexts(type);
+            
+            // Fait défiler vers la section d'upload
+            document.getElementById('uploadSection').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+        }
+
+        function updateUploadTexts(type) {
+            const titleElement = document.getElementById('uploadTitle');
+            const subtitleElement = document.getElementById('uploadSubtitle');
+            
+            if (type === 'pathology') {
+                titleElement.textContent = 'Analysez l\'état de santé du corail';
+                subtitleElement.textContent = 'Upload votre image pour détecter : Healthy, Bleached, ou Dead';
+            } else if (type === 'type') {
+                titleElement.textContent = 'Identifiez le type morphologique';
+                subtitleElement.textContent = 'Upload votre image pour classifier : Branching, Encrusting, Foliose, etc.';
+            }
+        }
+
+        // Reste du code JavaScript pour le drag & drop
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('file');
+        const selectedFile = document.getElementById('selectedFile');
+        const uploadForm = document.getElementById('uploadForm');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+
+        // Validation avant soumission
+        uploadForm.addEventListener('submit', function(e) {
+            if (!selectedAnalysisType) {
+                e.preventDefault();
+                alert('Veuillez d\'abord sélectionner un type d\'analyse !');
+                return false;
+            }
+        });
+
+        // Gestion du drag and drop
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#4dd0e1';
+            this.style.backgroundColor = 'rgba(255,255,255,0.15)';
+        });
+
+        dropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.style.borderColor = 'rgba(255,255,255,0.3)';
+            this.style.backgroundColor = 'rgba(255,255,255,0.1)';
+        });
+
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.style.borderColor = 'rgba(255,255,255,0.3)';
+            this.style.backgroundColor = 'rgba(255,255,255,0.1)';
+            
+            if (!selectedAnalysisType) {
+                alert('Veuillez d\'abord sélectionner un type d\'analyse !');
+                return;
+            }
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                showSelectedFile(files[0]);
+            }
+        });
+
+        // Gestion de la sélection de fichier
+        fileInput.addEventListener('change', function(e) {
+            if (!selectedAnalysisType) {
+                alert('Veuillez d\'abord sélectionner un type d\'analyse !');
+                this.value = '';
+                return;
+            }
+            
+            if (e.target.files.length > 0) {
+                showSelectedFile(e.target.files[0]);
+            }
+        });
+
+        function showSelectedFile(file) {
+            selectedFile.style.display = 'block';
+            selectedFile.textContent = `Fichier sélectionné: ${file.name}`;
+            
+            // Soumission automatique du formulaire
+            submitForm();
+        }
+
+        function submitForm() {
+            progressBar.style.display = 'block';
+            progressFill.style.width = '100%';
+            
+            setTimeout(() => {
+                uploadForm.submit();
+            }, 500);
+        }
+    </script>
+</body>
+</html>

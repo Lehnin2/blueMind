@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyse Pathologique - AquaMed</title>
+    <style>
+        :root {
+            --aqua-blue: #0077be;
+            --deep-blue: #003a5d;
+            --sea-foam: #4dd0e1;
+            --coral-orange: #ff7043;
+            --medical-green: #4caf50;
+            --danger-red: #f44336;
+            --warning-orange: #ff9800;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--aqua-blue) 0%, var(--deep-blue) 100%);
+            min-height: 100vh;
+            color: var(--white);
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20,30 Q50,10 80,30 T140,30" stroke="rgba(255,255,255,0.03)" stroke-width="2" fill="none"/></svg>');
+            background-size: 200px 200px;
+            animation: heartbeat 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .navbar {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .analysis-type-badge {
+            display: inline-block;
+            background: var(--medical-green);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .timestamp {
+            text-align: center;
+            color: var(--sea-foam);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .results-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .image-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .image-container {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+        }
+
+        .coral-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .results-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .health-status {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .health-indicator {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .health-indicator.healthy {
+            background: linear-gradient(135deg, var(--medical-green), #66bb6a);
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+        }
+
+        .health-indicator.bleached {
+            background: linear-gradient(135deg, var(--warning-orange), #ffb74d);
+            box-shadow: 0 0 20px rgba(255, 152, 0, 0.5);
+        }
+
+        .health-indicator.dead {
+            background: linear-gradient(135deg, var(--danger-red), #ef5350);
+            box-shadow: 0 0 20px rgba(244, 67, 54, 0.5);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .health-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .health-badge.healthy {
+            background: linear-gradient(45deg, var(--medical-green), #66bb6a);
+            color: var(--white);
+        }
+
+        .health-badge.bleached {
+            background: linear-gradient(45deg, var(--warning-orange), #ffb74d);
+            color: var(--white);
+        }
+
+        .health-badge.dead {
+            background: linear-gradient(45deg, var(--danger-red), #ef5350);
+            color: var(--white);
+        }
+
+        .confidence-meter {
+            margin: 2rem 0;
+        }
+
+        .confidence-label {
+            color: var(--sea-foam);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .confidence-bar {
+            height: 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .confidence-fill.healthy {
+            background: linear-gradient(90deg, var(--medical-green), #66bb6a);
+        }
+
+        .confidence-fill.bleached {
+            background: linear-gradient(90deg, var(--warning-orange), #ffb74d);
+        }
+
+        .confidence-fill.dead {
+            background: linear-gradient(90deg, var(--danger-red), #ef5350);
+        }
+
+        .confidence-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+            color: var(--white);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .analysis-details {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: var(--sea-foam);
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-weight: bold;
+        }
+
+        .health-info-section {
+            grid-column: 1 / -1;
+            background: rgba(76, 175, 80, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .health-info-section.bleached {
+            background: rgba(255, 152, 0, 0.1);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+        }
+
+        .health-info-section.dead {
+            background: rgba(244, 67, 54, 0.1);
+            border: 1px solid rgba(244, 67, 54, 0.2);
+        }
+
+        .health-info-section h2 {
+            color: var(--medical-green);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .health-info-section.bleached h2 {
+            color: var(--warning-orange);
+        }
+
+        .health-info-section.dead h2 {
+            color: var(--danger-red);
+        }
+
+        .health-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .recommendation-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            border-left: 4px solid var(--medical-green);
+            margin-bottom: 2rem;
+        }
+
+        .recommendation-card.pharmacist {
+            border-left-color: var(--coral-orange);
+        }
+
+        .recommendation-card h3 {
+            color: var(--sea-foam);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .recommendation-card h4 {
+            color: var(--medical-green);
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.1rem;
+        }
+
+        .recommendation-card ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .recommendation-card li {
+            margin-bottom: 0.8rem;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .recommendation-card li::before {
+            content: "•";
+            color: var(--coral-orange);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .action-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .action-card {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .action-card:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .action-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .action-label {
+            font-size: 0.9rem;
+            color: var(--white);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--medical-green), #66bb6a);
+            color: var(--white);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--sea-foam);
+            border: 2px solid var(--sea-foam);
+        }
+
+        .btn-secondary:hover {
+            background: var(--sea-foam);
+            color: var(--deep-blue);
+        }
+
+        /* Nouveaux styles pour classification-info */
+        .classification-info {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .classification-info h3 {
+            text-align: center;
+            color: var(--sea-foam);
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .category {
+            background: rgba(255,255,255,0.08);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .category.healthy {
+            border-left: 4px solid var(--medical-green);
+        }
+
+        .category.dead {
+            border-left: 4px solid var(--danger-red);
+        }
+
+        .category.bleached {
+            border-left: 4px solid var(--warning-orange);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .category h4 {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .category p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-healthy {
+            background: var(--medical-green);
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        .status-dead {
+            background: var(--danger-red);
+            box-shadow: 0 0 10px rgba(244, 67, 54, 0.5);
+        }
+
+        .status-bleached {
+            background: var(--warning-orange);
+            box-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
+        }
+
+        .medical-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .medical-badge.verified {
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--medical-green);
+            border: 1px solid var(--medical-green);
+        }
+
+        .medical-badge.analysis {
+            background: rgba(255, 152, 0, 0.2);
+            color: var(--warning-orange);
+            border: 1px solid var(--warning-orange);
+        }
+
+        .medical-alert {
+            color: var(--warning-orange);
+            font-weight: bold;
+        }
+
+        .tech-panel {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            border: 1px solid rgba(0,255,0,0.3);
+        }
+
+        .tech-panel div {
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .results-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .categories {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">🐠 AquaMed</div>
+            <div class="nav-links">
+                <a href="{{ url_for('analyze') }}">Nouvelle Analyse</a>
+                <a href="{{ url_for('logout') }}">Déconnexion</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="header">
+            <div class="analysis-type-badge">🏥 Analyse Pathologique</div>
+            <h1>État de Santé du Corail</h1>
+            <div class="timestamp">
+                Analyse effectuée le {{ analysis.timestamp[:19] }}
+            </div>
+        </div>
+
+        <div class="results-container">
+            <div class="image-section">
+                <h2>Image Analysée</h2>
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='uploads/' ~ analysis.analyzed_path) }}" 
+                         alt="Corail analysé" class="coral-image">
+                </div>
+            </div>
+
+            <div class="results-section">
+                <h2>Diagnostic Médical</h2>
+                
+                <div class="health-status">
+                    <div class="health-indicator {{ analysis.health_classification.lower() }}">
+                        {% if analysis.health_classification == 'Healthy' %}✅
+                        {% elif analysis.health_classification == 'Bleached' %}⚠️
+                        {% elif analysis.health_classification == 'Dead' %}💀
+                        {% else %}❓
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="health-badge {{ analysis.health_classification.lower() }}">
+                    <span style="margin-right: 5px;">
+                        {% if analysis.health_classification == 'Healthy' %}⚕️
+                        {% elif analysis.health_classification == 'Bleached' %}🩺
+                        {% elif analysis.health_classification == 'Dead' %}🚨
+                        {% else %}❓
+                        {% endif %}
+                    </span>
+                    État: {{ analysis.health_classification }}
+                </div>
+
+                <div class="confidence-meter">
+                    <div class="confidence-label">Niveau de Confiance Diagnostique</div>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill {{ analysis.health_classification.lower() }}" 
+                             style="width: {{ analysis.health_confidence * 100 }}%">
+                            <div class="confidence-text">{{ "%.1f" | format(analysis.health_confidence * 100) }}%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analysis-details">
+                    <div class="detail-row">
+                        <span class="detail-label">État de Santé:</span>
+                        <span class="detail-value">{{ analysis.health_classification }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Confiance:</span>
+                        <span class="detail-value">{{ "%.2f" | format(analysis.health_confidence) }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Type d'analyse:</span>
+                        <span class="detail-value">Pathologique</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Analyste:</span>
+                        <span class="detail-value">{{ analysis.user }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Date:</span>
+                        <span class="detail-value">{{ analysis.timestamp[:19] }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="health-info-section {{ analysis.health_classification.lower() }}">
+            <h2>🔬 Information Médicale : {{ analysis.health_classification }}</h2>
+            <div class="health-description">
+                {% if analysis.health_classification == 'Healthy' %}
+                    Corail en excellente santé présentant une coloration normale et des tissus intacts. Les zooxanthelles symbiotiques sont présentes et fonctionnelles, assurant une photosynthèse optimale. Structure squelettique solide sans signes de dégradation ou de maladie.
+                {% elif analysis.health_classification == 'Bleached' %}
+                    Blanchissement corallien détecté. Perte partielle ou totale des zooxanthelles symbiotiques causant la décoloration caractéristique. État de stress physiologique nécessitant une intervention médicale immédiate pour éviter la mortalité.
+                {% elif analysis.health_classification == 'Dead' %}
+                    Mortalité corallienne confirmée. Absence totale de tissus vivants et dégradation avancée du squelette calcaire. Nécessite une analyse post-mortem pour déterminer les causes du décès et prévenir la propagation.
+                {% else %}
+                    État de santé indéterminé. Analyse complémentaire recommandée pour établir un diagnostic précis et définir le protocole médical approprié.
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Recommandations médicales basées sur les données existantes -->
+        <div class="recommendation-card {% if session.role == 'pharmacist' %}pharmacist{% endif %}">
+            <h3>
+                {% if session.role == 'pharmacist' %}
+                    ⚕️ Recommandations Pharmaceutiques
+                {% else %}
+                    🧬 Recommandations Biologiques
+                {% endif %}
+            </h3>
+            
+            {% if analysis.health_classification == 'Healthy' %}
+                <p>Corail en état de santé optimal. Protocole de maintenance préventive recommandé pour maintenir cette condition excellente.</p>
+                
+                {% if session.role == 'pharmacist' %}
+                    <h4>Protocole Préventif :</h4>
+                    <ul>
+                        <li><strong>Surveillance biométrique :</strong> Contrôle hebdomadaire des paramètres vitaux</li>
+                        <li><strong>Supplémentation nutritionnelle :</strong> Complexe vitamino-minéral adapté (vitamines A, C, E + oligoéléments)</li>
+                        <li><strong>Probiotiques préventifs :</strong> Bacillus subtilis + souches spécialisées pour la microflore</li>
+                        <li><strong>Protection environnementale :</strong> Écrans UV naturels et stabilisateurs pH</li>
+                    </ul>
+                {% else %}
+                    <h4>Recherches Recommandées :</h4>
+                    <ul>
+                        <li>Analyse de la diversité microbienne symbiotique</li>
+                        <li>Étude de la résilience aux stress thermiques</li>
+                        <li>Documentation génétique pour conservation</li>
+                        <li>Monitoring à long terme des paramètres physiologiques</li>
+                    </ul>
+                {% endif %}
+
+            {% elif analysis.health_classification == 'Bleached' %}
+                <p>Blanchissement confirmé. Intervention d'urgence requise pour restaurer la symbiose zooxanthelles-corail.</p>
+                
+                {% if session.role == 'pharmacist' %}
+                    <h4>Traitement d'Urgence :</h4>
+                    <ul>
+                        <li><strong>Antioxydants intensifs :</strong> Vitamine C (100-150 µg/L), Vitamine E (50-75 µg/L)</li>
+                        <li><strong>Stabilisateurs membranaires :</strong> Phospholipides marins + cholestérol naturel</li>
+                        <li><strong>Probiotiques de restauration :</strong> Lactobacillus marinus pour rééquilibrage</li>
+                        <li><strong>Réduction du stress :</strong> Isolation partielle et contrôle température</li>
+                    </ul>
+                    
+                    <h4>Suivi Thérapeutique (2-6 semaines) :</h4>
+                    <ul>
+                        <li>Monitoring quotidien fluorescence PAM</li>
+                        <li>Réintroduction progressive zooxanthelles cultivées</li>
+                        <li>Ajustement dosages selon réponse clinique</li>
+                    </ul>
+                {% else %}
+                    <h4>Investigations d'Urgence :</h4>
+                    <ul>
+                        <li>Analyse des biomarqueurs de stress (HSP70, catalase)</li>
+                        <li>Identification des souches de zooxanthelles perdues</li>
+                        <li>Évaluation des facteurs déclenchants</li>
+                        <li>Protocole de re-symbiotisation assistée</li>
+                    </ul>
+                {% endif %}
+
+            {% else %}
+                <p>Mortalité confirmée. Protocole de confinement et d'analyse post-mortem requis.</p>
+                
+                {% if session.role == 'pharmacist' %}
+                    <h4>Protocole Post-Mortem :</h4>
+                    <ul>
+                        <li><strong>Confinement sanitaire :</strong> Isolation immédiate zone 50m rayon</li>
+                        <li><strong>Décontamination préventive :</strong> Agents antimicrobiens spécifiques</li>
+                        <li><strong>Surveillance épidémiologique :</strong> Monitoring coraux adjacents</li>
+                        <li><strong>Prélèvements diagnostiques :</strong> Analyses histopathologiques</li>
+                    </ul>
+                {% else %}
+                    <h4>Analyses Post-Mortem :</h4>
+                    <ul>
+                        <li>Identification agents pathogènes (bactéries, virus, parasites)</li>
+                        <li>Chronologie de la mortalité par analyse squelettique</li>
+                        <li>Étude de la biodégradation tissulaire</li>
+                        <li>Évaluation impact écosystémique local</li>
+                    </ul>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <div class="action-section">
+            <h3 style="color: var(--sea-foam); margin-bottom: 10px;">Actions Médicales</h3>
+            <div class="action-grid">
+                <div class="action-card" onclick="printReport()">
+                    <span class="action-icon">🖨️</span>
+                    <div class="action-label">Rapport Médical</div>
+                </div>
+                <div class="action-card" onclick="shareAnalysis()">
+                    <span class="action-icon">📤</span>
+                    <div class="action-label">Partager</div>
+                </div>
+                <div class="action-card" onclick="exportMedicalData()">
+                    <span class="action-icon">📊</span>
+                    <div class="action-label">Export Médical</div>
+                </div>
+                <div class="action-card" onclick="generateAlert()">
+                    <span class="action-icon">🚨</span>
+                    <div class="action-label">Alerte Médicale</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="{{ url_for('analyze') }}" class="btn btn-primary">
+                📷 Nouvelle Analyse
+            </a>
+            <a href="#" class="btn btn-secondary">
+                📋 Dossier Médical
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function printReport() {
+            window.print();
+        }
+
+        function shareAnalysis() {
+            const analysisId = '{{ id }}';
+            const url = `${window.location.origin}/view_pathology_analysis/${analysisId}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Analyse Pathologique AquaMed',
+                    text: 'État de santé: {{ analysis.health_classification }}',
+                    url: url
+                });
+            } else {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('Lien copié dans le presse-papiers !');
+                });
+            }
+        }
+
+        function exportMedicalData() {
+            const data = {
+                analysis_type: 'pathological',
+                health_classification: '{{ analysis.health_classification }}',
+                health_confidence: {{ analysis.health_confidence }},
+                timestamp: '{{ analysis.timestamp }}',
+                user: '{{ analysis.user }}',
+                medical_assessment: {
+                    status: '{{ analysis.health_classification }}',
+                    confidence: {{ analysis.health_confidence }},
+                    diagnosis_date: '{{ analysis.timestamp }}'
+                }
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'medical_analysis_{{ id }}.json';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function generateAlert() {
+            {% if analysis.health_classification == 'Dead' %}
+                alert('🚨 ALERTE MÉDICALE CRITIQUE 🚨\n\nMortalité corallienne confirmée!\nProtocole d\'isolement activé.\nAnalyse post-mortem requise.');
+            {% elif analysis.health_classification == 'Bleached' %}
+                alert('⚠️ ALERTE MÉDICALE URGENTE ⚠️\n\nBlanchissement détecté!\nIntervention thérapeutique immédiate.\nSurveillance intensive requise.');
+            {% else %}
+                alert('✅ STATUT MÉDICAL NORMAL\n\nCorail en bonne santé.\nContinuer surveillance préventive.\nProtocole maintenance standard.');
+            {% endif %}
+        }
+    </script>
+</body>
+</html>

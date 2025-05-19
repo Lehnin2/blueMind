@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification Morphologique - AquaMed</title>
+    <style>
+        :root {
+            --aqua-blue: #0077be;
+            --deep-blue: #003a5d;
+            --sea-foam: #4dd0e1;
+            --coral-orange: #ff7043;
+            --medical-green: #4caf50;
+            --type-blue: #1e90ff;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--aqua-blue) 0%, var(--deep-blue) 100%);
+            min-height: 100vh;
+            color: var(--white);
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M10,50 Q50,10 90,50 Q50,90 10,50" fill="rgba(255,255,255,0.02)"/></svg>');
+            background-size: 200px 200px;
+            animation: wave 15s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(1deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(-1deg); }
+        }
+
+        .navbar {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .analysis-type-badge {
+            display: inline-block;
+            background: var(--type-blue);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .timestamp {
+            text-align: center;
+            color: var(--sea-foam);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .results-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .image-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .image-container {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+        }
+
+        .coral-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .results-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .classification-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .type-indicator {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--type-blue), #4169e1);
+            box-shadow: 0 0 20px rgba(30, 144, 255, 0.5);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .classification-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+
+        .type-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, var(--type-blue), #4169e1);
+            color: var(--white);
+        }
+
+        .confidence-meter {
+            margin: 2rem 0;
+        }
+
+        .confidence-label {
+            color: var(--sea-foam);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .confidence-bar {
+            height: 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--type-blue), #4169e1);
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .confidence-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+            color: var(--white);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .analysis-details {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: var(--sea-foam);
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-weight: bold;
+        }
+
+        .type-info-section {
+            grid-column: 1 / -1;
+            background: rgba(30, 144, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(30, 144, 255, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .type-info-section h2 {
+            color: var(--type-blue);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .type-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .coral-types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .coral-type-chip {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--type-blue);
+            border-radius: 25px;
+            padding: 8px 15px;
+            text-align: center;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .coral-type-chip.current {
+            background: var(--type-blue);
+            color: var(--white);
+            transform: scale(1.05);
+        }
+
+        .morphology-details {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            border-left: 4px solid var(--type-blue);
+        }
+
+        .morphology-details h3 {
+            color: var(--type-blue);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .characteristic-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .characteristic-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 1rem;
+            border-left: 3px solid var(--type-blue);
+        }
+
+        .characteristic-label {
+            font-weight: bold;
+            color: var(--type-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .characteristic-value {
+            color: var(--white);
+            font-size: 0.9rem;
+        }
+
+        .action-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .action-card {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .action-card:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .action-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .action-label {
+            font-size: 0.9rem;
+            color: var(--white);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--type-blue), #4169e1);
+            color: var(--white);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--sea-foam);
+            border: 2px solid var(--sea-foam);
+        }
+
+        .btn-secondary:hover {
+            background: var(--sea-foam);
+            color: var(--deep-blue);
+        }
+
+        @media (max-width: 768px) {
+            .results-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .characteristic-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">🐠 AquaMed</div>
+            <div class="nav-links">
+                <a href="{{ url_for('analyze') }}">Nouvelle Analyse</a>
+                <a href="{{ url_for('logout') }}">Déconnexion</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="header">
+            <div class="analysis-type-badge">🪸 Classification Morphologique</div>
+            <h1>Type de Corail</h1>
+            <div class="timestamp">
+                Analyse effectuée le {{ analysis.timestamp[:19] }}
+            </div>
+        </div>
+
+        <div class="results-container">
+            <div class="image-section">
+                <h2>Image Analysée</h2>
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='uploads/' ~ analysis.analyzed_path) }}" 
+                         alt="Corail analysé" class="coral-image">
+                </div>
+            </div>
+
+            <div class="results-section">
+                <h2>Classification Morphologique</h2>
+                
+                <div class="classification-visual">
+                    <div class="type-indicator">
+                        {% if analysis.coral_type == 'Branching' %}🌿
+                        {% elif analysis.coral_type == 'Encrusting' %}🧫
+                        {% elif analysis.coral_type == 'Foliose' %}🍃
+                        {% elif analysis.coral_type == 'Massive' %}🦠
+                        {% elif analysis.coral_type == 'Mushroom' %}🍄
+                        {% elif analysis.coral_type == 'Submassive' %}🐚
+                        {% elif analysis.coral_type == 'Tabulate' %}🌱
+                        {% else %}🪸
+                        {% endif %}
+                    </div>
+                    <div class="classification-text">{{ analysis.coral_type }}</div>
+                </div>
+                
+                <div class="type-badge">
+                    <span style="margin-right: 5px;">🪸</span>
+                    Type: {{ analysis.coral_type }}
+                </div>
+
+                <div class="confidence-meter">
+                    <div class="confidence-label">Niveau de Confiance</div>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" style="width: {{ analysis.confidence * 100 }}%">
+                            <div class="confidence-text">{{ "%.1f" | format(analysis.confidence * 100) }}%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analysis-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Type Morphologique:</span>
+                        <span class="detail-value">{{ analysis.coral_type }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Confiance:</span>
+                        <span class="detail-value">{{ "%.2f" | format(analysis.confidence) }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Type d'analyse:</span>
+                        <span class="detail-value">Morphologique</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Analyste:</span>
+                        <span class="detail-value">{{ analysis.user }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Date:</span>
+                        <span class="detail-value">{{ analysis.timestamp[:19] }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="type-info-section">
+            <h2>📊 Information sur le Type : {{ analysis.coral_type }}</h2>
+            <div class="type-description">
+                {% if analysis.coral_type == 'Branching' %}
+                    Corail branchu caractérisé par des extensions ramifiées complexes. Cette morphologie favorise la biodiversité en créant de multiples habitats et niches écologiques. Structure tridimensionnelle offrant une grande surface pour la photosynthèse et la filtration.
+                {% elif analysis.coral_type == 'Encrusting' %}
+                    Corail encroûtant qui adhère étroitement au substrat rocheux. Croissance horizontale permettant une grande résistance aux courants et aux tempêtes. Excellent pour la consolidation des récifs et la protection côtière.
+                {% elif analysis.coral_type == 'Foliose' %}
+                    Corail foliacé formant des plaques plates ou légèrement ondulées. Cette morphologie maximise la surface d'exposition à la lumière pour optimiser la photosynthèse des zooxanthelles symbiotiques.
+                {% elif analysis.coral_type == 'Massive' %}
+                    Corail massif avec une structure compacte et dense. Ces formations peuvent vivre des centaines d'années et constituent la base structurelle des récifs. Excellente résistance aux événements climatiques extrêmes.
+                {% elif analysis.coral_type == 'Mushroom' %}
+                    Corail champignon caractérisé par des polypes solitaires de grande taille. Forme discoïde unique permettant une mobilité limitée et une adaptation optimale aux conditions locales.
+                {% elif analysis.coral_type == 'Submassive' %}
+                    Corail sub-massif présentant une structure intermédiaire entre massive et branchue. Forme bosselée permettant un équilibre entre résistance structurelle et surface d'échange.
+                {% elif analysis.coral_type == 'Tabulate' %}
+                    Corail tabulaire formant des plaques horizontales superposées. Architecture complexe créant des espaces de circulation pour la faune récifale et optimisant l'utilisation de l'espace vertical.
+                {% else %}
+                    Type morphologique non spécifié. Analyse complémentaire recommandée pour une classification précise.
+                {% endif %}
+            </div>
+            
+            <div class="coral-types-grid">
+                <div class="coral-type-chip {% if analysis.coral_type == 'Branching' %}current{% endif %}">🌿 Branching</div>
+                <div class="coral-type-chip {% if analysis.coral_type == 'Encrusting' %}current{% endif %}">🧫 Encrusting</div>
+                <div class="coral-type-chip {% if analysis.coral_type == 'Foliose' %}current{% endif %}">🍃 Foliose</div>
+                <div class="coral-type-chip {% if analysis.coral_type == 'Massive' %}current{% endif %}">🦠 Massive</div>
+                <div class="coral-type-chip {% if analysis.coral_type == 'Mushroom' %}current{% endif %}">🍄 Mushroom</div>
+                <div class="coral-type-chip {% if analysis.coral_type == 'Submassive' %}current{% endif %}">🐚 Submassive</div>
+                <div class="coral-type-chip {% if analysis.coral_type == 'Tabulate' %}current{% endif %}">🌱 Tabulate</div>
+            </div>
+        </div>
+
+        <div class="morphology-details">
+            <h3>📏 Caractéristiques Morphologiques</h3>
+            <div class="characteristic-list">
+                <div class="characteristic-item">
+                    <div class="characteristic-label">Structure</div>
+                    <div class="characteristic-value">
+                        {% if analysis.coral_type == 'Branching' %}Ramifiée complexe
+                        {% elif analysis.coral_type == 'Encrusting' %}Encroûtante horizontale
+                        {% elif analysis.coral_type == 'Foliose' %}Plaques foliaires
+                        {% elif analysis.coral_type == 'Massive' %}Dense et compacte
+                        {% elif analysis.coral_type == 'Mushroom' %}Discoïde solitaire
+                        {% elif analysis.coral_type == 'Submassive' %}Bosselée intermédiaire
+                        {% elif analysis.coral_type == 'Tabulate' %}Plates superposées
+                        {% else %}Non déterminée
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="characteristic-item">
+                    <div class="characteristic-label">Croissance</div>
+                    <div class="characteristic-value">
+                        {% if analysis.coral_type == 'Branching' %}Rapide, verticale
+                        {% elif analysis.coral_type == 'Encrusting' %}Lente, horizontale
+                        {% elif analysis.coral_type == 'Foliose' %}Modérée, planaire
+                        {% elif analysis.coral_type == 'Massive' %}Très lente, volumique
+                        {% elif analysis.coral_type == 'Mushroom' %}Individuelle adaptative
+                        {% elif analysis.coral_type == 'Submassive' %}Intermédiaire bosselée
+                        {% elif analysis.coral_type == 'Tabulate' %}Stratifiée horizontale
+                        {% else %}Variable
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="characteristic-item">
+                    <div class="characteristic-label">Résistance</div>
+                    <div class="characteristic-value">
+                        {% if analysis.coral_type == 'Branching' %}Fragile aux courants
+                        {% elif analysis.coral_type == 'Encrusting' %}Très résistant
+                        {% elif analysis.coral_type == 'Foliose' %}Modérée, flexible
+                        {% elif analysis.coral_type == 'Massive' %}Très élevée
+                        {% elif analysis.coral_type == 'Mushroom' %}Adaptative mobile
+                        {% elif analysis.coral_type == 'Submassive' %}Bonne résistance
+                        {% elif analysis.coral_type == 'Tabulate' %}Structurellement stable
+                        {% else %}Variable
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="characteristic-item">
+                    <div class="characteristic-label">Habitat Créé</div>
+                    <div class="characteristic-value">
+                        {% if analysis.coral_type == 'Branching' %}Niches multiples 3D
+                        {% elif analysis.coral_type == 'Encrusting' %}Surface consolidée
+                        {% elif analysis.coral_type == 'Foliose' %}Espaces sous-foliaires
+                        {% elif analysis.coral_type == 'Massive' %}Base structurelle
+                        {% elif analysis.coral_type == 'Mushroom' %}Habitat ponctuel
+                        {% elif analysis.coral_type == 'Submassive' %}Reliefs intermédiaires
+                        {% elif analysis.coral_type == 'Tabulate' %}Étages superposés
+                        {% else %}Variable
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-section">
+            <h3 style="color: var(--sea-foam); margin-bottom: 10px;">Actions Spécialisées</h3>
+            <div class="action-grid">
+                <div class="action-card" onclick="printReport()">
+                    <span class="action-icon">🖨️</span>
+                    <div class="action-label">Rapport Type</div>
+                </div>
+                <div class="action-card" onclick="shareAnalysis()">
+                    <span class="action-icon">📤</span>
+                    <div class="action-label">Partager</div>
+                </div>
+                <div class="action-card" onclick="exportMorphology()">
+                    <span class="action-icon">📊</span>
+                    <div class="action-label">Export Morphologie</div>
+                </div>
+                <div class="action-card" onclick="compareTypes()">
+                    <span class="action-icon">🔍</span>
+                    <div class="action-label">Comparer Types</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="{{ url_for('analyze') }}" class="btn btn-primary">
+                📷 Nouvelle Analyse
+            </a>
+            <a href="#" class="btn btn-secondary">
+                📋 Voir Historique
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function printReport() {
+            window.print();
+        }
+
+        function shareAnalysis() {
+            const analysisId = '{{ id }}';
+            const url = `${window.location.origin}/view_analysis/${analysisId}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Classification Morphologique AquaMed',
+                    text: 'Type de corail: {{ analysis.coral_type }}',
+                    url: url
+                });
+            } else {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('Lien copié dans le presse-papiers !');
+                });
+            }
+        }
+
+        function exportMorphology() {
+            const data = {
+                analysis_type: 'morphological',
+                coral_type: '{{ analysis.coral_type }}',
+                confidence: {{ analysis.confidence }},
+                timestamp: '{{ analysis.timestamp }}',
+                user: '{{ analysis.user }}',
+                morphological_features: {
+                    type: '{{ analysis.coral_type }}',
+                    classification_confidence: {{ analysis.confidence }}
+                }
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'morphology_analysis_{{ id }}.json';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        function compareTypes() {
+            const types = ['Branching', 'Encrusting', 'Foliose', 'Massive', 'Mushroom', 'Submassive', 'Tabulate'];
+            const currentType = '{{ analysis.coral_type }}';
+            const otherTypes = types.filter(type => type !== currentType);
+            
+            alert(`🪸 TYPE ACTUEL: ${currentType}\n\nAutres types coralliens:\n${otherTypes.join(', ')}\n\nUtilisez l'analyse comparative pour étudier les différences morphologiques.`);
+        }
+    </script>
+</body>
+</html>

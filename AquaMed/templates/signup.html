@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - AquaMed</title>
+    <style>
+        :root {
+            --aqua-blue: #0077be;
+            --deep-blue: #003a5d;
+            --sea-foam: #4dd0e1;
+            --coral-orange: #ff7043;
+            --medical-green: #4caf50;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--aqua-blue) 0%, var(--deep-blue) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="2" fill="rgba(255,255,255,0.08)"/></svg>');
+            background-size: 150px 150px;
+            animation: bubble 15s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes bubble {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(30px, -30px); }
+            66% { transform: translate(-20px, 20px); }
+        }
+
+        .signup-container {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        h2 {
+            color: var(--white);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            color: var(--sea-foam);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--sea-foam);
+            background: rgba(255,255,255,0.2);
+        }
+
+        input::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        select option {
+            background: var(--deep-blue);
+            color: var(--white);
+        }
+
+        .role-info {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--medical-green), var(--coral-orange));
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .flash-messages {
+            margin-bottom: 1rem;
+        }
+
+        .flash-message {
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .flash-error {
+            background: rgba(244, 67, 54, 0.2);
+            color: #ff1744;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+
+        .flash-success {
+            background: rgba(76, 175, 80, 0.2);
+            color: #00e676;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .additional-links {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .additional-links a {
+            color: var(--sea-foam);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .additional-links a:hover {
+            color: var(--white);
+        }
+
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        .role-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .role-option {
+            padding: 10px;
+            text-align: center;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .role-option:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .role-option.selected {
+            border-color: var(--sea-foam);
+            background: rgba(77, 208, 225, 0.2);
+        }
+
+        .role-icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 600px) {
+            .signup-container {
+                margin: 20px;
+                padding: 2rem;
+            }
+            
+            .role-selector {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('index') }}" class="back-link">← Retour</a>
+    
+    <div class="signup-container">
+        <div class="logo-section">
+            <div class="logo">🧬</div>
+            <h2>Inscription</h2>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="votre@email.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Profession</label>
+                <input type="hidden" id="role" name="role" value="biologist">
+                <div class="role-selector">
+                    <div class="role-option" data-role="biologist">
+                        <span class="role-icon">🧬</span>
+                        <div>Biologiste</div>
+                    </div>
+                    <div class="role-option" data-role="pharmacist">
+                        <span class="role-icon">⚕️</span>
+                        <div>Pharmacien</div>
+                    </div>
+                </div>
+                <div class="role-info">Sélectionnez votre profession pour accéder aux outils adaptés</div>
+            </div>
+            
+            <button type="submit" class="btn">
+                S'inscrire 🌊
+            </button>
+        </form>
+
+        <div class="additional-links">
+            <p>Déjà inscrit ?</p>
+            <a href="{{ url_for('login') }}">Se connecter</a>
+        </div>
+    </div>
+
+    <script>
+        // Gestion de la sélection du rôle
+        document.querySelectorAll('.role-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Retire la classe selected de toutes les options
+                document.querySelectorAll('.role-option').forEach(opt => opt.classList.remove('selected'));
+                
+                // Ajoute la classe selected à l'option cliquée
+                this.classList.add('selected');
+                
+                // Met à jour la valeur du champ hidden
+                document.getElementById('role').value = this.dataset.role;
+            });
+        });
+
+        // Sélectionne par défaut l'option biologiste
+        document.querySelector('.role-option[data-role="biologist"]').classList.add('selected');
+    </script>
+</body>
+</html>

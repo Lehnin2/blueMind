@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaMed - Classification de Coraux</title>
+    <style>
+        :root {
+            --aqua-blue: #0077be;
+            --deep-blue: #003a5d;
+            --sea-foam: #4dd0e1;
+            --coral-orange: #ff7043;
+            --medical-green: #4caf50;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--aqua-blue) 0%, var(--deep-blue) 100%);
+            min-height: 100vh;
+            color: var(--white);
+            position: relative;
+            overflow-x: auto;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M10,50 Q25,40 40,50 T70,50" stroke="rgba(255,255,255,0.1)" stroke-width="1" fill="none"/><path d="M20,70 Q35,60 50,70 T80,70" stroke="rgba(255,255,255,0.08)" stroke-width="1" fill="none"/></svg>');
+            background-size: 300px 300px;
+            animation: wave 10s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translateX(0px) translateY(0px); }
+            25% { transform: translateX(-10px) translateY(-5px); }
+            50% { transform: translateX(10px) translateY(-10px); }
+            75% { transform: translateX(-5px) translateY(-5px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        h1::after {
+            content: '🐠';
+            position: absolute;
+            top: -10px;
+            right: -50px;
+            font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--sea-foam);
+            margin-bottom: 2rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            color: var(--sea-foam);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .cta-section {
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--coral-orange), var(--medical-green));
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--sea-foam);
+        }
+
+        .btn-secondary:hover {
+            background: var(--sea-foam);
+            color: var(--deep-blue);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .medical-badge {
+            display: inline-flex;
+            align-items: center;
+            background: var(--medical-green);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .coral-animation {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            opacity: 0.1;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .coral-1 {
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .coral-2 {
+            bottom: 20%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .btn { margin: 10px 0; display: block; }
+            .feature-card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="coral-animation coral-1">🪸</div>
+    <div class="coral-animation coral-2">🦑</div>
+    
+    <div class="container">
+        <header>
+            <h1>AquaMed</h1>
+            <div class="medical-badge">
+                <span>⚕️</span>
+                <span style="margin-left: 5px;">Approuvé Médical</span>
+            </div>
+            <p class="tagline">Classification intelligente de la pathologie corallienne</p>
+        </header>
+
+        <div class="features">
+            <div class="feature-card">
+                <span class="feature-icon">🔬</span>
+                <h3>Analyse Expert</h3>
+                <p>Utilise l'intelligence artificielle pour détecter et classifier les pathologies coralliennes avec une précision médicale</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🧑‍⚕️</span>
+                <h3>Pour Pharmaciens</h3>
+                <p>Interface dédiée aux professionnels de la pharmacie marine et de la biotechnologie aquatique</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🧬</span>
+                <h3>Pour Biologistes</h3>
+                <p>Outils spécialisés pour la recherche marine et l'étude des écosystèmes coralliens</p>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>Commencez votre analyse</h2>
+            <p>Rejoignez la communauté des professionnels de santé aquatique</p>
+            <div style="margin-top: 2rem;">
+                <a href="{{ url_for('signup') }}" class="btn btn-primary">🌊 S'inscrire</a>
+                <a href="{{ url_for('login') }}" class="btn btn-secondary">🔑 Se connecter</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 AquaMed - Classification médicale de coraux</p>
+            <p style="margin-top: 10px; color: var(--sea-foam);">Plateforme dédiée aux professionnels de santé marine</p>
+        </footer>
+    </div>
+</body>
+</html>
