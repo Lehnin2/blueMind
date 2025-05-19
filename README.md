@@ -67,24 +67,6 @@ Built using a client-server architecture, AquaSense integrates computer vision, 
 - **Custom Pose Dataset**
 - **California Fish Weight Dataset**
 
----
-
-## Directory Structure
-
-AquaSense/
-├
-│── app.py # FastAPI main app
-│ ├── models/ # Pre-trained models (not included)
-│ ├── utils/ # Image processing, coin-scaling, etc.
-| ├── services/  # API service calls
-│ └── chatbot/ # BlueMind NLP module
-├── frontend/
-│ ├── App.tsx # Main React Native app
-│ ├── components/ # UI components
-│ └── screens/ # Main app screens
-└── README.md
-
-
 
 ---
 
