@@ -1,4 +1,4 @@
-# EcoPêche - Fish Disease Detection System
+# FishHealth - Fish Disease Detection System
 
 This project is a fish disease detection application that allows users to upload images of fish and get predictions about their health status using computer vision models.
 
