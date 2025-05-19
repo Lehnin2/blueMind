@@ -1,0 +1,404 @@
+{% extends "base.html" %}
+
+{% block title %}Classification des Poissons Toxiques{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">🐟 Classification des Poissons Toxiques</h1>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="image-tab" data-bs-toggle="tab" data-bs-target="#image" type="button" role="tab">
+                                <i class="fas fa-image me-1"></i> Image
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="video-tab" data-bs-toggle="tab" data-bs-target="#video" type="button" role="tab">
+                                <i class="fas fa-video me-1"></i> Vidéo
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="realtime-tab" data-bs-toggle="tab" data-bs-target="#realtime" type="button" role="tab">
+                                <i class="fas fa-camera me-1"></i> Temps Réel
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tab-content" id="myTabContent">
+                <!-- Tab Image -->
+                <div class="tab-pane fade show active" id="image" role="tabpanel">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Uploader une image</h5>
+                            <form id="uploadForm" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="fishImage" class="form-label">Sélectionnez une image de poisson</label>
+                                    <input type="file" class="form-control" id="fishImage" accept="image/*" required>
+                                    <div class="form-text">Formats acceptés: JPG, JPEG, PNG</div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-search me-1"></i> Analyser l'image
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Video -->
+                <div class="tab-pane fade" id="video" role="tabpanel">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Uploader une vidéo</h5>
+                            <form id="videoForm" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="fishVideo" class="form-label">Sélectionnez une vidéo</label>
+                                    <input type="file" class="form-control" id="fishVideo" accept="video/*" required>
+                                    <div class="form-text">Formats acceptés: MP4, AVI</div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-play me-1"></i> Analyser la vidéo
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Realtime -->
+                <div class="tab-pane fade" id="realtime" role="tabpanel">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Classification en Temps Réel</h5>
+                            <div class="text-center">
+                                <div class="position-relative">
+                                    <video id="webcam" autoplay playsinline style="max-width: 100%; border-radius: 10px;"></video>
+                                    <canvas id="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></canvas>
+                                </div>
+                                <div class="mt-3">
+                                    <button id="startWebcam" class="btn btn-primary me-2">
+                                        <i class="fas fa-play me-1"></i> Démarrer
+                                    </button>
+                                    <button id="stopWebcam" class="btn btn-danger" style="display: none;">
+                                        <i class="fas fa-stop me-1"></i> Arrêter
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div id="loading" class="text-center mt-4" style="display: none;">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Chargement...</span>
+                </div>
+                <p class="mt-2">Analyse en cours...</p>
+            </div>
+
+            <!-- Résultats -->
+            <div id="result" class="mt-4" style="display: none;">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Résultat de l'analyse</h5>
+                        <div class="text-center mb-3">
+                            <img id="previewImage" class="img-fluid rounded" style="max-height: 300px;">
+                        </div>
+                        <div class="alert" id="resultAlert">
+                            <h4 id="resultClass"></h4>
+                            <p id="resultConfidence"></p>
+                            <div id="probabilities"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="error" class="alert alert-danger mt-4" style="display: none;">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <span id="errorMessage"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Gestion de l'upload d'image
+document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    await analyzeImage();
+});
+
+// Gestion de l'upload de vidéo
+document.getElementById('videoForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    await analyzeVideo();
+});
+
+// Gestion de la webcam
+let videoStream = null;
+let isAnalyzing = false;
+let lastAnalysisTime = 0;
+const ANALYSIS_INTERVAL = 1000; // 1 seconde entre chaque analyse
+
+document.getElementById('startWebcam').addEventListener('click', startWebcam);
+document.getElementById('stopWebcam').addEventListener('click', stopWebcam);
+
+async function startWebcam() {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+            video: { 
+                width: { ideal: 640 },
+                height: { ideal: 480 },
+                facingMode: "environment"
+            } 
+        });
+        const video = document.getElementById('webcam');
+        video.srcObject = stream;
+        videoStream = stream;
+        document.getElementById('startWebcam').style.display = 'none';
+        document.getElementById('stopWebcam').style.display = 'inline-block';
+        isAnalyzing = true;
+        analyzeWebcam();
+    } catch (error) {
+        showError('Erreur lors de l\'accès à la webcam: ' + error.message);
+    }
+}
+
+function stopWebcam() {
+    if (videoStream) {
+        videoStream.getTracks().forEach(track => track.stop());
+        videoStream = null;
+    }
+    document.getElementById('startWebcam').style.display = 'inline-block';
+    document.getElementById('stopWebcam').style.display = 'none';
+    isAnalyzing = false;
+}
+
+async function analyzeWebcam() {
+    if (!isAnalyzing) return;
+
+    const video = document.getElementById('webcam');
+    const canvas = document.createElement('canvas');
+    const overlay = document.getElementById('overlay');
+    const ctx = overlay.getContext('2d');
+    
+    // Ajuster la taille du canvas overlay
+    overlay.width = video.videoWidth;
+    overlay.height = video.videoHeight;
+    
+    // Dessiner le cadre de détection
+    ctx.clearRect(0, 0, overlay.width, overlay.height);
+    const roiSize = Math.min(video.videoWidth, video.videoHeight) * 0.7;
+    const x1 = (overlay.width - roiSize) / 2;
+    const y1 = (overlay.height - roiSize) / 2;
+    
+    // Dessiner le rectangle de détection
+    ctx.strokeStyle = '#00ff00';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x1, y1, roiSize, roiSize);
+    
+    // Vérifier si on doit faire une nouvelle analyse
+    const now = Date.now();
+    if (now - lastAnalysisTime >= ANALYSIS_INTERVAL) {
+        lastAnalysisTime = now;
+        
+        try {
+            // Capturer l'image
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const captureCtx = canvas.getContext('2d');
+            captureCtx.drawImage(video, 0, 0);
+            
+            // Extraire la région d'intérêt
+            const roi = captureCtx.getImageData(x1, y1, roiSize, roiSize);
+            
+            // Créer un nouveau canvas pour la région d'intérêt
+            const roiCanvas = document.createElement('canvas');
+            roiCanvas.width = roiSize;
+            roiCanvas.height = roiSize;
+            const roiCtx = roiCanvas.getContext('2d');
+            roiCtx.putImageData(roi, 0, 0);
+            
+            // Convertir en blob
+            roiCanvas.toBlob(async (blob) => {
+                const formData = new FormData();
+                formData.append('file', blob, 'frame.jpg');
+                
+                try {
+                    const response = await fetch('/fish/classify', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    if (response.ok) {
+                        const result = await response.json();
+                        updateResults(result);
+                    }
+                } catch (error) {
+                    console.error('Erreur lors de l\'analyse:', error);
+                }
+            }, 'image/jpeg', 0.8);
+        } catch (error) {
+            console.error('Erreur lors de la capture:', error);
+        }
+    }
+    
+    // Continuer l'analyse
+    requestAnimationFrame(analyzeWebcam);
+}
+
+async function analyzeImage() {
+    resetDisplay();
+    document.getElementById('loading').style.display = 'block';
+    
+    const fileInput = document.getElementById('fishImage');
+    const file = fileInput.files[0];
+    
+    if (!file) {
+        showError('Veuillez sélectionner une image');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+        const response = await fetch('/fish/classify', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.detail || 'Erreur lors de l\'analyse');
+        }
+
+        const result = await response.json();
+        updateResults(result);
+    } catch (error) {
+        showError(error.message);
+    } finally {
+        document.getElementById('loading').style.display = 'none';
+    }
+}
+
+async function analyzeVideo() {
+    resetDisplay();
+    document.getElementById('loading').style.display = 'block';
+    
+    const fileInput = document.getElementById('fishVideo');
+    const file = fileInput.files[0];
+    
+    if (!file) {
+        showError('Veuillez sélectionner une vidéo');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+        const response = await fetch('/fish/analyze-video', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.detail || 'Erreur lors de l\'analyse');
+        }
+
+        const result = await response.json();
+        updateResults(result);
+    } catch (error) {
+        showError(error.message);
+    } finally {
+        document.getElementById('loading').style.display = 'none';
+    }
+}
+
+function updateResults(result) {
+    const resultDiv = document.getElementById('result');
+    resultDiv.style.display = 'block';
+    
+    const resultClass = document.getElementById('resultClass');
+    const resultConfidence = document.getElementById('resultConfidence');
+    const probabilities = document.getElementById('probabilities');
+    
+    const alert = document.getElementById('resultAlert');
+    if (result.class === 'poisonous' || result.class === 'venomous') {
+        alert.className = 'alert alert-danger';
+    } else {
+        alert.className = 'alert alert-success';
+    }
+    
+    resultClass.textContent = `Type: ${result.class.toUpperCase()}`;
+    resultConfidence.textContent = `Confiance: ${(result.confidence * 100).toFixed(2)}%`;
+    
+    probabilities.innerHTML = '<h5>Probabilités:</h5>';
+    for (const [class_name, prob] of Object.entries(result.probabilities)) {
+        const progress = (prob * 100).toFixed(2);
+        probabilities.innerHTML += `
+            <div class="mb-2">
+                <label>${class_name}: ${progress}%</label>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: ${progress}%"></div>
+                </div>
+            </div>
+        `;
+    }
+
+    if (result.class && result.confidence) {
+        // Effacer le canvas overlay
+        ctx.clearRect(0, 0, overlay.width, overlay.height);
+
+        // Si le backend retourne une bbox, on l'utilise, sinon on dessine le carré central
+        let bbox = result.bbox;
+        if (!bbox) {
+            // Par défaut, on prend le carré central (ROI)
+            bbox = [x1, y1, x1 + roiSize, y1 + roiSize];
+        }
+        const [bx1, by1, bx2, by2] = bbox;
+
+        // Couleur selon la classe
+        let color = '#00ff00';
+        if (result.class === 'poisonous' || result.class === 'venomous') {
+            color = '#ff0000';
+        }
+
+        // Dessiner la bounding box
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 3;
+        ctx.strokeRect(bx1, by1, bx2 - bx1, by2 - by1);
+
+        // Dessiner le fond du texte
+        const text = `${result.class.toUpperCase()} ${(result.confidence * 100).toFixed(1)}%`;
+        ctx.fillStyle = color;
+        ctx.font = 'bold 18px Arial';
+        const textWidth = ctx.measureText(text).width;
+        ctx.fillRect(bx1, by1 - 28, textWidth + 12, 28);
+
+        // Dessiner le texte
+        ctx.fillStyle = '#fff';
+        ctx.fillText(text, bx1 + 6, by1 - 8);
+    }
+}
+
+function resetDisplay() {
+    document.getElementById('result').style.display = 'none';
+    document.getElementById('error').style.display = 'none';
+}
+
+function showError(message) {
+    const errorDiv = document.getElementById('error');
+    const errorMessage = document.getElementById('errorMessage');
+    errorMessage.textContent = message;
+    errorDiv.style.display = 'block';
+}
+</script>
+{% endblock %}

@@ -1,0 +1,375 @@
+{% extends "base.html" %}
+
+{% block title %}Détection des Poissons{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card p-4">
+                <h2 class="text-center mb-4">
+                <i class="fas fa-fish me-2"></i>
+                    Détection des Poissons
+                </h2>
+                <ul class="nav nav-tabs mb-4" id="detectionTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="image-tab" data-bs-toggle="tab" data-bs-target="#image" type="button" role="tab">
+                            <i class="fas fa-image me-1"></i> Image
+            </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="video-tab" data-bs-toggle="tab" data-bs-target="#video" type="button" role="tab">
+                            <i class="fas fa-video me-1"></i> Vidéo
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="realtime-tab" data-bs-toggle="tab" data-bs-target="#realtime" type="button" role="tab">
+                            <i class="fas fa-camera me-1"></i> Temps Réel
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="detectionTabsContent">
+                    <!-- Onglet Image -->
+                    <div class="tab-pane fade show active" id="image" role="tabpanel">
+                        <div class="mb-3">
+                            <label for="modelType" class="form-label">Type de détection</label>
+                            <select class="form-control" id="modelType">
+                                <option value="general">Général</option>
+                                <option value="mediterranean">Méditerranéen</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fishImage" class="form-label">Sélectionner une image</label>
+                            <input class="form-control" type="file" id="fishImage" accept="image/*">
+                        </div>
+                        <div class="preview-container">
+                            <img id="previewImage" class="img-fluid rounded" style="display: none;">
+                        </div>
+                        <button id="analyzeImage" class="btn btn-primary w-100" disabled>
+                            <i class="fas fa-search me-1"></i> Analyser l'image
+                        </button>
+                        <div id="resultImage" class="result-box" style="display: none;">
+                            <h4 class="mb-3">Résultat de l'analyse</h4>
+                            <div id="detectionResults"></div>
+                        </div>
+                    </div>
+                    <!-- Onglet Vidéo -->
+                    <div class="tab-pane fade" id="video" role="tabpanel">
+                        <div class="mb-3">
+                            <label for="fishVideo" class="form-label">Sélectionner une vidéo</label>
+                            <input class="form-control" type="file" id="fishVideo" accept="video/*">
+                        </div>
+                        <div class="preview-container">
+                            <video id="previewVideo" class="img-fluid rounded" controls style="display: none;"></video>
+                        </div>
+                        <button id="analyzeVideo" class="btn btn-primary w-100" disabled>
+                            <i class="fas fa-play me-1"></i> Analyser la vidéo
+                        </button>
+                        <div id="resultVideo" class="result-box" style="display: none;">
+                            <h4 class="mb-3">Résultat de l'analyse</h4>
+                            <div id="videoDownloadContainer" class="text-center"></div>
+                </div>
+            </div>
+                    <!-- Onglet Temps Réel -->
+                    <div class="tab-pane fade" id="realtime" role="tabpanel">
+                        <div class="preview-container">
+                            <video id="webcam" class="img-fluid rounded" autoplay playsinline style="display: none;"></video>
+                            <canvas id="overlay" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></canvas>
+                            <div id="webcamResult"></div>
+        </div>
+                        <button id="startWebcam" class="btn btn-primary w-100">
+                            <i class="fas fa-camera me-1"></i> Démarrer la webcam
+                        </button>
+                        <button id="stopWebcam" class="btn btn-danger w-100 mt-2" style="display: none;">
+                            <i class="fas fa-stop me-1"></i> Arrêter la webcam
+                        </button>
+            </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+<style>
+.marine-theme {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.preview-container {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+#webcam, #overlay {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+.result-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+footer {
+    display: none !important;
+}
+</style>
+
+<script>
+// Réinitialisation à chaque changement d'onglet
+function resetAllResults() {
+    document.getElementById('resultImage').style.display = 'none';
+    document.getElementById('resultVideo').style.display = 'none';
+    document.getElementById('detectionResults').innerHTML = '';
+    const videoDownloadContainer = document.getElementById('videoDownloadContainer');
+    if (videoDownloadContainer) videoDownloadContainer.innerHTML = '';
+    const previewImage = document.getElementById('previewImage');
+    if (previewImage) {
+        previewImage.src = '';
+        previewImage.style.display = 'none';
+    }
+    const previewVideo = document.getElementById('previewVideo');
+    if (previewVideo) {
+        previewVideo.src = '';
+        previewVideo.style.display = 'none';
+    }
+    const overlay = document.getElementById('overlay');
+    if (overlay) {
+        overlay.style.display = 'none';
+        overlay.getContext('2d').clearRect(0, 0, overlay.width, overlay.height);
+    }
+}
+document.querySelectorAll('button[data-bs-toggle="tab"]').forEach(tabBtn => {
+    tabBtn.addEventListener('shown.bs-tab', resetAllResults);
+});
+
+// Image
+const imageInput = document.getElementById('fishImage');
+const analyzeImageBtn = document.getElementById('analyzeImage');
+imageInput.addEventListener('change', function() {
+    if (imageInput.files.length > 0) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const previewImage = document.getElementById('previewImage');
+            previewImage.src = e.target.result;
+            previewImage.style.display = 'block';
+        };
+        reader.readAsDataURL(imageInput.files[0]);
+        analyzeImageBtn.disabled = false;
+    }
+});
+analyzeImageBtn.addEventListener('click', async function() {
+    if (imageInput.files.length === 0) return;
+    const formData = new FormData();
+    formData.append('file', imageInput.files[0]);
+    formData.append('model_type', document.getElementById('modelType').value);
+    try {
+        const response = await fetch('/detection/detect', {
+            method: 'POST',
+            body: formData
+        });
+        if (!response.ok) throw new Error('Erreur lors de l\'analyse de l\'image');
+        const result = await response.json();
+        document.getElementById('resultImage').style.display = 'block';
+        document.getElementById('detectionResults').innerHTML = `<img src="${result.image_url}" class="img-fluid rounded mb-3" style="max-height:300px;">`;
+        result.detections.forEach((det, idx) => {
+            document.getElementById('detectionResults').innerHTML += `
+                <div class="alert alert-success mb-2">
+                    <strong>${det.class.toUpperCase()}</strong> - ${(det.confidence*100).toFixed(1)}%<br>
+                    BBox: [${det.bbox.join(', ')}]
+                </div>`;
+        });
+            } catch (error) {
+        document.getElementById('detectionResults').innerHTML = `<div class="alert alert-danger">${error.message}</div>`;
+        document.getElementById('resultImage').style.display = 'block';
+    }
+});
+
+// Vidéo
+const videoInput = document.getElementById('fishVideo');
+const analyzeVideoBtn = document.getElementById('analyzeVideo');
+videoInput.addEventListener('change', function() {
+    if (videoInput.files.length > 0) {
+        const previewVideo = document.getElementById('previewVideo');
+        previewVideo.src = URL.createObjectURL(videoInput.files[0]);
+        previewVideo.style.display = 'block';
+        analyzeVideoBtn.disabled = false;
+    }
+});
+analyzeVideoBtn.addEventListener('click', async function() {
+    if (videoInput.files.length === 0) return;
+                        const formData = new FormData();
+    formData.append('file', videoInput.files[0]);
+    try {
+        const response = await fetch('/detection/detect-video', {
+            method: 'POST',
+            body: formData
+        });
+        if (!response.ok) throw new Error('Erreur lors de l\'analyse de la vidéo');
+        const videoBlob = await response.blob();
+        const videoUrl = URL.createObjectURL(videoBlob);
+        const downloadBtn = document.createElement('a');
+        downloadBtn.href = videoUrl;
+        downloadBtn.download = 'fish_detection_output.mp4';
+        downloadBtn.className = 'btn btn-success mt-3';
+        downloadBtn.innerHTML = '<i class="fas fa-download"></i> Télécharger la vidéo annotée';
+        const downloadContainer = document.getElementById('videoDownloadContainer');
+        downloadContainer.innerHTML = '';
+        downloadContainer.appendChild(downloadBtn);
+        document.getElementById('resultVideo').style.display = 'block';
+                        } catch (error) {
+        const downloadContainer = document.getElementById('videoDownloadContainer');
+        downloadContainer.innerHTML = `<div class="alert alert-danger">${error.message}</div>`;
+        document.getElementById('resultVideo').style.display = 'block';
+    }
+});
+
+// Webcam
+let videoStream = null;
+let isAnalyzing = false;
+let lastAnalysisTime = 0;
+const ANALYSIS_INTERVAL = 1000; // 1 seconde entre chaque analyse
+
+async function startWebcam() {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+            video: { 
+                width: { ideal: 640 },
+                height: { ideal: 480 }
+            } 
+        });
+        const webcam = document.getElementById('webcam');
+        const overlay = document.getElementById('overlay');
+        webcam.srcObject = stream;
+        webcam.style.display = 'block';
+        overlay.style.display = 'block';
+        overlay.width = webcam.clientWidth;
+        overlay.height = webcam.clientHeight;
+        videoStream = stream;
+        document.getElementById('startWebcam').style.display = 'none';
+        document.getElementById('stopWebcam').style.display = 'block';
+        
+        // Démarrer l'analyse en temps réel
+        isAnalyzing = true;
+        analyzeWebcamFrame();
+    } catch (error) {
+        console.error('Erreur lors de l\'accès à la webcam:', error);
+        document.getElementById('webcamResult').innerHTML = `
+            <div class="alert alert-danger">
+                Erreur lors de l'accès à la webcam: ${error.message}
+            </div>
+        `;
+    }
+}
+
+function stopWebcam() {
+    if (videoStream) {
+        videoStream.getTracks().forEach(track => track.stop());
+        videoStream = null;
+        isAnalyzing = false;
+        document.getElementById('webcam').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('startWebcam').style.display = 'block';
+        document.getElementById('stopWebcam').style.display = 'none';
+        document.getElementById('webcamResult').innerHTML = '';
+    }
+}
+
+async function analyzeWebcamFrame() {
+    if (!isAnalyzing || !videoStream) return;
+
+    const currentTime = Date.now();
+    if (currentTime - lastAnalysisTime >= ANALYSIS_INTERVAL) {
+        const webcam = document.getElementById('webcam');
+        const overlay = document.getElementById('overlay');
+        const ctx = overlay.getContext('2d');
+
+        // Ajuster la taille du canvas à la taille réelle de la vidéo
+        overlay.width = webcam.videoWidth;
+        overlay.height = webcam.videoHeight;
+
+        try {
+            const formData = new FormData();
+            const canvas = document.createElement('canvas');
+            canvas.width = webcam.videoWidth;
+            canvas.height = webcam.videoHeight;
+            canvas.getContext('2d').drawImage(webcam, 0, 0);
+            
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg'));
+            formData.append('file', blob, 'webcam.jpg');
+
+            const response = await fetch('/detection/detect', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) throw new Error('Erreur lors de l\'analyse');
+            
+            const result = await response.json();
+            
+            // Effacer le canvas précédent
+            ctx.clearRect(0, 0, overlay.width, overlay.height);
+            
+            if (result.detections && result.detections.length > 0) {
+                // Filtrer les détections avec une confiance supérieure à 0.4
+                const highConfidenceDetections = result.detections.filter(det => det.confidence > 0.4);
+                
+                highConfidenceDetections.forEach(det => {
+                    // Extraire correctement les coordonnées
+                    const [x1, y1, x2, y2] = det.bbox;
+                    const width = x2 - x1;
+                    const height = y2 - y1;
+
+                    // Dessiner le rectangle avec un fond semi-transparent
+                    ctx.fillStyle = 'rgba(0, 255, 0, 0.2)';
+                    ctx.fillRect(x1, y1, width, height);
+                    
+                    // Dessiner la bordure
+                    ctx.strokeStyle = '#00FF00';
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(x1, y1, width, height);
+                    
+                    // Préparer le texte
+                    const text = `${det.class} ${(det.confidence * 100).toFixed(1)}%`;
+                    ctx.font = 'bold 16px Arial';
+                    const textMetrics = ctx.measureText(text);
+                    const textWidth = textMetrics.width;
+                    
+                    // Dessiner le fond du texte
+                    ctx.fillStyle = '#00FF00';
+                    ctx.fillRect(x1, y1 - 25, textWidth + 10, 25);
+                    
+                    // Dessiner le texte
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.fillText(text, x1 + 5, y1 - 5);
+                });
+            }
+
+            lastAnalysisTime = currentTime;
+        } catch (error) {
+            console.error('Erreur lors de l\'analyse:', error);
+        }
+    }
+    
+    requestAnimationFrame(analyzeWebcamFrame);
+}
+
+document.getElementById('startWebcam').addEventListener('click', startWebcam);
+document.getElementById('stopWebcam').addEventListener('click', stopWebcam);
+</script>
+{% endblock %}

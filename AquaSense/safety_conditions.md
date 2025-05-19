@@ -1,0 +1,6 @@
+```markdown
+- **Current Maritime Safety Advisory**: Tunisian authorities warn of high risks associated with illegal crossings in the Central Mediterranean due to hazardous conditions, criminal activity, and fatal incidents. Travel and navigation in these areas is discouraged. Source: w2eu.info  
+- **Regions to Avoid**: Unauthorized or migrant trafficking routes near Tunisia in the Central Mediterranean are unsafe, with penalties for unauthorized vessels. Mariners are advised to avoid these zones. Source: w2eu.info, Travel.gc.ca  
+- **Required Protocols**: Tunisian Maritime Authority (OMMP) mandates compliance with vessel inspection requirements, proper documentation, and adherence to legally designated shipping lanes. Source: Office de la Marine Marchande (OMMP)  
+- **Weather Hazards**: Monitor daily forecasts from the National Institute of Meteorology (Meteo Tunisie) for sudden storms, strong winds, and cold weather impacting coastal and offshore navigation. Source: meteo.tn/en/marine-and-fishing  
+```

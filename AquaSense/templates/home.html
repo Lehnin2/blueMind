@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Remplacer Flaticon par Font Awesome qui est plus fiable -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/home.css') }}">
+</head>
+<body>
+    <!-- Navigation fixe avec fond transparent -->
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="fas fa-fish"></i> BlueMind</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link">À propos</a></li>
+                    <li class="nav-item"><a href="#events" class="nav-link">Événements</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                    <li class="nav-item">
+                        <a href="/login" class="btn btn-primary ms-3">Se connecter</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section avec animation -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 fade-in">
+                    <h1>Votre application<br>de pêche intelligente</h1>
+                    <p class="subtitle">Découvrez une nouvelle façon de pêcher avec BlueMind, votre assistant personnel de pêche.</p>
+                    <div class="hero-buttons">
+                        <a href="/login" class="btn btn-primary">Commencer</a>
+                        <a href="#" class="btn btn-outline-light ms-3">En savoir plus</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center fade-in-delayed">
+                    <div class="hero-image-container">
+                        <img src="{{ url_for('static', path='images/mer.jpg') }}" alt="BlueMind Hero" class="hero-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services avec cartes interactives -->
+    <section id="services" class="section-padding">
+        <div class="container">
+            <div class="section-header text-center mb-5">
+                <h2 class="display-5 fw-bold">Nos Services</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-cloud-sun-rain"></i>
+                        </div>
+                        <h3>Météo Marine</h3>
+                        <p>Prévisions météo en temps réel, marées et conditions de pêche optimales.</p>
+                        <a href="#inscription" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#inscriptionModal">Explorer <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-fish"></i>
+                        </div>
+                        <h3>Détection de Poissons</h3>
+                        <p>Identification précise des espèces avec notre technologie IA avancée.</p>
+                        <a href="#inscription" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#inscriptionModal">Explorer <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>Assistant Virtuel</h3>
+                        <p>Conseils personnalisés et assistance 24/7 pour votre pêche.</p>
+                        <a href="#inscription" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#inscriptionModal">Explorer <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistiques avec compteurs animés -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <h3 class="counter">1000+</h3>
+                        <p>Pêcheurs actifs</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-item">
+                        <i class="fas fa-fish"></i>
+                        <h3 class="counter">50+</h3>
+                        <p>Espèces détectables</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-item">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <h3 class="counter">100+</h3>
+                        <p>Spots de pêche</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- À propos avec image -->
+    <section id="about" class="section-padding bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <img src="{{ url_for('static', path='images/about-fishing.jpg') }}" alt="À propos" class="img-fluid rounded-3">
+                </div>
+                <div class="col-lg-6 ps-lg-5">
+                    <h2 class="display-5 fw-bold mb-4">À propos de BlueMind</h2>
+                    <p class="lead">Votre compagnon de pêche intelligent qui révolutionne l'expérience de pêche.</p>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle text-primary"></i>
+                            <span>Intelligence artificielle avancée</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle text-primary"></i>
+                            <span>Données météo précises</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle text-primary"></i>
+                            <span>Communauté active de pêcheurs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Événements avec timeline -->
+    <section id="events" class="section-padding">
+        <div class="container">
+            <h2 class="display-5 fw-bold text-center mb-5">Événements à venir</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">15 Mai 2024</div>
+                    <div class="timeline-content">
+                        <h3>Compétition de Pêche</h3>
+                        <p>Grande compétition annuelle de pêche sportive</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm">En savoir plus</a>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">20 Mai 2024</div>
+                    <div class="timeline-content">
+                        <h3>Formation Pêche</h3>
+                        <p>Atelier d'initiation aux techniques modernes</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm">En savoir plus</a>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">1 Juin 2024</div>
+                    <div class="timeline-content">
+                        <h3>Salon de la Pêche</h3>
+                        <p>Découvrez les dernières innovations</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm">En savoir plus</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact avec carte -->
+    <section id="contact" class="section-padding bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="display-5 fw-bold mb-4">Contactez-nous</h2>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <p>contact@bluemind.com</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <p>+33 1 23 45 67 89</p>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <p>123 Rue de la Pêche, Paris</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer moderne -->
+    <footer class="footer bg-dark text-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h4 class="mb-4">BlueMind</h4>
+                    <p>Votre assistant de pêche intelligent qui révolutionne l'expérience de pêche.</p>
+                </div>
+                <div class="col-lg-4">
+                    <h4 class="mb-4">Liens rapides</h4>
+                    <ul class="footer-links">
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">À propos</a></li>
+                        <li><a href="#events">Événements</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h4 class="mb-4">Suivez-nous</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom text-center mt-5">
+                <p>&copy; 2024 BlueMind. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+<!-- Ajoutez cette modal à la fin de votre body, juste avant les scripts -->
+<div class="modal fade" id="inscriptionModal" tabindex="-1" aria-labelledby="inscriptionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inscriptionModalLabel">Inscription à BlueMind</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="inscriptionForm">
+                    <div class="mb-3">
+                        <label for="nom" class="form-label">Nom complet</label>
+                        <input type="text" class="form-control" id="nom" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Mot de passe</label>
+                        <input type="password" class="form-control" id="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirmer le mot de passe</label>
+                        <input type="password" class="form-control" id="confirmPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">S'inscrire</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

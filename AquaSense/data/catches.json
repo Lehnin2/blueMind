@@ -1,0 +1,51 @@
+[
+  {
+    "species": "",
+    "length": 9.03,
+    "weight": 4.57,
+    "lat": 37.084811538918274,
+    "lng": 10.118130414476237
+  },
+  {
+    "species": "",
+    "length": 16.1,
+    "weight": 3.14,
+    "lat": 34.118729590605824,
+    "lng": 10.80137673908986
+  },
+  {
+    "species": "Otolithoides biauritus",
+    "length": 22.13,
+    "weight": 3.23,
+    "lat": 34.20143803838059,
+    "lng": 10.901577025651934
+  },
+  {
+    "species": "Setipinna taty",
+    "length": 11.59,
+    "weight": 3.03,
+    "lat": 34.076569923704874,
+    "lng": 12.285854369401934
+  },
+  {
+    "species": "Anabas testudineus",
+    "length": 10.6,
+    "weight": 3.32,
+    "lat": 33.89796012885084,
+    "lng": 10.615932494401934
+  },
+  {
+    "species": "Pethia conchonius",
+    "length": 9.4,
+    "weight": 4.56,
+    "lat": 36.898928725567245,
+    "lng": 10.32754081534222
+  },
+  {
+    "species": "Polynemus paradiseus",
+    "length": 9.4,
+    "weight": 4.04,
+    "lat": 36.90448525396985,
+    "lng": 10.248573304834519
+  }
+]

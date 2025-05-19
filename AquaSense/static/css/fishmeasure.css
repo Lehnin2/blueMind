@@ -1,0 +1,306 @@
+:root {
+            --primary-color: #1a4b84;
+            --secondary-color: #2d7dd2;
+            --accent-color: #45b3e7;
+            --deep-sea: #053B50;
+            --sea-blue: #176B87;
+            --aqua: #64CCC5;
+        }
+
+        .marine-theme {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .marine-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .marine-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .card-title {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .btn-primary, .btn-success {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 25px;
+            padding: 10px 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-success {
+            background: linear-gradient(to right, var(--sea-blue), var(--aqua));
+        }
+
+        .btn-primary:hover, .btn-success:hover {
+            transform: scale(1.05);
+            background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .loading {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: var(--aqua);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .wave-divider {
+            height: 50px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%2364CCC5' fill-opacity='0.5' d='M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 20px 0;
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            color: white;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
+            left: 10%;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-color);
+        }
+
+        .search-input, .form-control {
+            padding-left: 45px;
+            border-radius: 25px;
+            border: 2px solid var(--aqua);
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 120px;
+            margin: 0 1rem;
+            color: var(--primary-color);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--aqua);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .step.active .step-number {
+            background: var(--secondary-color);
+        }
+
+        .result-img {
+            position: relative;
+            margin: 1rem 0;
+            display: flex;
+            justify-content: center; /* Center the image */
+        }
+
+        .result-img img {
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 100%; /* Ensure image doesn't exceed container width */
+            max-height: 500px; /* Increase height limit slightly for better visibility */
+            height: auto; /* Maintain aspect ratio */
+            object-fit: contain; /* Scale image without cropping */
+            cursor: pointer; /* Indicate image is clickable */
+        }
+
+        .icon {
+            position: absolute;
+            font-size: 1.5rem;
+            color: var(--aqua);
+        }
+
+        .icon-top-left {
+            top: 10px;
+            left: 10px;
+        }
+
+        .icon-top-right {
+            top: 10px;
+            right: 10px;
+        }
+
+        .error {
+            background: rgba(255, 0, 0, 0.1);
+            color: #d32f2f;
+            padding: 1rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .info-card, .result-card {
+            padding: 1.5rem;
+        }
+
+        .info-comparison {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .info-section {
+            flex: 1;
+            padding: 0 1rem;
+        }
+
+        .info-divider {
+            width: 2px;
+            background: var(--aqua);
+            margin: 0 1rem;
+        }
+
+        .info-legal, .info-text {
+            margin: 1rem 0;
+        }
+
+        .info-price {
+            margin: 1rem 0;
+            color: var(--sea-blue);
+            font-weight: 500;
+        }
+        .release-recommendation {
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .release-recommendation.warn {
+            background: rgba(255, 0, 0, 0.1);
+            color: #d32f2f;
+        }
+
+        .release-recommendation.good {
+            background: rgba(0, 128, 0, 0.1);
+            color: #388e3c;
+        }
+
+        #map {
+            height: 300px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 1rem 0;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+        }
+
+        .file-input-label {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            border: 2px solid var(--aqua);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-input-label:hover {
+            background: var(--aqua);
+            color: white;
+        }
+
+        .file-input-label i {
+            margin-right: 10px;
+        }
+
+        .file-input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+        }
+
+        .spaced {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: block;
+        }

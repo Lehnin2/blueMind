@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détection de Fraîcheur des Poissons</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .marine-theme {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .preview-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        #previewImage, #overlay {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        .result-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .fresh {
+            color: #28a745;
+        }
+        .rotten {
+            color: #dc3545;
+        }
+        #annotatedImage {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        #videoFrames {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .video-frame {
+            max-width: 200px;
+            border-radius: 5px;
+        }
+        #webcamResult {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body class="marine-theme">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-fish me-2"></i>Blue Mind
+            </a>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card p-4">
+                    <h2 class="text-center mb-4">
+                        <i class="fas fa-thermometer-half me-2"></i>
+                        Détection de Fraîcheur des Poissons
+                    </h2>
+
+                    <ul class="nav nav-tabs mb-4" id="detectionTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="image-tab" data-bs-toggle="tab" data-bs-target="#image" type="button">
+                                <i class="fas fa-image me-1"></i> Image
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="video-tab" data-bs-toggle="tab" data-bs-target="#video" type="button">
+                                <i class="fas fa-video me-1"></i> Vidéo
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="realtime-tab" data-bs-toggle="tab" data-bs-target="#realtime" type="button">
+                                <i class="fas fa-camera me-1"></i> Temps Réel
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="detectionTabsContent">
+                        <!-- Image Tab -->
+                        <div class="tab-pane fade show active" id="image" role="tabpanel">
+                            <div class="mb-3">
+                                <label for="imageInput" class="form-label">Sélectionner une image</label>
+                                <input class="form-control" type="file" id="imageInput" accept="image/*">
+                            </div>
+                            <div class="preview-container">
+                                <img id="previewImage" class="img-fluid rounded" style="display: none;">
+                            </div>
+                            <button id="analyzeImage" class="btn btn-primary w-100" disabled>
+                                <i class="fas fa-search me-1"></i> Analyser l'image
+                            </button>
+                            <div id="result" class="result-box" style="display: none;">
+                                <h4 class="mb-3">Résultats de l'analyse</h4>
+                                <div id="probabilities"></div>
+                                <img id="annotatedImage" style="display: none;">
+                            </div>
+                        </div>
+
+                        <!-- Video Tab -->
+                        <div class="tab-pane fade" id="video" role="tabpanel">
+                            <div class="mb-3">
+                                <label for="videoInput" class="form-label">Sélectionner une vidéo</label>
+                                <input class="form-control" type="file" id="videoInput" accept="video/*">
+                            </div>
+                            <div class="preview-container">
+                                <video id="previewVideo" class="img-fluid rounded" controls style="display: none;"></video>
+                            </div>
+                            <button id="analyzeVideo" class="btn btn-primary w-100" disabled>
+                                <i class="fas fa-play me-1"></i> Analyser la vidéo
+                            </button>
+                            <div id="videoResult" class="result-box" style="display: none;">
+                                <h4 class="mb-3">Résultat de la détection</h4>
+                                <div id="videoDownloadContainer" class="text-center"></div>
+                            </div>
+                        </div>
+
+                        <!-- Realtime Tab -->
+                        <div class="tab-pane fade" id="realtime" role="tabpanel">
+                            <div class="preview-container">
+                                <video id="webcam" class="img-fluid rounded" autoplay playsinline style="display: none;"></video>
+                                <canvas id="webcamOverlay" style="display: none;"></canvas>
+                                <div id="webcamResult"></div>
+                            </div>
+                            <button id="startWebcam" class="btn btn-primary w-100">
+                                <i class="fas fa-camera me-1"></i> Démarrer la webcam
+                            </button>
+                            <button id="stopWebcam" class="btn btn-danger w-100 mt-2" style="display: none;">
+                                <i class="fas fa-stop me-1"></i> Arrêter la webcam
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Variables globales
+        let isAnalyzing = false;
+        let lastAnalysisTime = 0;
+        const ANALYSIS_INTERVAL = 1000; // 1 seconde entre chaque analyse
+        let webcamStream = null;
+
+        // Fonctions utilitaires
+        function resetDisplay() {
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('probabilities').innerHTML = '';
+            document.getElementById('annotatedImage').style.display = 'none';
+            document.getElementById('videoResult').style.display = 'none';
+            document.getElementById('videoProbabilities').innerHTML = '';
+            document.getElementById('videoFrames').innerHTML = '';
+            document.getElementById('webcamResult').innerHTML = '';
+        }
+
+        function updateResults(result) {
+            const resultDiv = document.getElementById('result');
+            const probabilitiesDiv = document.getElementById('probabilities');
+            const annotatedImage = document.getElementById('annotatedImage');
+            
+            resultDiv.style.display = 'block';
+            
+            if (result.class && result.confidence) {
+                const statusClass = result.class === 'Fresh' ? 'fresh' : 'rotten';
+                probabilitiesDiv.innerHTML = `
+                    <div class="alert ${statusClass === 'fresh' ? 'alert-success' : 'alert-danger'}">
+                        <h5>État du poisson : <strong class="${statusClass}">${result.class}</strong></h5>
+                        <p>Confiance : ${(result.confidence * 100).toFixed(1)}%</p>
+                    </div>
+                `;
+
+                if (result.annotated_image) {
+                    annotatedImage.src = 'data:image/jpeg;base64,' + result.annotated_image;
+                    annotatedImage.style.display = 'block';
+                }
+            }
+        }
+
+        function updateVideoResults(result) {
+            const videoResultDiv = document.getElementById('videoResult');
+            const videoProbabilitiesDiv = document.getElementById('videoProbabilities');
+            const videoFramesDiv = document.getElementById('videoFrames');
+            
+            videoResultDiv.style.display = 'block';
+            
+            if (result.class) {
+                const statusClass = result.class === 'Fresh' ? 'fresh' : 'rotten';
+                videoProbabilitiesDiv.innerHTML = `
+                    <div class="alert ${statusClass === 'fresh' ? 'alert-success' : 'alert-danger'}">
+                        <h5>État du poisson : <strong class="${statusClass}">${result.class}</strong></h5>
+                    </div>
+                `;
+
+                if (result.frames && result.frames.length > 0) {
+                    videoFramesDiv.innerHTML = '';
+                    result.frames.forEach((frame, index) => {
+                        const img = document.createElement('img');
+                        img.src = 'data:image/jpeg;base64,' + frame;
+                        img.className = 'video-frame';
+                        img.alt = `Frame ${index + 1}`;
+                        videoFramesDiv.appendChild(img);
+                    });
+                }
+            }
+        }
+
+        function updateWebcamResult(result) {
+            const webcamResultDiv = document.getElementById('webcamResult');
+            
+            if (result.class && result.confidence) {
+                const statusClass = result.class === 'Fresh' ? 'fresh' : 'rotten';
+                webcamResultDiv.innerHTML = `
+                    <div class="alert ${statusClass === 'fresh' ? 'alert-success' : 'alert-danger'}">
+                        <h5>État du poisson : <strong class="${statusClass}">${result.class}</strong></h5>
+                        <p>Confiance : ${(result.confidence * 100).toFixed(1)}%</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Gestion des onglets
+        document.querySelectorAll('button[data-bs-toggle="tab"]').forEach(tabBtn => {
+            tabBtn.addEventListener('shown.bs.tab', () => {
+                resetDisplay();
+                const previewImage = document.getElementById('previewImage');
+                if (previewImage) {
+                    previewImage.src = '';
+                    previewImage.style.display = 'none';
+                }
+            });
+        });
+
+        // Gestion de l'image
+        document.getElementById('imageInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const previewImage = document.getElementById('previewImage');
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = 'block';
+                    document.getElementById('analyzeImage').disabled = false;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('analyzeImage').addEventListener('click', async function() {
+            const file = document.getElementById('imageInput').files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch('/fish/freshness/classify', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    updateResults(result);
+                } else {
+                    alert('Erreur lors de l\'analyse de l\'image');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Erreur lors de l\'analyse de l\'image');
+            }
+        });
+
+        // Gestion de la vidéo
+        document.getElementById('videoInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const video = document.getElementById('previewVideo');
+                video.src = URL.createObjectURL(file);
+                video.style.display = 'block';
+                document.getElementById('analyzeVideo').disabled = false;
+            }
+        });
+
+        document.getElementById('analyzeVideo').addEventListener('click', async function() {
+            try {
+                const video = document.getElementById('previewVideo');
+                const formData = new FormData();
+                formData.append('video', document.getElementById('videoInput').files[0]);
+
+                const response = await fetch('/analyze_video', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    updateVideoResults(result);
+                } else {
+                    throw new Error('Erreur lors de l\'analyse');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Erreur lors de l\'analyse de la vidéo');
+            }
+        });
+
+        // Gestion de la webcam
+        document.getElementById('startWebcam').addEventListener('click', async function() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                const webcam = document.getElementById('webcam');
+                webcam.srcObject = stream;
+                webcam.style.display = 'block';
+                webcamStream = stream;
+
+                document.getElementById('startWebcam').style.display = 'none';
+                document.getElementById('stopWebcam').style.display = 'block';
+                isAnalyzing = true;
+                analyzeWebcam();
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Impossible d\'accéder à la webcam');
+            }
+        });
+
+        document.getElementById('stopWebcam').addEventListener('click', function() {
+            if (webcamStream) {
+                webcamStream.getTracks().forEach(track => track.stop());
+                webcamStream = null;
+            }
+            const webcam = document.getElementById('webcam');
+            webcam.srcObject = null;
+            webcam.style.display = 'none';
+            document.getElementById('startWebcam').style.display = 'block';
+            document.getElementById('stopWebcam').style.display = 'none';
+            isAnalyzing = false;
+        });
+
+        async function analyzeWebcam() {
+            if (!isAnalyzing) return;
+
+            const video = document.getElementById('webcam');
+            const canvas = document.createElement('canvas');
+            const overlay = document.getElementById('webcamOverlay');
+            const ctx = overlay.getContext('2d');
+            
+            overlay.width = video.videoWidth;
+            overlay.height = video.videoHeight;
+            ctx.clearRect(0, 0, overlay.width, overlay.height);
+
+            // Vérifier si on doit faire une nouvelle analyse
+            const now = Date.now();
+            if (now - lastAnalysisTime >= ANALYSIS_INTERVAL) {
+                lastAnalysisTime = now;
+                try {
+                    // Capturer l'image
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    const captureCtx = canvas.getContext('2d');
+                    captureCtx.drawImage(video, 0, 0);
+
+                    // Convertir en blob
+                    canvas.toBlob(async (blob) => {
+                        const formData = new FormData();
+                        formData.append('file', blob, 'frame.jpg');
+                        try {
+                            const response = await fetch('/fish/freshness/classify', {
+                                method: 'POST',
+                                body: formData
+                            });
+                            if (response.ok) {
+                                const result = await response.json();
+                                updateWebcamResult(result);
+                            }
+                        } catch (error) {
+                            console.error('Erreur lors de l\'analyse:', error);
+                        }
+                    }, 'image/jpeg', 0.8);
+                } catch (error) {
+                    console.error('Erreur lors de la capture:', error);
+                }
+            }
+            requestAnimationFrame(analyzeWebcam);
+        }
+    </script>
+</body>
+</html>

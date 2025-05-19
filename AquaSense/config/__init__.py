@@ -1,0 +1,1 @@
+# Ce fichier est vide et sert uniquement à faire du dossier config un package Python 

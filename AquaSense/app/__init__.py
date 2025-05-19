@@ -1,0 +1,1 @@
+# Ce fichier est vide et sert uniquement à faire du dossier app un package Python
