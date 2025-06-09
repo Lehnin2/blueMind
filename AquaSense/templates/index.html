@@ -3,81 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
+    <title>Tableau de Bord - AquaSense Fishing</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #1a4b84;
-            --secondary-color: #2d7dd2;
-            --accent-color: #45b3e7;
+            --primary-blue: #1a4b84;
+            --secondary-blue: #2d7dd2;
+            --accent-teal: #45b3e7;
+            --light-blue: #e6f2ff;
+            --dark-blue: #0d2b4e;
         }
         
-        .marine-theme {
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
+            color: #333;
         }
 
         .navbar {
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color)) !important;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue)) !important;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .marine-card {
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            overflow: hidden;
-        }
-
-        .marine-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
-
-        .card-title {
-            color: var(--primary-color);
+        .navbar-brand {
             font-weight: 600;
-        }
-
-        .btn-primary {
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            border: none;
-            border-radius: 25px;
-            padding: 10px 25px;
-            transition: transform 0.2s ease;
-        }
-
-        .btn-primary:hover {
-            transform: scale(1.05);
-            background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
-
-        .welcome-section {
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 3rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .footer {
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color)) !important;
-            margin-top: auto;
+            letter-spacing: 0.5px;
         }
 
         .nav-link {
             position: relative;
             padding: 0.5rem 1rem;
+            font-weight: 500;
         }
 
         .nav-link::after {
@@ -95,14 +53,165 @@
             width: 80%;
             left: 10%;
         }
+
+        .dashboard-container {
+            padding: 2rem 0;
+        }
+
+        .welcome-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-blue), var(--accent-teal));
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-blue), var(--accent-teal));
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover::after {
+            height: 6px;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.2rem;
+            color: var(--primary-blue);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .card-icon {
+            color: var(--accent-teal);
+            transform: scale(1.1);
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
+        }
+
+        .card-text {
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .btn-feature {
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
+            border: none;
+            border-radius: 25px;
+            padding: 0.6rem 1.5rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-feature:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(to right, var(--secondary-blue), var(--accent-teal));
+        }
+
+        .footer {
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue)) !important;
+            color: white;
+            padding: 1.5rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer a {
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--light-blue);
+            transform: translateY(-2px);
+        }
+
+        .badge-new {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .quick-stats {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
     </style>
 </head>
-<body class="marine-theme d-flex flex-column min-vh-100">
+<body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="/">
-                <i class="fas fa-fish me-2"></i>
-                Blue Mind
+                <i class="fas fa-water me-2"></i>
+                AquaSense
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -110,7 +219,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/"><i class="fas fa-home me-1"></i> Accueil</a>
+                        <a class="nav-link active" href="/"><i class="fas fa-home me-1"></i> Accueil</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/meteo"><i class="fas fa-cloud-sun me-1"></i> Météo</a>
@@ -123,146 +232,248 @@
                     </li>
                 </ul>
                 <div class="d-flex align-items-center">
-                    <a href="/profile" class="btn btn-outline-light me-2">
-                        <i class="fas fa-user me-1"></i> Mon Profil
-                    </a>
+                    <div class="dropdown">
+                        <a href="#" class="btn btn-outline-light dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle me-1"></i> Mon Profil
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="/profile"><i class="fas fa-user me-2"></i>Profil</a></li>
+                            <li><a class="dropdown-item" href="/settings"><i class="fas fa-cog me-2"></i>Paramètres</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt me-2"></i>Déconnexion</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="container my-5">
-        <div class="welcome-section text-center">
-            <h1 class="display-4 mb-3">Bienvenue sur Blue Mind</h1>
-            <p class="lead mb-0">Votre assistant intelligent pour une pêche réussie</p>
+    <div class="container dashboard-container">
+        <div class="welcome-card">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="display-5 fw-bold mb-3">Bonjour, Pêcheur !</h1>
+                    <p class="lead mb-0">Découvrez toutes les fonctionnalités pour optimiser votre expérience de pêche.</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <div class="alert alert-info d-inline-block">
+                        <i class="fas fa-info-circle me-2"></i> Météo favorable aujourd'hui !
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-stats">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-value">24°C</div>
+                        <div class="stat-label">Température</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-value">3.5m</div>
+                        <div class="stat-label">Hauteur des vagues</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Espèces détectées</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-value">85%</div>
+                        <div class="stat-label">Conditions favorables</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="row g-4">
+            <!-- Groupe 1 : Météo & Conditions -->
             <div class="col-md-3">
-                <div class="marine-card h-100">
-                    <div class="card-body text-center">
-                        <div class="feature-icon">
+                <div class="feature-card">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
                             <i class="fas fa-cloud-sun"></i>
                         </div>
                         <h5 class="card-title">Météo Marine</h5>
-                        <p class="card-text">Consultez les conditions météorologiques en temps réel pour planifier votre prochaine sortie de pêche.</p>
-                        <a href="/meteo" class="btn btn-primary">
-                            <i class="fas fa-arrow-right me-1"></i> Voir la météo
+                        <p class="card-text">Prévisions précises, marées et conditions optimales pour votre sortie de pêche.</p>
+                        <a href="/meteo" class="btn btn-feature">
+                            <i class="fas fa-arrow-right me-1"></i> Consulter
                         </a>
                     </div>
                 </div>
             </div>
+
+            <!-- Groupe 2 : Détection & Analyse -->
             <div class="col-md-3">
-                <div class="marine-card h-100">
-                    <div class="card-body text-center">
-                        <div class="feature-icon">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <h5 class="card-title">Assistant de Pêche</h5>
-                        <p class="card-text">Obtenez des conseils personnalisés et des réponses à toutes vos questions sur la pêche.</p>
-                        <a href="/chatbot" class="btn btn-primary">
-                            <i class="fas fa-comments me-1"></i> Discuter
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="marine-card h-100">
-                    <div class="card-body text-center">
-                        <div class="feature-icon">
-                            <i class="fas fa-map-marked-alt"></i>
+                <div class="feature-card">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
+                            <i class="fas fa-search"></i>
                         </div>
                         <h5 class="card-title">Détection de Poissons</h5>
-                        <p class="card-text">Utilisez notre technologie avancée pour localiser les meilleures zones de pêche.</p>
-                        <a href="/detection" class="btn btn-primary">
+                        <p class="card-text">Localisez les zones de pêche riches grâce à notre technologie avancée.</p>
+                        <a href="/detection" class="btn btn-feature">
                             <i class="fas fa-search-location me-1"></i> Explorer
                         </a>
                     </div>
                 </div>
             </div>
+
             <div class="col-md-3">
-                <div class="marine-card h-100">
-                    <div class="card-body text-center">
-                        <div class="feature-icon">
-                            <i class="fas fa-file-alt"></i>
-                        </div>
-                        <h5 class="card-title">Rapport de Pêche</h5>
-                        <p class="card-text">Générez et consultez vos rapports de pêche détaillés.</p>
-                        <a href="/rapport" class="btn btn-primary">
-                            <i class="fas fa-chart-line me-1"></i> Voir les Rapports
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="marine-card h-100">
-                    <div class="card-body text-center">
-                        <div class="feature-icon">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </div>
-                        <h5 class="card-title">Poissons Toxiques</h5>
-                        <p class="card-text">Identifiez les espèces potentiellement dangereuses et obtenez des informations de sécurité.</p>
-                        <a href="/fish-classification" class="btn btn-primary">
-                            <i class="fas fa-shield-alt me-1"></i> Vérifier
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="marine-card h-100">
-                    <div class="card-body text-center">
-                        <div class="feature-icon">
-                            <i class="fas fa-thermometer-half"></i>
-                        </div>
-                        <h5 class="card-title">Détection de Fraîcheur</h5>
-                        <p class="card-text">Analysez la fraîcheur des poissons pour assurer leur qualité.</p>
-                        <a href="/freshness-detection" class="btn btn-primary">
-                            <i class="fas fa-check-circle me-1"></i> Démarrer
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- NOUVELLE CARTE: Info Poissons -->
-            <div class="col-md-3">
-                <div class="marine-card h-100">
-                    <div class="card-body text-center">
-                        <div class="feature-icon">
+                <div class="feature-card">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
                             <i class="fas fa-fish"></i>
                         </div>
                         <h5 class="card-title">Info Poissons</h5>
-                        <p class="card-text">Recherchez des informations détaillées sur différentes espèces de poissons, leurs habitats et leur statut de conservation.</p>
-                        <a href="/fish-info" class="btn btn-primary">
+                        <p class="card-text">Encyclopédie complète des espèces avec habitats et statuts de conservation.</p>
+                        <a href="/fish-info" class="btn btn-feature">
                             <i class="fas fa-info-circle me-1"></i> Rechercher
                         </a>
                     </div>
                 </div>
             </div>
-            <!-- NOUVELLE CARTE: Surveillance Maritime -->
+
             <div class="col-md-3">
-                <div class="marine-card h-100">
-                    <div class="card-body text-center">
-                        <div class="feature-icon">
+                <div class="feature-card">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
+                            <i class="fas fa-thermometer-half"></i>
+                        </div>
+                        <h5 class="card-title">Fraîcheur du Poisson</h5>
+                        <p class="card-text">Analyse instantanée de la qualité et de la fraîcheur de vos prises.</p>
+                        <a href="/freshness-detection" class="btn btn-feature">
+                            <i class="fas fa-check-circle me-1"></i> Vérifier
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Groupe 3 : Assistant & Communication -->
+            <div class="col-md-3">
+                <div class="feature-card">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h5 class="card-title">Assistant de Pêche</h5>
+                        <p class="card-text">Conseils personnalisés et réponses à vos questions en temps réel.</p>
+                        <a href="/chatbot" class="btn btn-feature">
+                            <i class="fas fa-comments me-1"></i> Discuter
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="feature-card">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h5 class="card-title">Sécurité Alimentaire</h5>
+                        <p class="card-text">Identifiez les espèces toxiques et obtenez des conseils de préparation.</p>
+                        <a href="/fish-classification" class="btn btn-feature">
+                            <i class="fas fa-shield-alt me-1"></i> Sécurité
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Groupe 4 : Surveillance & Données -->
+            <div class="col-md-3">
+                <div class="feature-card">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
                             <i class="fas fa-ship"></i>
                         </div>
                         <h5 class="card-title">Surveillance Maritime</h5>
-                        <p class="card-text">Surveillez les activités maritimes, suivez les navires et obtenez des informations en temps réel sur les conditions marines.</p>
-                        <a href="/maritime-watch" class="btn btn-primary">
+                        <p class="card-text">Suivi des activités et conditions marines en temps réel.</p>
+                        <a href="/maritime-watch" class="btn btn-feature">
                             <i class="fas fa-binoculars me-1"></i> Observer
                         </a>
                     </div>
                 </div>
             </div>
-            <!-- NOUVELLE CARTE: Mesure de Poissons -->
+
             <div class="col-md-3">
-                <div class="marine-card h-100">
-                    <div class="card-body text-center">
-                        <div class="feature-icon">
+                <div class="feature-card">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
                             <i class="fas fa-ruler-combined"></i>
                         </div>
                         <h5 class="card-title">Mesure de Poissons</h5>
-                        <p class="card-text">Téléchargez des images pour identifier les espèces, mesurer la longueur, estimer le poids et enregistrer les lieux de capture.</p>
-                        <a href="/fish_detect" class="btn btn-primary">
-                            <i class="fas fa-camera me-1"></i> Mesurer
+                        <p class="card-text">Analyse d'images pour identification et mesure des prises.</p>
+                        <a href="/fish_detect" class="btn btn-feature">
+                            <i class="fas fa-camera me-1"></i> Analyser
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Groupe 5 : Rapports & Historique -->
+            <div class="col-md-3">
+                <div class="feature-card">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h5 class="card-title">Rapports de Pêche</h5>
+                        <p class="card-text">Générez et consultez vos statistiques et historiques de pêche.</p>
+                        <a href="/rapport" class="btn btn-feature">
+                            <i class="fas fa-chart-line me-1"></i> Statistiques
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+           <div class="col-md-3">
+    <div class="feature-card">
+        <div class="card-body text-center p-4">
+            <div class="card-icon">
+                <i class="fas fa-map-marked-alt"></i>
+            </div>
+            <h5 class="card-title">Mes Spots de Pêche</h5>
+            <p class="card-text">Enregistrez et gérez vos lieux de pêche préférés.</p>
+            <a href="/map" class="btn btn-feature">
+                <i class="fas fa-map-pin me-1"></i> Voir la carte
+            </a>
+        </div>
+    </div>
+</div>
+
+
+            <div class="col-md-3">
+                <div class="feature-card">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h5 class="card-title">Communauté</h5>
+                        <p class="card-text">Échangez avec d'autres pêcheurs et partagez vos expériences.</p>
+                        <a href="/community" class="btn btn-feature">
+                            <i class="fas fa-comments me-1"></i> Rejoindre
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="feature-card">
+                    <div class="card-body text-center p-4">
+                        <div class="card-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h5 class="card-title">Guide de Pêche</h5>
+                        <p class="card-text">Techniques, réglementations et meilleures pratiques.</p>
+                        <a href="/guide" class="btn btn-feature">
+                            <i class="fas fa-graduation-cap me-1"></i> Apprendre
                         </a>
                     </div>
                 </div>
@@ -270,16 +481,17 @@
         </div>
     </div>
 
-    <footer class="footer py-4 mt-auto">
+    <footer class="footer">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-md-6 text-center text-md-start">
-                    <span>© 2024 Blue Mind - Tous droits réservés</span>
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <span>© 2025 Blue Mind - Tous droits réservés</span>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    <a href="#" class="text-white me-3"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="me-3"><i class="fab fa-facebook-f fa-lg"></i></a>
+                    <a href="#" class="me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="#" class="me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#"><i class="fab fa-youtube fa-lg"></i></a>
                 </div>
             </div>
         </div>

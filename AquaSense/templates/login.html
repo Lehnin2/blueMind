@@ -3,42 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion - Blue Mind Fishing</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="{{ url_for('static', path='css/home.css') }}" rel="stylesheet">
+    <title>Connexion - AquaSense</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .login-container {
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-            padding-top: 80px;
+        :root {
+            --primary-blue: #006994;
+            --secondary-blue: #0088cc;
+            --light-blue: #e6f2ff;
+            --dark-blue: #003366;
+            --accent-teal: #00b4d8;
         }
-        .card {
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        
+        .auth-container {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1505118380757-91f5f5632de0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding: 2rem 0;
+        }
+        
+        .auth-card {
             border: none;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            background-color: rgba(255, 255, 255, 0.95);
         }
-        .card-body {
-            padding: 3rem;
+        
+        .auth-card:hover {
+            transform: translateY(-5px);
         }
+        
+        .auth-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .auth-body {
+            padding: 2.5rem;
+        }
+        
+        .auth-icon {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .auth-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .auth-subtitle {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+        }
+        
         .form-control {
-            padding: 0.8rem;
+            padding: 0.8rem 1rem;
             border-radius: 8px;
+            border: 1px solid #ced4da;
+            transition: all 0.3s;
         }
+        
         .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(0, 102, 204, 0.25);
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 0 0.25rem rgba(0, 180, 216, 0.25);
         }
-        .btn-primary {
+        
+        .input-group-text {
+            background-color: var(--light-blue);
+            border-color: #ced4da;
+            color: var(--primary-blue);
+        }
+        
+        .btn-auth {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            border: none;
             padding: 0.8rem;
-            font-weight: 500;
+            font-weight: 600;
             border-radius: 8px;
+            transition: all 0.3s;
+            width: 100%;
         }
-        .login-icon {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
+        
+        .btn-auth:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
+        
         .password-toggle {
             position: absolute;
             right: 10px;
@@ -46,86 +117,171 @@
             transform: translateY(-50%);
             cursor: pointer;
             color: #6c757d;
+            z-index: 5;
         }
-        .social-login {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #dee2e6;
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: #6c757d;
         }
+        
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .divider::before {
+            margin-right: 0.5rem;
+        }
+        
+        .divider::after {
+            margin-left: 0.5rem;
+        }
+        
+        .social-auth {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
         .social-btn {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 0.5rem;
             color: white;
-            transition: transform 0.3s ease;
+            transition: all 0.3s;
         }
+        
         .social-btn:hover {
             transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        .facebook { background: #3b5998; }
-        .google { background: #db4437; }
-        .twitter { background: #1da1f2; }
+        
+        .btn-facebook {
+            background-color: #3b5998;
+        }
+        
+        .btn-google {
+            background-color: #db4437;
+        }
+        
+        .btn-twitter {
+            background-color: #1da1f2;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #6c757d;
+        }
+        
+        .auth-link {
+            color: var(--primary-blue);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .auth-link:hover {
+            color: var(--secondary-blue);
+            text-decoration: underline;
+        }
+        
+        .nav-brand {
+            font-weight: 700;
+            color: var(--dark-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-brand i {
+            color: var(--accent-teal);
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="/"><i class="fas fa-fish"></i> BlueMind</a>
+            <a class="nav-brand" href="/">
+                <i class="fas fa-water"></i>
+                <span>AquaSense</span>
+            </a>
         </div>
     </nav>
 
-    <div class="login-container">
+    <div class="auth-container">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-5">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <div class="login-icon">
-                                <i class="fas fa-user-circle"></i>
+                <div class="col-lg-5 col-md-8">
+                    <div class="auth-card">
+                        <div class="auth-header">
+                            <div class="auth-icon">
+                                <i class="fas fa-sign-in-alt"></i>
                             </div>
-                            <h2 class="card-title text-center mb-4">Bienvenue sur BlueMind</h2>
+                            <h3 class="auth-title">Connexion</h3>
+                            <p class="auth-subtitle">Accédez à votre espace AquaSense</p>
+                        </div>
+                        <div class="auth-body">
                             <form method="POST" action="/login">
-                                <div class="mb-4 position-relative">
-                                    <label for="email" class="form-label">Email</label>
+                                <div class="mb-4">
+                                    <label for="email" class="form-label">Adresse Email</label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                        <input type="email" class="form-control" id="email" name="email" required>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="votre@email.com" required>
                                     </div>
                                 </div>
+                                
                                 <div class="mb-4 position-relative">
                                     <label for="password" class="form-label">Mot de passe</label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                        <input type="password" class="form-control" id="password" name="password" required>
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="••••••••" required>
                                         <span class="password-toggle" onclick="togglePassword()">
                                             <i class="fas fa-eye"></i>
                                         </span>
                                     </div>
-                                </div>
-                                <div class="mb-4 d-flex justify-content-between">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="remember">
-                                        <label class="form-check-label" for="remember">Se souvenir de moi</label>
+                                    <div class="text-end mt-2">
+                                        <a href="/reset-password" class="text-decoration-none" style="color: var(--primary-blue); font-size: 0.85rem;">Mot de passe oublié ?</a>
                                     </div>
-                                    <a href="/reset-password" class="text-primary">Mot de passe oublié ?</a>
                                 </div>
-                                <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary">Se connecter</button>
+                                
+                                <div class="mb-4 form-check">
+                                    <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                                    <label class="form-check-label" for="remember">Se souvenir de moi</label>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-auth mb-4">
+                                    <i class="fas fa-sign-in-alt me-2"></i> Se connecter
+                                </button>
+                                
+                                <div class="divider">
+                                    <span>Ou continuer avec</span>
+                                </div>
+                                
+                                <div class="social-auth">
+                                    <a href="#" class="social-btn btn-facebook">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a href="#" class="social-btn btn-google">
+                                        <i class="fab fa-google"></i>
+                                    </a>
+                                    <a href="#" class="social-btn btn-twitter">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </div>
+                                
+                                <div class="auth-footer">
+                                    <p>Pas encore de compte ? <a href="/signup" class="auth-link">S'inscrire</a></p>
                                 </div>
                             </form>
-                            <div class="text-center mt-4">
-                                <p>Pas encore de compte ? <a href="/signup" class="text-primary">S'inscrire</a></p>
-                            </div>
-                            <div class="social-login text-center">
-                                <p class="text-muted mb-3">Ou connectez-vous avec</p>
-                                <a href="#" class="social-btn facebook"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" class="social-btn google"><i class="fab fa-google"></i></a>
-                                <a href="#" class="social-btn twitter"><i class="fab fa-twitter"></i></a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -133,7 +289,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function togglePassword() {
             const passwordInput = document.getElementById('password');

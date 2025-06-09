@@ -3,207 +3,364 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
+    <title>AquaSense - Pêche Durable en Tunisie</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Remplacer Flaticon par Font Awesome qui est plus fiable -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', path='css/home.css') }}">
+    <style>
+        :root {
+            --primary-color: #0077b6;
+            --secondary-color: #00b4d8;
+            --accent-color: #90e0ef;
+            --dark-color: #03045e;
+            --light-color: #caf0f8;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .navbar {
+            background-color: rgba(3, 4, 94, 0.9) !important;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background-color: var(--dark-color) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1518544866330-95a2bf92a5a8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 180px 0 100px;
+            text-align: center;
+        }
+        
+        .tunisia-fish-section {
+            background-color: #f8f9fa;
+            padding: 80px 0;
+        }
+        
+        .fish-card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .fish-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .sustainability-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-header {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+        
+        .section-header h2 {
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .btn-aquasense {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-aquasense:hover {
+            background-color: var(--dark-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stats-item {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation fixe avec fond transparent -->
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="/"><i class="fas fa-fish"></i> BlueMind</a>
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-water me-2"></i> AquaSense
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
-                    <li class="nav-item"><a href="#about" class="nav-link">À propos</a></li>
-                    <li class="nav-item"><a href="#events" class="nav-link">Événements</a></li>
-                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
-                    <li class="nav-item">
-                        <a href="/login" class="btn btn-primary ms-3">Se connecter</a>
+                    <li class="nav-item"><a class="nav-link" href="#home">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tunisia">Poissons de Tunisie</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sustainability">Durabilité Marine</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#events">Événements</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a href="/login" class="btn btn-aquasense">Connexion</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section avec animation -->
+    <!-- Hero Section -->
     <section class="hero-section" id="home">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 fade-in">
-                    <h1>Votre application<br>de pêche intelligente</h1>
-                    <p class="subtitle">Découvrez une nouvelle façon de pêcher avec BlueMind, votre assistant personnel de pêche.</p>
-                    <div class="hero-buttons">
-                        <a href="/login" class="btn btn-primary">Commencer</a>
-                        <a href="#" class="btn btn-outline-light ms-3">En savoir plus</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 text-center fade-in-delayed">
-                    <div class="hero-image-container">
-                        <img src="{{ url_for('static', path='images/mer.jpg') }}" alt="BlueMind Hero" class="hero-image">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services avec cartes interactives -->
-    <section id="services" class="section-padding">
-        <div class="container">
-            <div class="section-header text-center mb-5">
-                <h2 class="display-5 fw-bold">Nos Services</h2>
-                <div class="section-divider"></div>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-cloud-sun-rain"></i>
-                        </div>
-                        <h3>Météo Marine</h3>
-                        <p>Prévisions météo en temps réel, marées et conditions de pêche optimales.</p>
-                        <a href="#inscription" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#inscriptionModal">Explorer <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-fish"></i>
-                        </div>
-                        <h3>Détection de Poissons</h3>
-                        <p>Identification précise des espèces avec notre technologie IA avancée.</p>
-                        <a href="#inscription" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#inscriptionModal">Explorer <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <h3>Assistant Virtuel</h3>
-                        <p>Conseils personnalisés et assistance 24/7 pour votre pêche.</p>
-                        <a href="#inscription" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#inscriptionModal">Explorer <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Statistiques avec compteurs animés -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <div class="stat-item">
-                        <i class="fas fa-users"></i>
-                        <h3 class="counter">1000+</h3>
-                        <p>Pêcheurs actifs</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="stat-item">
-                        <i class="fas fa-fish"></i>
-                        <h3 class="counter">50+</h3>
-                        <p>Espèces détectables</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="stat-item">
-                        <i class="fas fa-map-marked-alt"></i>
-                        <h3 class="counter">100+</h3>
-                        <p>Spots de pêche</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- À propos avec image -->
-    <section id="about" class="section-padding bg-light">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <img src="{{ url_for('static', path='images/about-fishing.jpg') }}" alt="À propos" class="img-fluid rounded-3">
-                </div>
-                <div class="col-lg-6 ps-lg-5">
-                    <h2 class="display-5 fw-bold mb-4">À propos de BlueMind</h2>
-                    <p class="lead">Votre compagnon de pêche intelligent qui révolutionne l'expérience de pêche.</p>
-                    <div class="feature-list">
-                        <div class="feature-item">
-                            <i class="fas fa-check-circle text-primary"></i>
-                            <span>Intelligence artificielle avancée</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check-circle text-primary"></i>
-                            <span>Données météo précises</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check-circle text-primary"></i>
-                            <span>Communauté active de pêcheurs</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Événements avec timeline -->
-    <section id="events" class="section-padding">
-        <div class="container">
-            <h2 class="display-5 fw-bold text-center mb-5">Événements à venir</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-date">15 Mai 2024</div>
-                    <div class="timeline-content">
-                        <h3>Compétition de Pêche</h3>
-                        <p>Grande compétition annuelle de pêche sportive</p>
-                        <a href="#" class="btn btn-outline-primary btn-sm">En savoir plus</a>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">20 Mai 2024</div>
-                    <div class="timeline-content">
-                        <h3>Formation Pêche</h3>
-                        <p>Atelier d'initiation aux techniques modernes</p>
-                        <a href="#" class="btn btn-outline-primary btn-sm">En savoir plus</a>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">1 Juin 2024</div>
-                    <div class="timeline-content">
-                        <h3>Salon de la Pêche</h3>
-                        <p>Découvrez les dernières innovations</p>
-                        <a href="#" class="btn btn-outline-primary btn-sm">En savoir plus</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact avec carte -->
-    <section id="contact" class="section-padding bg-light">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
-                    <h2 class="display-5 fw-bold mb-4">Contactez-nous</h2>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <p>contact@bluemind.com</p>
+                    <h1 class="display-3 fw-bold mb-4">AquaSense - L'avenir de la pêche durable en Tunisie</h1>
+                    <p class="lead mb-5">Une application révolutionnaire pour les pêcheurs experts et consommateurs, combinant technologie IA et préservation marine.</p>
+                    <div>
+                        <a href="/login" class="btn btn-aquasense btn-lg me-3">Commencer</a>
+                        <a href="#features" class="btn btn-outline-light btn-lg">Découvrir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="display-5 fw-bold">Nos Fonctionnalités</h2>
+                <p class="lead">Découvrez comment AquaSense révolutionne votre expérience de pêche</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="text-center p-4 h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-fish"></i>
                         </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <p>+33 1 23 45 67 89</p>
+                        <h3>Détection Intelligente</h3>
+                        <p>Identification précise des espèces de poissons tunisiens avec analyse de fraîcheur et toxicité.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center p-4 h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-robot"></i>
                         </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <p>123 Rue de la Pêche, Paris</p>
+                        <h3>Assistant Multilingue</h3>
+                        <p>Chatbot expert disponible en français, arabe et dialecte tunisien pour vous guider.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center p-4 h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-satellite-dish"></i>
+                        </div>
+                        <h3>Surveillance Marine</h3>
+                        <p>Suivi des activités maritimes pour une pêche responsable et durable.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tunisia Fish Section -->
+    <section class="tunisia-fish-section py-5" id="tunisia">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="display-5 fw-bold">Poissons de Tunisie</h2>
+                <p class="lead">Découvrez la richesse de notre écosystème marin</p>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="fish-card">
+                        <img src="https://www.fishipedia.fr/wp-content/uploads/2019/08/thunnus-thynnus-adulte.jpg" class="card-img-top" alt="Thon Rouge">
+                        <div class="card-body">
+                            <h5 class="card-title">Thon Rouge</h5>
+                            <p class="card-text">Espèce emblématique de la Méditerranée, très prisée en Tunisie. Notre application vous aide à identifier sa fraîcheur.</p>
+                            <a href="#" class="btn btn-sm btn-aquasense">En savoir plus</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fish-card">
+                        <img src="https://www.fishipedia.fr/wp-content/uploads/2019/08/dicentrarchus-labrax.jpg" class="card-img-top" alt="Loup de Mer">
+                        <div class="card-body">
+                            <h5 class="card-title">Loup de Mer</h5>
+                            <p class="card-text">Poisson commun dans les eaux tunisiennes, apprécié pour sa chair délicate. Notre IA détecte sa qualité en temps réel.</p>
+                            <a href="#" class="btn btn-sm btn-aquasense">En savoir plus</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="fish-card">
+                        <img src="https://www.fishipedia.fr/wp-content/uploads/2019/08/sphyraena-sphyraena.jpg" class="card-img-top" alt="Barracuda">
+                        <div class="card-body">
+                            <h5 class="card-title">Barracuda</h5>
+                            <p class="card-text">Prédateur commun en Tunisie. AquaSense peut identifier les risques potentiels de toxicité.</p>
+                            <a href="#" class="btn btn-sm btn-aquasense">En savoir plus</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="#" class="btn btn-aquasense">Voir toutes les espèces</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sustainability Section -->
+    <section class="sustainability-section py-5" id="sustainability">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="display-5 fw-bold mb-4">Engagement pour la Durabilité Marine</h2>
+                    <p class="lead mb-4">Chez AquaSense, nous croyons en une pêche responsable qui préserve nos écosystèmes marins pour les générations futures.</p>
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-check-circle fa-2x me-3"></i>
+                        <p class="mb-0">Surveillance des espèces menacées</p>
+                    </div>
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-check-circle fa-2x me-3"></i>
+                        <p class="mb-0">Alertes pour les pratiques de pêche non durables</p>
+                    </div>
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-check-circle fa-2x me-3"></i>
+                        <p class="mb-0">Partage de données avec les instituts de recherche marins</p>
+                    </div>
+                    <a href="#" class="btn btn-light mt-3">Notre Charte Écologique</a>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://www.lafondation3ds.org/assets/invest/2022-12/Ocean-turtle-World-Climate-day.jpg" class="img-fluid rounded-3 shadow" alt="Durabilité Marine">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3">
+                    <div class="stats-item">
+                        <h3 class="display-4 fw-bold text-primary">200+</h3>
+                        <p class="fs-5">Espèces enregistrées</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-item">
+                        <h3 class="display-4 fw-bold text-primary">5K+</h3>
+                        <p class="fs-5">Pêcheurs utilisateurs</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-item">
+                        <h3 class="display-4 fw-bold text-primary">15+</h3>
+                        <p class="fs-5">Partenaires écologiques</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-item">
+                        <h3 class="display-4 fw-bold text-primary">24/7</h3>
+                        <p class="fs-5">Surveillance marine</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="py-5" id="events">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="display-5 fw-bold">Événements AquaSense</h2>
+                <p class="lead">Participez à nos initiatives pour une pêche durable</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <img src="https://popicon.life/wp-content/uploads/2021/02/169wwf.jpg" class="card-img-top" alt="Atelier">
+                        <div class="card-body">
+                            <h5 class="card-title">Atelier Pêche Durable</h5>
+                            <p class="card-text text-muted"><i class="fas fa-calendar-alt me-2"></i>15 Juin 2024 - Sfax</p>
+                            <p class="card-text">Apprenez les techniques de pêche responsables avec nos experts AquaSense.</p>
+                            <a href="#" class="btn btn-aquasense">S'inscrire</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <img src="https://www.tresor.economie.gouv.fr/Articles/206aba10-ea6d-408b-94f0-e6da4211e0b0/images/visuel" class="card-img-top" alt="Nettoyage">
+                        <div class="card-body">
+                            <h5 class="card-title">Nettoyage des Côtes</h5>
+                            <p class="card-text text-muted"><i class="fas fa-calendar-alt me-2"></i>22 Juin 2024 - Djerba</p>
+                            <p class="card-text">Journée citoyenne pour préserver notre environnement marin.</p>
+                            <a href="#" class="btn btn-aquasense">Participer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <img src="https://www.mspglobal2030.org/wp-content/uploads/2017/03/news_header_mspconf_mar2017.jpg" class="card-img-top" alt="Conférence">
+                        <div class="card-body">
+                            <h5 class="card-title">Conférence Marine</h5>
+                            <p class="card-text text-muted"><i class="fas fa-calendar-alt me-2"></i>5 Juillet 2024 - Tunis</p>
+                            <p class="card-text">Échange avec des scientifiques sur l'avenir des écosystèmes marins tunisiens.</p>
+                            <a href="#" class="btn btn-aquasense">Réserver</a>
                         </div>
                     </div>
                 </div>
@@ -211,73 +368,108 @@
         </div>
     </section>
 
-    <!-- Footer moderne -->
-    <footer class="footer bg-dark text-light">
+    <!-- Contact Section -->
+    <section class="py-5 bg-light" id="contact">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <h4 class="mb-4">BlueMind</h4>
-                    <p>Votre assistant de pêche intelligent qui révolutionne l'expérience de pêche.</p>
-                </div>
-                <div class="col-lg-4">
-                    <h4 class="mb-4">Liens rapides</h4>
-                    <ul class="footer-links">
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#about">À propos</a></li>
-                        <li><a href="#events">Événements</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-4">
-                    <h4 class="mb-4">Suivez-nous</h4>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="display-5 fw-bold mb-4">Contactez l'Équipe AquaSense</h2>
+                    <p class="lead mb-5">Vous avez des questions sur notre application ou nos initiatives de durabilité marine ?</p>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="p-3">
+                                <i class="fas fa-envelope fa-2x mb-3 text-primary"></i>
+                                <h5>Email</h5>
+                                <p>contact@aquasense.tn</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3">
+                                <i class="fas fa-phone fa-2x mb-3 text-primary"></i>
+                                <h5>Téléphone</h5>
+                                <p>+216 70 123 456</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3">
+                                <i class="fas fa-map-marker-alt fa-2x mb-3 text-primary"></i>
+                                <h5>Bureau</h5>
+                                <p>La Marsa, Tunis, Tunisie</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom text-center mt-5">
-                <p>&copy; 2024 BlueMind. Tous droits réservés.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h3 class="h4 mb-4"><i class="fas fa-water me-2"></i> AquaSense</h3>
+                    <p>L'application intelligente pour une pêche durable en Tunisie, combinant technologie et préservation marine.</p>
+                    <div class="social-links mt-4">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h4 class="h5 mb-4">Navigation</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#home" class="text-white">Accueil</a></li>
+                        <li class="mb-2"><a href="#tunisia" class="text-white">Poissons Tunisiens</a></li>
+                        <li class="mb-2"><a href="#sustainability" class="text-white">Durabilité</a></li>
+                        <li class="mb-2"><a href="#events" class="text-white">Événements</a></li>
+                        <li><a href="#contact" class="text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h4 class="h5 mb-4">Liens Utiles</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white">Politique de Confidentialité</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">Conditions d'Utilisation</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">FAQ</a></li>
+                        <li><a href="#" class="text-white">Télécharger l'App</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h4 class="h5 mb-4">Newsletter</h4>
+                    <p>Abonnez-vous pour recevoir nos actualités sur la pêche durable.</p>
+                    <form class="mt-3">
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Votre email">
+                            <button class="btn btn-primary" type="submit">OK</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr class="my-4 bg-secondary">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="small mb-0">&copy; 2024 AquaSense. Tous droits réservés.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="small mb-0">Développé avec <i class="fas fa-heart text-danger"></i> en Tunisie</p>
+                </div>
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html>
-
-
-<!-- Ajoutez cette modal à la fin de votre body, juste avant les scripts -->
-<div class="modal fade" id="inscriptionModal" tabindex="-1" aria-labelledby="inscriptionModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="inscriptionModalLabel">Inscription à BlueMind</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="inscriptionForm">
-                    <div class="mb-3">
-                        <label for="nom" class="form-label">Nom complet</label>
-                        <input type="text" class="form-control" id="nom" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Mot de passe</label>
-                        <input type="password" class="form-control" id="password" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="confirmPassword" class="form-label">Confirmer le mot de passe</label>
-                        <input type="password" class="form-control" id="confirmPassword" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">S'inscrire</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>

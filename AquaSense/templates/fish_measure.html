@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="/static/css/fishmeasure.css">
 </head>
 <body class="marine-theme d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-lg navbar-dark">
+     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="/">
                 <i class="fas fa-fish me-2"></i>
-                Fish Analyzer
+                AquaSense
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -22,13 +22,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/"><i class="fas fa-home me-1"></i> Home</a>
+                        <a class="nav-link active" href="/"><i class="fas fa-home me-1"></i> Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/analyze"><i class="fas fa-fish me-1"></i> Analyze</a>
+                        <a class="nav-link" href="/analyze"><i class="fas fa-fish me-1"></i> Météo</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/records"><i class="fas fa-book me-1"></i> Records</a>
+                        <a class="nav-link" href="/records"><i class="fas fa-book me-1"></i> Assistant</a>
+                    </li>
+                       <li class="nav-item">
+                        <a class="nav-link" href="/records"><i class="fas fa-book me-1"></i> Détection</a>
                     </li>
                 </ul>
                 <div class="d-flex align-items-center">
@@ -39,6 +42,7 @@
             </div>
         </div>
     </nav>
+
 
     <div class="container my-5 flex-grow-1">
         {% if error %}
